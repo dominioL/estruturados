@@ -7,5 +7,6 @@ public interface Lista<E extends Igualavel<E>> extends Colecao<E> {
 	public Integer contarElemento(E elemento);
 	
 	public E reter(E elemento);
+	
+	public void inverter();
 }
-

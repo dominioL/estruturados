@@ -15,7 +15,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	private final static Integer FATOR_DE_CARGA = 1;
 	private final static Integer FATOR_DE_CRESCIMENTO = 2;
 	private Integer quantidadeDeElementos;
-	private ListaPosicional<ListaEncadeada<Caixa>> elementos;
+	private ListaPosicional<ListaEncadeada<Caixa<C, V>>> elementos;
 	
 	private MapaLista() {
 		quantidadeDeElementos = 0;
@@ -27,15 +27,14 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	}
 	
 	@Override
-	public Iterador<V> fornecerIterador() {
+	public Iterador<CaixaMapa<C, V>> fornecerIterador() {
 		//TODO
 		return null;
 	}
 	
 	@Override
-	public Iterator<V> iterator() {
-		//TODO
-		return null;
+	public Iterator<CaixaMapa<C, V>> iterator() {
+		return fornecerIterador();
 	}
 	
 	@Override
@@ -51,13 +50,13 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	@Override
 	public Boolean contem(C chave) {
 		checarChave(chave);
-		return obterGrupo(chave).contem(new Caixa(chave));
+		return obterGrupo(chave).contem(new Caixa<C, V>(chave));
 	}
 	
 	@Override
 	public Boolean remover(C chave) {
 		checarChave(chave);
-		Boolean removido = obterGrupo(chave).remover(new Caixa(chave));
+		Boolean removido = obterGrupo(chave).remover(new Caixa<C, V>(chave));
 		if (removido) {
 			quantidadeDeElementos--;
 		}
@@ -72,8 +71,8 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	@Override
 	public void inserir(C chave, V valor) {
 		checarChaveEValor(chave, valor);
-		ListaEncadeada<Caixa> grupo = obterGrupo(chave);
-		Caixa elemento = new Caixa(chave, valor);
+		ListaEncadeada<Caixa<C, V>> grupo = obterGrupo(chave);
+		Caixa<C, V> elemento = new Caixa<C, V>(chave, valor);
 		Boolean existia = grupo.remover(elemento);
 		grupo.inserirNoInicio(elemento);
 		if (!existia) {
@@ -90,8 +89,8 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	@Override
 	public V fornecer(C chave) {
 		checarChave(chave);
-		ListaEncadeada<Caixa> grupo = obterGrupo(chave);
-		Caixa elemento = grupo.reter(new Caixa(chave));
+		ListaEncadeada<Caixa<C, V>> grupo = obterGrupo(chave);
+		Caixa<C, V> elemento = grupo.reter(new Caixa<C, V>(chave));
 		if (elemento != null) {
 			return elemento.valor;
 		}
@@ -115,9 +114,9 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		checarValor(valor);
 	}
 	
-	private ListaEncadeada<Caixa> obterGrupo(C chave) {
+	private ListaEncadeada<Caixa<C, V>> obterGrupo(C chave) {
 		Integer posicaoDoGrupo = (chave.fornecerCodigo() % elementos.fornecerTamanho());
-		ListaEncadeada<Caixa> grupo = elementos.fornecerDaPosicao(posicaoDoGrupo);
+		ListaEncadeada<Caixa<C, V>> grupo = elementos.fornecerDaPosicao(posicaoDoGrupo);
 		if (grupo == null) {
 			grupo = ListaEncadeada.criar();
 			elementos.inserirNaPosicao(posicaoDoGrupo, grupo);
@@ -127,20 +126,20 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	
 	private void crescerSeNecessario() {
 		if ((quantidadeDeElementos / elementos.fornecerTamanho()) >= FATOR_DE_CARGA) {
-			ListaPosicional<ListaEncadeada<Caixa>> elementosAntigos = elementos;
+			ListaPosicional<ListaEncadeada<Caixa<C, V>>> elementosAntigos = elementos;
 			elementos = ListaPosicional.criar(quantidadeDeElementos * FATOR_DE_CRESCIMENTO);
 			quantidadeDeElementos = 0;
-			for (ListaEncadeada<Caixa> grupo : elementosAntigos) {
-				for (Caixa caixa : grupo) {
+			for (ListaEncadeada<Caixa<C, V>> grupo : elementosAntigos) {
+				for (Caixa<C, V> caixa : grupo) {
 					inserir(caixa.chave, caixa.valor);
 				}
 			}
 		}
 	}
 	
-	private final class Caixa implements Igualavel<Caixa> {
-		public C chave;
-		public V valor;
+	private final class Caixa<C extends Codificavel<C>, V extends Igualavel<V>> implements CaixaMapa<C, V>, Igualavel<Caixa<C, V>> {
+		private C chave;
+		private V valor;
 		
 		private Caixa(C chave, V valor) {
 			this.chave = chave;
@@ -153,9 +152,18 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 		
 		@Override
-		public Boolean igual(Caixa outra) {
+		public C fornecerChave() {
+			return chave;
+		}
+		
+		@Override
+		public V fornecerValor() {
+			return valor;
+		}
+		
+		@Override
+		public Boolean igual(Caixa<C, V> outra) {
 			return chave.igual(outra.chave);
 		}
 	}
 }
-
