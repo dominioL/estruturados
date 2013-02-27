@@ -17,37 +17,6 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	}
 	
 	@Override
-	public Integer fornecerQuantidade() {
-		return elementos.fornecerQuantidade();
-	}
-	
-	@Override
-	public Boolean contem(E elemento) {
-		if (elemento != null) {
-			return elementos.contem(elemento);
-		}
-		return false;
-	}
-	
-	@Override
-	public Boolean remover(E elemento) {
-		if (elemento != null) {
-			return elementos.remover(elemento);
-		}
-		return false;
-	}
-	
-	@Override
-	public void inserir(E elemento) {
-		enfilerar(elemento);
-	}
-	
-	@Override
-	public Iterador<E> fornecerIterador() {
-		return elementos.fornecerIterador();
-	}
-	
-	@Override
 	public void enfilerar(E elemento) {
 		elementos.inserirNoFim(elemento);
 	}
@@ -81,5 +50,33 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 			return elementos.fornecerDoFim().igual(elemento);
 		}
 		return false;
+	}
+	
+	@Override
+	public Integer fornecerQuantidade() {
+		return elementos.fornecerQuantidade();
+	}
+	
+	@Override
+	public Boolean contem(E elemento) {
+		if (elemento != null) {
+			return elementos.contem(elemento);
+		}
+		return false;
+	}
+	
+	@Override
+	public void inserir(E elemento) {
+		enfilerar(elemento);
+	}
+	
+	@Override
+	public Boolean remover(E elemento) {
+		return elementos.remover(elemento);
+	}
+	
+	@Override
+	public Iterador<E> fornecerIterador() {
+		return elementos.fornecerIterador();
 	}
 }

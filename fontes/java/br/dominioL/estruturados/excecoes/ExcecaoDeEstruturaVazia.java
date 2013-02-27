@@ -7,4 +7,3 @@ public final class ExcecaoDeEstruturaVazia extends RuntimeException {
 		super("Não é possível realizar a operação, pois a estrutura está vazia.");
 	}
 }
-

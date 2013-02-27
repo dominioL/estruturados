@@ -10,28 +10,6 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 	}
 	
 	@Override
-	public final Boolean remover(E elemento) {
-		Boolean removeu = false;
-		Iterador<E> iterador = fornecerIterador();
-		while (!removeu && iterador.possuiProximo()) {
-			if (iterador.iterarProximo().igual(elemento)) {
-				iterador.remover();
-				removeu = true;
-			}
-		}
-		return removeu;
-	}
-	
-	@Override
-	public final Boolean contem(E elemento) {
-		E elementoEncontrado = reter(elemento);
-		if (elementoEncontrado == null) {
-			return false;
-		}
-		return true;
-	}
-	
-	@Override
 	public final Integer contarElemento(E elemento) {
 		Integer quantidade = 0;
 		Iterador<E> iterador = fornecerIterador();
@@ -53,5 +31,29 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public final Boolean contem(E elemento) {
+		E elementoEncontrado = reter(elemento);
+		if (elementoEncontrado == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public final Boolean remover(E elemento) {
+		if (elemento != null) {
+			Iterador<E> iterador = fornecerIterador();
+			while (iterador.possuiProximo()) {
+				E elementoEncontrado = iterador.iterarProximo();
+				if (elementoEncontrado.igual(elemento)) {
+					iterador.remover();
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

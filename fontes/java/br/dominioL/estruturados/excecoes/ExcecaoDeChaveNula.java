@@ -7,4 +7,3 @@ public class ExcecaoDeChaveNula extends RuntimeException {
 		super("Não é possível inserir uma chave nula");
 	}
 }
-

@@ -7,4 +7,3 @@ public class ExcecaoDeIndiceForaDosLimites extends RuntimeException {
 		super("Não é possível acessar um indíce fora dos limites");
 	}
 }
-

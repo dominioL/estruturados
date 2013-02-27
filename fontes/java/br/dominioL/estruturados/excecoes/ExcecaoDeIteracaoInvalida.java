@@ -7,4 +7,3 @@ public final class ExcecaoDeIteracaoInvalida extends RuntimeException {
 		super("Operação de iteração inválida. Certifique-se que é possível realizar esta operação neste momento da iteração.");
 	}
 }
-

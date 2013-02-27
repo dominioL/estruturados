@@ -7,4 +7,3 @@ public class ExcecaoDeTamanhoInvalido extends RuntimeException {
 		super("A estrutura deve possuir tamanho maior que zero.");
 	}
 }
-

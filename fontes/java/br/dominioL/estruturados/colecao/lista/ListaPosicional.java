@@ -1,6 +1,5 @@
 package br.dominioL.estruturados.colecao.lista;
 
-import br.dominioL.estruturados.Posicionavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoDeIndiceForaDosLimites;
 import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
@@ -8,7 +7,7 @@ import br.dominioL.estruturados.excecoes.ExcecaoDeTamanhoInvalido;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Posicionavel<E>, Igualavel<ListaPosicional<E>> {
+public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>, Igualavel<ListaPosicional<E>> {
 	private static final Integer TAMANHO_PADRAO = 10;
 	private static final Integer FATOR_DE_CRESCIMENTO = 2;
 	private Object[] elementos;
@@ -30,7 +29,6 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return new ListaPosicional<F>(tamanho);
 	}
 	
-	@Override
 	public void inserirNaPosicao(Integer posicao, E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
@@ -40,13 +38,11 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		elementos[posicao] = elemento;
 	}
 	
-	@Override
 	public E fornecerDaPosicao(Integer posicao) {
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
 		return castrar(elementos[posicao]);
 	}
 	
-	@Override
 	public E removerDaPosicao(Integer posicao) {
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
 		Object elemento = elementos[posicao];
@@ -57,13 +53,13 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return castrar(elemento);
 	}
 	
+	public Integer fornecerTamanho() {
+		return elementos.length;
+	}
+	
 	@Override
 	public Integer fornecerQuantidade() {
 		return quantidadeDeElementos;
-	}
-	
-	public Integer fornecerTamanho() {
-		return elementos.length;
 	}
 	
 	@Override
@@ -91,6 +87,11 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return new IteradorDeListaPosicionnal();
 	}
 	
+	@Override
+	public Boolean igual(ListaPosicional<E> outro) {
+		return (this == outro);
+	}
+	
 	private void crescerSeNecessario() {
 		if (quantidadeDeElementos == elementos.length) {
 			Object[] novoElementos = new Object[elementos.length * FATOR_DE_CRESCIMENTO];
@@ -113,7 +114,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return (E) elemento;
 	}
 	
-	private final class IteradorDeListaPosicionnal extends IteradorAbstrato<E> {
+	private final class IteradorDeListaPosicionnal extends IteradorAbstrato<E> implements Iterador<E> {
 		private Integer cursor;
 		private Integer cursorAnterior;
 		private Boolean removeu;
@@ -168,10 +169,5 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 				cursor++;
 			}
 		}
-	}
-	
-	@Override
-	public Boolean igual(ListaPosicional<E> outro) {
-		return (this == outro);
 	}
 }

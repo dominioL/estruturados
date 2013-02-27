@@ -1,12 +1,11 @@
 package br.dominioL.estruturados.colecao.lista;
 
-import br.dominioL.estruturados.Encadeavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Encadeavel<E>, Igualavel<ListaEncadeada<E>> {
+public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>, Igualavel<ListaEncadeada<E>> {
 	private Integer quantidadeDeElementos;
 	private Caixa caixaDoInicio;
 	private Caixa caixaDoFim;
@@ -19,7 +18,6 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		return new ListaEncadeada<F>();
 	}
 	
-	@Override
 	public void inserirNoInicio(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		if (quantidadeDeElementos == 0) {
@@ -34,7 +32,6 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		quantidadeDeElementos++;
 	}
 	
-	@Override
 	public void inserirNoFim(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		if (quantidadeDeElementos == 0) {
@@ -49,7 +46,6 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		quantidadeDeElementos++;
 	}
 	
-	@Override
 	public E removerDoInicio() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		Caixa caixaDoInicioNova = caixaDoInicio.fornecerCaixaDaDireita();
@@ -65,7 +61,6 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		return elemento;
 	}
 	
-	@Override
 	public E removerDoFim() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		Caixa caixaDoFimNova = caixaDoFim.fornecerCaixaDaEsquerda();
@@ -81,21 +76,14 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		return elemento;
 	}
 	
-	@Override
 	public E fornecerDoInicio() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		return caixaDoInicio.fornecerElemento();
 	}
 	
-	@Override
 	public E fornecerDoFim() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		return caixaDoFim.fornecerElemento();
-	}
-	
-	@Override
-	public void inserir(E elemento) {
-		inserirNoInicio(elemento);
 	}
 	
 	@Override
@@ -104,11 +92,21 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 	}
 	
 	@Override
+	public void inserir(E elemento) {
+		inserirNoFim(elemento);
+	}
+	
+	@Override
 	public Iterador<E> fornecerIterador() {
 		return new IteradorDeListaEncadeada();
 	}
 	
-	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> {
+	@Override
+	public Boolean igual(ListaEncadeada<E> outro) {
+		return (this == outro);
+	}
+	
+	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> implements Iterador<E> {
 		private Caixa cursor;
 		private Caixa cursorAnterior;
 		private Boolean removeu;
@@ -213,10 +211,5 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDaEsquerda = null;
 			caixaDaDireita = null;
 		}
-	}
-	
-	@Override
-	public Boolean igual(ListaEncadeada<E> outro) {
-		return (this == outro);
 	}
 }

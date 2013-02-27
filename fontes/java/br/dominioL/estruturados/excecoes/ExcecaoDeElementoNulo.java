@@ -7,4 +7,3 @@ public class ExcecaoDeElementoNulo extends RuntimeException {
 		super("Não é possível inserir elementos nulos");
 	}
 }
-

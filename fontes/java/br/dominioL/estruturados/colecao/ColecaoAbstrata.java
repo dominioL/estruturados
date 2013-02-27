@@ -24,15 +24,6 @@ public abstract class ColecaoAbstrata<E extends Igualavel<E>> extends IteravelAb
 		}
 	}
 	
-	@Override
-	public final void limpar() {
-		Iterador<E> iterador = fornecerIterador();
-		while (iterador.possuiProximo()) {
-			iterador.iterarProximo();
-			iterador.remover();
-		}
-	}
-	
 	protected final void lancarExcecaoDeElementoNuloSeNecessario(E elemento) {
 		if (elemento == null) {
 			throw new ExcecaoDeElementoNulo();

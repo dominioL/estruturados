@@ -120,22 +120,6 @@ public class TesteMapaLista {
 		assertThat(mapa.fornecerQuantidade(), is(1));
 	}
 	
-	@Test
-	public void limparRemoveTodosOsElementos() {
-		//TODO
-		/*
-		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
-		mapa.inserir(cpfDoJoao, joao);
-		mapa.inserir(cpfDoJose, jose);
-		mapa.inserir(cpfDaMaria, maria);
-		mapa.limpar();
-		assertSame(mapa.fornecer(cpfDoJoao), null);
-		assertSame(mapa.fornecer(cpfDoJose), null);
-		assertSame(mapa.fornecer(cpfDaMaria), null);
-		assertThat(mapa.fornecerQuantidade(), is(0));
-		*/
-	}
-	
 	@Test(expected = ExcecaoDeChaveNula.class)
 	public void contemLancaUmaExcecaoSeChaveForNula() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();

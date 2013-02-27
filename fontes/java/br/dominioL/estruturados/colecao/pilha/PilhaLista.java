@@ -47,13 +47,13 @@ public final class PilhaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E>
 	}
 	
 	@Override
-	public Boolean remover(E elemento) {
-		return elementos.remover(elemento);
+	public void inserir(E elemento) {
+		empilhar(elemento);
 	}
 	
 	@Override
-	public void inserir(E elemento) {
-		empilhar(elemento);
+	public Boolean remover(E elemento) {
+		return elementos.remover(elemento);
 	}
 	
 	@Override
