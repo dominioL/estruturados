@@ -55,13 +55,30 @@ compilarTestesJava() {
 }
 
 testar() {
+	compilar;
 	echo ":testar";
 	classesTestesJava=$(sed -e s:${testesJava}::1 -e s:/:.:g -e s:.java:: -e s:[a-Z.]*figuracao[a-Z.]*:: -e s:^.:: < ${arquivosTestesJava});
-	java -classpath ${bibliotecaJUnit}:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava} > ${relatorioTestesJava};
+	#java -classpath ${bibliotecaJUnit}:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava} > ${relatorioTestesJava};
+	java -classpath ${bibliotecaJUnit}:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
 }
 
-limpar;
-criarDiretorios;
-compilarFontesJava;
-compilarTestesJava;
-testar;
+depurar() {
+	compilar;
+	echo ":depurar";
+	classesTestesJava=$(sed -e s:${testesJava}::1 -e s:/:.:g -e s:.java:: -e s:[a-Z.]*figuracao[a-Z.]*:: -e s:^.:: < ${arquivosTestesJava});
+	jdb -classpath ${bibliotecaJUnit}:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
+}
+
+compilar() {
+	limpar;
+	criarDiretorios;
+	compilarFontesJava;
+	compilarTestesJava;
+}
+
+if [ -n "$1" ]
+then
+	$1;
+else
+	compilar;
+fi
