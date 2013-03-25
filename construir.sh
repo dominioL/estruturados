@@ -1,15 +1,19 @@
-projeto=estruturados
-fontes=fontes
-testes=testes
+#!/bin/bash
+
+projeto=Estruturados
+pacoteDoProjeto=estruturados
+
 bibliotecas=bibliotecas
-recursos=recursos
 binarios=binarios
 construcao=construcao
+fontes=fontes
+recursos=recursos
+testes=testes
 
-fontesJava=${fontes}/java
-testesJava=${testes}/java
 bibliotecasJava=${bibliotecas}/jar
 binariosJava=${binarios}/class
+fontesJava=${fontes}/java
+testesJava=${testes}/java
 
 arquivosFontesJava=$(find ${fontesJava} -name *.java)
 arquivosTestesJava=$(find ${testesJava} -name *.java)
@@ -23,48 +27,50 @@ limpar() {
 
 criarEstrutura() {
 	echo ":criarEstrutura";
-	mkdir -p ${fontesJava};
-	mkdir -p ${testesJava};
 	mkdir -p ${bibliotecasJava};
 	mkdir -p ${binariosJava};
 	mkdir -p ${construcao};
+	mkdir -p ${fontesJava};
+	mkdir -p ${testesJava};
 }
 
 adicionarBibliotecas() {
 	echo ":adicionarBibliotecas";
 }
 
-construir() {
+compilar() {
 	limpar;
 	criarEstrutura;
 	adicionarBibliotecas;
+	echo ":compilar";
+	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${fontesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosFontesJava} -Xlint -Xmaxwarns 10;
+	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${testesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosTestesJava} -Xlint -Xmaxerrs 10;
 }
 
-compilar() {
-	construir;
-	echo ":compilar";
-	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${fontesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosFontesJava}
- 	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${testesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosTestesJava}
+construir() {
+	compilar;
+	echo ":construir";
+	jar -cf ${construcao}/${pacoteDoProjeto}.jar -C ${binariosJava} .;
 }
 
 testar() {
-	compilar;
+	construir;
 	echo ":testar";
 	java -classpath ${bibliotecasJava}/*:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
 }
 
 depurar() {
-	compilar;
+	construir;
 	echo ":depurar";
 	jdb -classpath ${bibliotecasJava}/*:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
 }
 
-gerarVersao() {
-	compilar;
-	echo ":gerarVersao";
-	jar -cf ${construcao}/${projeto}.jar -C ${binariosJava} .
+executar() {
+	construir;
+	echo ":executar";
 }
 
+echo :${pacoteDoProjeto}
 if [ -n "$1" ]
 then
 	$1;
