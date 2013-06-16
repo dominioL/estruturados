@@ -8,11 +8,11 @@ import br.dominioL.estruturados.iteracao.Iterador;
 
 public final class ObjetoJson extends ValorJson {
 	private Mapa<IdentificadorJson, ValorJson> elementos;
-	
+
 	protected ObjetoJson() {
 		elementos = MapaLista.criar();
 	}
-	
+
 	public void inserir(IdentificadorJson identificador, ValorJson valor) {
 		elementos.inserir(identificador, valor);
 	}
@@ -25,7 +25,7 @@ public final class ObjetoJson extends ValorJson {
 	public ObjetoJson fornecerComoObjeto() {
 		return this;
 	}
-	
+
 	@Override
 	public String fornecerComoJson() {
 		StringBuilder textoJson = new StringBuilder();

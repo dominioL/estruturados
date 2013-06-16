@@ -6,7 +6,7 @@ public abstract class IteravelAbstrato<T> implements Iteravel<T> {
 	protected IteravelAbstrato() {
 		
 	}
-	
+
 	@Override
 	public final Iterator<T> iterator() {
 		return fornecerIterador();

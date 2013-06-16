@@ -11,25 +11,25 @@ public abstract class ColecaoAbstrata<E extends Igualavel<E>> extends IteravelAb
 	protected ColecaoAbstrata() {
 		
 	}
-	
+
 	@Override
 	public final Boolean vazio() {
 		return (fornecerQuantidade() == 0);
 	}
-	
+
 	@Override
 	public final void inserir(Iteravel<E> elementos) {
 		for (E elemento : elementos) {
 			inserir(elemento);
 		}
 	}
-	
+
 	protected final void lancarExcecaoDeElementoNuloSeNecessario(E elemento) {
 		if (elemento == null) {
 			throw new ExcecaoDeElementoNulo();
 		}
 	}
-	
+
 	protected final void lancarExcecaoDeEstruturaVaziaSeNecessario() {
 		if (vazio()) {
 			throw new ExcecaoDeEstruturaVazia();

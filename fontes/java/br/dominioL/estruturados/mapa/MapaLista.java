@@ -19,32 +19,32 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 	private final static Integer FATOR_DE_CRESCIMENTO = 2;
 	private Integer quantidadeDeElementos;
 	private ListaPosicional<ListaEncadeada<ParDeMapaLista<C, V>>> elementos;
-	
+
 	private MapaLista() {
 		quantidadeDeElementos = 0;
 		elementos = ListaPosicional.criar(TAMANHO_INICIAL);
 	}
-	
+
 	public static <D extends Codificavel<D>, U extends Igualavel<U>> MapaLista<D, U> criar() {
 		return new MapaLista<D, U>();
 	}
-	
+
 	@Override
 	public Integer fornecerQuantidade() {
 		return quantidadeDeElementos;
 	}
-	
+
 	@Override
 	public Boolean vazio() {
 		return (quantidadeDeElementos == 0);
 	}
-	
+
 	@Override
 	public Boolean contem(C chave) {
 		checarChave(chave);
 		return obterGrupo(chave).contem(new ParDeMapaLista<C, V>(chave));
 	}
-	
+
 	@Override
 	public Boolean remover(C chave) {
 		checarChave(chave);
@@ -54,7 +54,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 		return removido;
 	}
-	
+
 	@Override
 	public void inserir(C chave, V valor) {
 		checarChaveEValor(chave, valor);
@@ -67,14 +67,14 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 			crescerSeNecessario();
 		}
 	}
-	
+
 	@Override
 	public void inserir(Iteravel<Par<C, V>> elementos) {
 		for (Par<C, V> par : elementos) {
 			inserir(par.fornecerChave(), par.fornecerValor());
 		}
 	}
-	
+
 	@Override
 	public V fornecer(C chave) {
 		checarChave(chave);
@@ -85,34 +85,34 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Iterador<Par<C, V>> fornecerIterador() {
 		return new IteradorDeMapaLista();
 	}
-	
+
 	@Override
 	public Iterator<Par<C, V>> iterator() {
 		return fornecerIterador();
 	}
-	
+
 	private void checarChave(C chave) {
 		if (chave == null) {
 			throw new ExcecaoDeChaveNula();
 		}
 	}
-	
+
 	private void checarValor(V valor) {
 		if (valor == null) {
 			throw new ExcecaoDeElementoNulo();
 		}
 	}
-	
+
 	private void checarChaveEValor(C chave, V valor) {
 		checarChave(chave);
 		checarValor(valor);
 	}
-	
+
 	private ListaEncadeada<ParDeMapaLista<C, V>> obterGrupo(C chave) {
 		Integer posicaoDoGrupo = Math.abs(chave.fornecerCodigo() % elementos.fornecerTamanho());
 		ListaEncadeada<ParDeMapaLista<C, V>> grupo = elementos.fornecerDaPosicao(posicaoDoGrupo);
@@ -122,7 +122,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 		return grupo;
 	}
-	
+
 	private void crescerSeNecessario() {
 		if ((quantidadeDeElementos / elementos.fornecerTamanho()) >= FATOR_DE_CARGA) {
 			ListaPosicional<ListaEncadeada<ParDeMapaLista<C, V>>> elementosAntigos = elementos;
@@ -135,12 +135,12 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 			}
 		}
 	}
-	
+
 	private final class IteradorDeMapaLista extends IteradorAbstrato<Par<C, V>> implements Iterador<Par<C, V>> {
 		private Iterador<ListaEncadeada<ParDeMapaLista<C, V>>> iteradorDosGrupos;
 		private Iterador<ParDeMapaLista<C, V>> iteradorDoGrupo;
 		private Iterador<ParDeMapaLista<C, V>> iteradorAtual;
-		
+
 		private IteradorDeMapaLista() {
 			iteradorDosGrupos = elementos.fornecerIterador();
 			if (iteradorDosGrupos.possuiProximo()) {
@@ -149,12 +149,12 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 				} while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo());
 			}
 		}
-		
+
 		@Override
 		public Boolean possuiProximo() {
 			return (iteradorDoGrupo != null && iteradorDoGrupo.possuiProximo());
 		}
-		
+
 		@Override
 		public Par<C, V> iterarProximo() {
 			if (possuiProximo()) {
@@ -167,7 +167,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 			}
 			throw new ExcecaoDeIteracaoInvalida();
 		}
-		
+
 		@Override
 		public Par<C, V> remover() {
 			if (iteradorAtual != null) {
@@ -175,37 +175,37 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 			}
 			throw new ExcecaoDeIteracaoInvalida();
 		}
-		
+
 		@Override
 		public Par<C, V> substituir(Par<C, V> substituto) {
 			throw new ExcecaoDeIteracaoInvalida();
 		}
 	}
-	
+
 	private final class ParDeMapaLista<C extends Codificavel<C>, V extends Igualavel<V>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
 		private C chave;
 		private V valor;
-		
+
 		private ParDeMapaLista(C chave, V valor) {
 			this.chave = chave;
 			this.valor = valor;
 		}
-		
+
 		private ParDeMapaLista(C chave) {
 			this.chave = chave;
 			this.valor = null;
 		}
-		
+
 		@Override
 		public C fornecerChave() {
 			return chave;
 		}
-		
+
 		@Override
 		public V fornecerValor() {
 			return valor;
 		}
-		
+
 		@Override
 		public Boolean igual(ParDeMapaLista<C, V> outra) {
 			return chave.igual(outra.chave);

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public final class NumeroJson extends ValorJson {
 	BigDecimal valor;
-	
+
 	protected NumeroJson(String valor) {
 		try {
 			this.valor = new BigDecimal(valor);
@@ -13,12 +13,12 @@ public final class NumeroJson extends ValorJson {
 			throw new ExcecaoJsonDeAnalise();
 		}
 	}
-	
+
 	@Override
 	public Double fornecerComoNumero() {
 		return valor.doubleValue();
 	}
-	
+
 	@Override
 	public String fornecerComoJson() {
 		return valor.toString();

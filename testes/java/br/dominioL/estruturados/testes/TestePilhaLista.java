@@ -20,7 +20,7 @@ public class TestePilhaLista {
 	private Numero numeroDois = new Numero(2);
 	private Numero numeroTres = new Numero(3);
 	private Numero numeroQuatro = new Numero(4);
-	
+
 	@Test
 	public void empilharEmPilhaVazia() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -29,7 +29,7 @@ public class TestePilhaLista {
 		assertFalse(pilha.vazio());
 		assertThat(pilha.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void empilharEmPilhaNaoVazia() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -39,7 +39,7 @@ public class TestePilhaLista {
 		assertFalse(pilha.vazio());
 		assertThat(pilha.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void desempilharUmElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -49,7 +49,7 @@ public class TestePilhaLista {
 		assertFalse(pilha.vazio());
 		assertThat(pilha.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void desempilharDoisElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -61,7 +61,7 @@ public class TestePilhaLista {
 		assertFalse(pilha.vazio());
 		assertThat(pilha.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void desempilharTodosElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -74,25 +74,25 @@ public class TestePilhaLista {
 		assertTrue(pilha.vazio());
 		assertThat(pilha.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test(expected = ExcecaoDeElementoNulo.class)
 	public void empilharElementoNuloLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.empilhar(null);
 	}
-	
+
 	@Test(expected = ExcecaoDeEstruturaVazia.class)
 	public void desempilharPilhaVaziaLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.desempilhar();
 	}
-	
+
 	@Test(expected = ExcecaoDeEstruturaVazia.class)
 	public void fornecerElementoDoTopoDeUmaPilhaVaziaLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.fornecerDoTopo();
 	}
-	
+
 	@Test
 	public void elementoEstaNoTopoSeFoiOUltimoElementoEmpilhado() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -100,7 +100,7 @@ public class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		assertTrue(pilha.estaNoTopo(numeroUm));
 	}
-	
+
 	@Test
 	public void elementoNaoEstaNoTopoSeNaoFoiOUltimoElementoEmpilhado() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -108,13 +108,13 @@ public class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		assertTrue(pilha.estaNoTopo(numeroUm));
 	}
-	
+
 	@Test
 	public void elementoNaoEstaNoTopoSeAPilhaEstaVazia() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		assertFalse(pilha.estaNoTopo(numeroUm));
 	}
-	
+
 	@Test
 	public void inserirUmElementoDuplicadoMantemElementosDuplicados() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -123,7 +123,7 @@ public class TestePilhaLista {
 		pilha.inserir(numeroUm);
 		assertThat(pilha.fornecerQuantidade(), is(3));
 	}
-	
+
 	@Test
 	public void removerUmElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -132,7 +132,7 @@ public class TestePilhaLista {
 		assertTrue(pilha.remover(numeroUm));
 		assertThat(pilha.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void removerUmElementoDuplicadoRemoveApenasOPrimeiro() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -143,7 +143,7 @@ public class TestePilhaLista {
 		assertThat(pilha.fornecerQuantidade(), is(2));
 		assertSame(pilha.fornecerDoTopo(), numeroDois);
 	}
-	
+
 	@Test
 	public void removerUmElementoQueNaoExiste() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -151,7 +151,7 @@ public class TestePilhaLista {
 		assertFalse(pilha.remover(numeroDois));
 		assertThat(pilha.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void contemUmElementoSeElePertence() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -160,7 +160,7 @@ public class TestePilhaLista {
 		pilha.inserir(numeroTres);
 		assertTrue(pilha.contem(numeroDois));
 	}
-	
+
 	@Test
 	public void naoContemUmElementoSeEleNaoPertence() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -169,13 +169,13 @@ public class TestePilhaLista {
 		pilha.inserir(numeroTres);;
 		assertFalse(pilha.contem(numeroQuatro));
 	}
-	
+
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoNaoTemElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		assertThat(pilha.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoTemElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -183,7 +183,7 @@ public class TestePilhaLista {
 		pilha.inserir(numeroDois);
 		assertThat(pilha.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void estaVaziaSeNaoPossuiNenhumElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -191,14 +191,14 @@ public class TestePilhaLista {
 		pilha.remover(numeroUm);
 		assertTrue(pilha.vazio());
 	}
-	
+
 	@Test
 	public void naoEstaVaziaSePossuiElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		assertFalse(pilha.vazio());
 	}
-	
+
 	@Test
 	public void iteradorPassaPorTodosElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -211,7 +211,7 @@ public class TestePilhaLista {
 		assertSame(iterador.iterarProximo(), numeroUm);
 		assertFalse(iterador.possuiProximo());
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverTodosElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -228,7 +228,7 @@ public class TestePilhaLista {
 		assertFalse(iterador.possuiProximo());
 		assertTrue(pilha.vazio());
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOPrimeiroElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -243,7 +243,7 @@ public class TestePilhaLista {
 		assertFalse(iterador.possuiProximo());
 		assertThat(pilha.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOSegundoElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -258,7 +258,7 @@ public class TestePilhaLista {
 		assertFalse(iterador.possuiProximo());
 		assertThat(pilha.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOUltimoElmento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -273,7 +273,7 @@ public class TestePilhaLista {
 		assertFalse(iterador.possuiProximo());
 		assertThat(pilha.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -283,14 +283,14 @@ public class TestePilhaLista {
 		pilha.fornecerIterador().remover();
 		pilha.fornecerIterador().remover();
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.fornecerIterador().remover();
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirTodosElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -306,7 +306,7 @@ public class TestePilhaLista {
 		pilha.desempilhar();
 		assertSame(pilha.fornecerDoTopo(), numeroQuatro);
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirOPrimeiroElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -320,7 +320,7 @@ public class TestePilhaLista {
 		}
 		assertSame(pilha.fornecerDoTopo(), numeroTres);
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirOUltimoElmento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -334,7 +334,7 @@ public class TestePilhaLista {
 		}
 		assertSame(pilha.fornecerDoTopo(), numeroTres);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -344,20 +344,20 @@ public class TestePilhaLista {
 		iterador.substituir(numeroDois);
 		iterador.substituir(numeroDois);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.fornecerIterador().substituir(numeroDois);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.fornecerIterador().iterarProximo();
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -368,7 +368,7 @@ public class TestePilhaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirEDepoisRemover() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
@@ -379,7 +379,7 @@ public class TestePilhaLista {
 		iterador.substituir(numeroTres);
 		assertSame(iterador.remover(), numeroTres);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();

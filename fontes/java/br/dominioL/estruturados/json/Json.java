@@ -30,7 +30,7 @@ public final class Json {
 	private Pilha<ValorJson> valoresAbertos;
 	private Pilha<IdentificadorJson> identificadoresAbertos;
 	private ValorJson valorFinal;
-	
+
 	public Json(String entrada) {
 		this.entrada = new StringBuilder(entrada);
 		this.entrada.append("$");
@@ -38,7 +38,7 @@ public final class Json {
 		valoresAbertos = PilhaLista.criar();
 		identificadoresAbertos = PilhaLista.criar();
 	}
-	
+
 	private ValorJson analisar() {
 		consumirSimbolo();
 		json();
@@ -49,49 +49,49 @@ public final class Json {
 		}
 		return valoresAbertos.desempilhar();
 	}
-	
+
 	public static ObjetoJson criarObjeto(String entrada) {
 		Json json = new Json(entrada);
 		return json.analisar().fornecerComoObjeto();
 	}
-	
+
 	public static ObjetoJson criarObjeto() {
 		return new ObjetoJson();
 	}
-	
+
 	public static ListaJson criarLista(String entrada) {
 		Json json = new Json(entrada);
 		return json.analisar().fornecerComoLista();
 	}
-	
+
 	public static ListaJson criarLista() {
 		return new ListaJson();
 	}
-	
+
 	public static TextoJson criarTexto(String texto) {
 		return new TextoJson(texto);
 	}
-	
+
 	public static BooleanoJson criarBooleano(Boolean booleano) {
 		return new BooleanoJson(booleano);
 	}
-	
+
 	public static NumeroJson criarNumero(String numero) {
 		return new NumeroJson(numero);
 	}
-	
+
 	public static NumeroJson criarNumero(Integer numero) {
 		return new NumeroJson(numero.toString());
 	}
-	
+
 	public static NumeroJson criarNumero(Double numero) {
 		return new NumeroJson(numero.toString());
 	}
-	
+
 	public static IdentificadorJson criarIdentificador(String identificador) {
 		return new IdentificadorJson(identificador);
 	}
-	
+
 	private void json() {
 		consumirEspacos();
 		if (simboloAtual.matches(ABERTURA_DE_OBJETO)) {
@@ -114,7 +114,7 @@ public final class Json {
 			throw new ExcecaoJsonDeAnalise();
 		}
 	}
-	
+
 	private void objeto() {
 		consumirEspacos();
 		while (!simboloAtual.matches(FECHAMENTO_DE_OBJETO)) {
@@ -129,7 +129,7 @@ public final class Json {
 		}
 		consumirSimbolo();
 	}
-	
+
 	private void lista() {
 		consumirEspacos();
 		while (!simboloAtual.matches(FECHAMENTO_DE_LISTA)) {
@@ -142,7 +142,7 @@ public final class Json {
 		}
 		consumirSimbolo();
 	}
-	
+
 	private void identificador() {
 		consumirEspacos();
 		encontrarSimbolo(DELIMITADOR_TEXTUAL);
@@ -159,7 +159,7 @@ public final class Json {
 		consumirSimbolo();
 		identificadoresAbertos.empilhar(Json.criarIdentificador(identificador.toString()));
 	}
-	
+
 	private void texto() {
 		String delimitador = simboloAtual;
 		StringBuilder texto = new StringBuilder();
@@ -171,7 +171,7 @@ public final class Json {
 		consumirSimbolo();
 		valoresAbertos.empilhar(Json.criarTexto(texto.toString()));
 	}
-	
+
 	private void booleano() {
 		if (simboloAtual.matches(INICIO_DE_VERDADEIRO)) {
 			encontrarSimboloLongo(VERDADEIRO);
@@ -181,7 +181,7 @@ public final class Json {
 			valoresAbertos.empilhar(Json.criarBooleano(false));
 		}
 	}
-	
+
 	private void numero() {
 		StringBuilder numero = new StringBuilder();
 		numero.append(sequenciaNumerica());
@@ -192,7 +192,7 @@ public final class Json {
 		}
 		valoresAbertos.empilhar(Json.criarNumero(numero.toString()));
 	}
-	
+
 	private String sequenciaNumerica() {
 		StringBuilder sequencia = new StringBuilder();
 		while (simboloAtual.matches(DIGITO)) {
@@ -201,7 +201,7 @@ public final class Json {
 		}
 		return sequencia.toString();
 	}
-	
+
 	private void encontrarSimboloLongo(String simbolo) {
 		Integer posicao = 0;
 		while (posicao < simbolo.length()) {
@@ -210,13 +210,13 @@ public final class Json {
 			posicao++;
 		}
 	}
-	
+
 	private void encontrarSimbolo(String simbolo) {
 		if (!simboloAtual.matches(simbolo)) {
 			throw new ExcecaoJsonDeAnalise();
 		}
 	}
-	
+
 	private void consumirSimbolo() {
 		if (posicaoDoSimboloAtual >= entrada.length()) {
 			throw new ExcecaoJsonDeAnalise();
@@ -224,13 +224,13 @@ public final class Json {
 		simboloAtual = entrada.substring(posicaoDoSimboloAtual, posicaoDoSimboloAtual + 1);
 		posicaoDoSimboloAtual++;
 	}
-	
+
 	private void consumirSimboloSeFor(String simboloDesejado) {
 		if (simboloAtual.matches(simboloDesejado)) {
 			consumirSimbolo();
 		}
 	}
-	
+
 	private void consumirEspacos() {
 		while (simboloAtual.matches(ESPACO_EM_BRANCO)) {
 			consumirSimbolo();

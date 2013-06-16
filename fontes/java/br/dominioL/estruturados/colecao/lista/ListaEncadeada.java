@@ -9,15 +9,15 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 	private Integer quantidadeDeElementos;
 	private Caixa caixaDoInicio;
 	private Caixa caixaDoFim;
-	
+
 	private ListaEncadeada() {
 		quantidadeDeElementos = 0;
 	}
-	
+
 	public static <F extends Igualavel<F>> ListaEncadeada<F> criar() {
 		return new ListaEncadeada<F>();
 	}
-	
+
 	public void inserirNoInicio(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		if (quantidadeDeElementos == 0) {
@@ -31,7 +31,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		}
 		quantidadeDeElementos++;
 	}
-	
+
 	public void inserirNoFim(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		if (quantidadeDeElementos == 0) {
@@ -45,7 +45,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		}
 		quantidadeDeElementos++;
 	}
-	
+
 	public E removerDoInicio() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		Caixa caixaDoInicioNova = caixaDoInicio.fornecerCaixaDaDireita();
@@ -60,7 +60,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		quantidadeDeElementos--;
 		return elemento;
 	}
-	
+
 	public E removerDoFim() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		Caixa caixaDoFimNova = caixaDoFim.fornecerCaixaDaEsquerda();
@@ -75,55 +75,55 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		quantidadeDeElementos--;
 		return elemento;
 	}
-	
+
 	public E fornecerDoInicio() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		return caixaDoInicio.fornecerElemento();
 	}
-	
+
 	public E fornecerDoFim() {
 		lancarExcecaoDeEstruturaVaziaSeNecessario();
 		return caixaDoFim.fornecerElemento();
 	}
-	
+
 	@Override
 	public Integer fornecerQuantidade() {
 		return quantidadeDeElementos;
 	}
-	
+
 	@Override
 	public void inserir(E elemento) {
 		inserirNoFim(elemento);
 	}
-	
+
 	@Override
 	public Iterador<E> fornecerIterador() {
 		return new IteradorDeListaEncadeada();
 	}
-	
+
 	@Override
 	public Boolean igual(ListaEncadeada<E> outro) {
 		return (this == outro);
 	}
-	
+
 	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> implements Iterador<E> {
 		private Caixa cursor;
 		private Caixa cursorAnterior;
 		private Boolean removeu;
 		private Boolean substituiu;
-		
+
 		private IteradorDeListaEncadeada() {
 			cursor = caixaDoInicio;
 			cursorAnterior = null;
 			removeu = false;
 			substituiu = false;
 		}
-		
+
 		@Override
 		public Boolean possuiProximo() {
 			return (cursor != null);
 		}
-		
+
 		@Override
 		public E iterarProximo() {
 			if (!possuiProximo()) {
@@ -136,7 +136,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			substituiu = false;
 			return elementoAtual;
 		}
-		
+
 		@Override
 		public E remover() {
 			if (removeu || cursorAnterior == null) {
@@ -159,7 +159,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			quantidadeDeElementos--;
 			return elementoRemovido;
 		}
-		
+
 		@Override
 		public E substituir(E substituto) {
 			lancarExcecaoDeElementoNuloSeNecessario(substituto);
@@ -172,40 +172,40 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			return elementoSubstituido;
 		}
 	}
-	
+
 	private final class Caixa {
 		private E elemento;
 		private Caixa caixaDaEsquerda;
 		private Caixa caixaDaDireita;
-		
+
 		private Caixa(E elemento) {
 			this.elemento = elemento; 
 		}
-		
+
 		private void fixarCaixaDaEsquerda(Caixa caixa) {
 			this.caixaDaEsquerda = caixa;
 		}
-		
+
 		private void fixarCaixaDaDireita(Caixa caixa) {
 			this.caixaDaDireita = caixa;
 		}
-		
+
 		private void fixarElemento(E elemento) {
 			this.elemento = elemento;
 		}
-		
+
 		private Caixa fornecerCaixaDaEsquerda() {
 			return caixaDaEsquerda;
 		}
-		
+
 		private Caixa fornecerCaixaDaDireita() {
 			return caixaDaDireita;
 		}
-		
+
 		private E fornecerElemento() {
 			return elemento;
 		}
-		
+
 		private void removerPonteiros() {
 			elemento = null;
 			caixaDaEsquerda = null;

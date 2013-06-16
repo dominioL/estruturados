@@ -12,7 +12,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 	private static final Integer FATOR_DE_CRESCIMENTO = 2;
 	private Object[] elementos;
 	private Integer quantidadeDeElementos;
-	
+
 	private ListaPosicional(Integer tamanho) {
 		if (tamanho <= 0) {
 			throw new ExcecaoDeTamanhoInvalido();
@@ -20,15 +20,15 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		elementos = new Object[tamanho];
 		quantidadeDeElementos = 0;
 	}
-	
+
 	public static <F extends Igualavel<F>> ListaPosicional<F> criar() {
 		return new ListaPosicional<F>(TAMANHO_PADRAO);
 	}
-	
+
 	public static <F extends Igualavel<F>> ListaPosicional<F> criar(Integer tamanho) {
 		return new ListaPosicional<F>(tamanho);
 	}
-	
+
 	public void inserirNaPosicao(Integer posicao, E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
@@ -37,12 +37,12 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		}
 		elementos[posicao] = elemento;
 	}
-	
+
 	public E fornecerDaPosicao(Integer posicao) {
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
 		return castrar(elementos[posicao]);
 	}
-	
+
 	public E removerDaPosicao(Integer posicao) {
 		lancarExcecaoDeIndiceForaDosLimitesSeNecessario(posicao);
 		Object elemento = elementos[posicao];
@@ -52,16 +52,16 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		elementos[posicao] = null;
 		return castrar(elemento);
 	}
-	
+
 	public Integer fornecerTamanho() {
 		return elementos.length;
 	}
-	
+
 	@Override
 	public Integer fornecerQuantidade() {
 		return quantidadeDeElementos;
 	}
-	
+
 	@Override
 	public void inserir(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
@@ -81,17 +81,17 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		}
 		quantidadeDeElementos++;
 	}
-	
+
 	@Override
 	public Iterador<E> fornecerIterador() {
 		return new IteradorDeListaPosicionnal();
 	}
-	
+
 	@Override
 	public Boolean igual(ListaPosicional<E> outro) {
 		return (this == outro);
 	}
-	
+
 	private void crescerSeNecessario() {
 		if (quantidadeDeElementos == elementos.length) {
 			Object[] novoElementos = new Object[elementos.length * FATOR_DE_CRESCIMENTO];
@@ -102,36 +102,36 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 			elementos = novoElementos;
 		}
 	}
-	
+
 	private void lancarExcecaoDeIndiceForaDosLimitesSeNecessario(Integer indice) {
 		if (indice < 0 || indice >= elementos.length) {
 			throw new ExcecaoDeIndiceForaDosLimites();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private E castrar(Object elemento) {
 		return (E) elemento;
 	}
-	
+
 	private final class IteradorDeListaPosicionnal extends IteradorAbstrato<E> implements Iterador<E> {
 		private Integer cursor;
 		private Integer cursorAnterior;
 		private Boolean removeu;
 		private Boolean substituiu;
-		
+
 		private IteradorDeListaPosicionnal() {
 			cursor = -1;
 			avancarCursor();
 			removeu = false;
 			substituiu = false;
 		}
-		
+
 		@Override
 		public Boolean possuiProximo() {
 			return (cursor < elementos.length);
 		}
-		
+
 		@Override
 		public E iterarProximo() {
 			if (!possuiProximo()) {
@@ -142,7 +142,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 			avancarCursor();
 			return fornecerDaPosicao(cursorAnterior);
 		}
-		
+
 		@Override
 		public E remover() {
 			if (removeu || cursorAnterior == -1) {
@@ -151,7 +151,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 			removeu = true;
 			return removerDaPosicao(cursorAnterior);
 		}
-		
+
 		@Override
 		public E substituir(E substituto) {
 			if (removeu || substituiu || cursorAnterior == -1) {
@@ -162,7 +162,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 			inserirNaPosicao(cursorAnterior, substituto);
 			return elemento;
 		}
-		
+
 		private void avancarCursor() {
 			cursorAnterior = cursor++;
 			while (cursor < elementos.length && elementos[cursor] == null) {

@@ -23,14 +23,14 @@ public class TesteListaPosicional {
 	private Numero terceiroNumero = new Numero(3);
 	private Numero quartoNumero = new Numero(4);
 	private Numero numeroNulo = null;
-	
+
 	@Test
 	public void fornecerUmElementoDaPoscaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		assertSame(lista.fornecerDaPosicao(0), primeiroNumero);
 	}
-	
+
 	@Test
 	public void fornecerUmElementoDaPosicaoUm() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -38,13 +38,13 @@ public class TesteListaPosicional {
 		lista.inserir(segundoNumero);
 		assertSame(lista.fornecerDaPosicao(1), segundoNumero);
 	}
-	
+
 	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
 	public void fornecerUmElementoDeUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
 		lista.fornecerDaPosicao(1);
 	}
-	
+
 	@Test
 	public void fornecerUmElementoDeUmaPosicaoQueTeveOElementoRemovido() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -53,7 +53,7 @@ public class TesteListaPosicional {
 		lista.removerDaPosicao(1);
 		assertThat(lista.fornecerDaPosicao(1), nullValue());
 	}
-	
+
 	@Test
 	public void inserirUmElementoNaPosicaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -61,7 +61,7 @@ public class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(0), primeiroNumero);
 		assertThat(lista.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void inserirUmElementoNaPosicaoUm() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -69,13 +69,13 @@ public class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(1), primeiroNumero);
 		assertThat(lista.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
 	public void inserirUmElementoEmUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
 		lista.inserirNaPosicao(1, primeiroNumero);
 	}
-	
+
 	@Test
 	public void inserirUmElementoNaPosicaoDeUmElementoQueJaExiste() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -84,13 +84,13 @@ public class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(0), segundoNumero);
 		assertThat(lista.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test(expected = ExcecaoDeElementoNulo.class)
 	public void inserirUmElementoNulo() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(numeroNulo);
 	}
-	
+
 	@Test
 	public void removerUmElementoDaPoscaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -98,7 +98,7 @@ public class TesteListaPosicional {
 		assertSame(lista.removerDaPosicao(0), primeiroNumero);
 		assertThat(lista.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test
 	public void removerUmElementoDaPosicaoUm() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -107,13 +107,13 @@ public class TesteListaPosicional {
 		assertSame(lista.removerDaPosicao(1), segundoNumero);
 		assertThat(lista.fornecerQuantidade(), is(1));	
 	}
-	
+
 	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
 	public void removerUmElementoDeUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.removerDaPosicao(-1);
 	}
-	
+
 	@Test
 	public void removerUmElementoDeUmaPosicaoQueTeveOElementoRemovido() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -122,14 +122,14 @@ public class TesteListaPosicional {
 		assertThat(lista.removerDaPosicao(0), nullValue());
 		assertThat(lista.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test
 	public void inserirUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		assertThat(lista.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void inserirUmElementoDuplicadoMantemElementosDuplicados() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -138,7 +138,7 @@ public class TesteListaPosicional {
 		lista.inserir(primeiroNumero);
 		assertThat(lista.fornecerQuantidade(), is(3));
 	}
-	
+
 	@Test
 	public void removerUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -146,7 +146,7 @@ public class TesteListaPosicional {
 		assertTrue(lista.remover(primeiroNumero));
 		assertThat(lista.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test
 	public void removerUmElementoDuplicadoRemoveApenasOPrimeiro() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -157,7 +157,7 @@ public class TesteListaPosicional {
 		assertThat(lista.fornecerDaPosicao(0), nullValue());
 		assertSame(lista.fornecerDaPosicao(1), primeiroNumero);
 	}
-	
+
 	@Test
 	public void removerUmElementoQueNaoExiste() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -165,7 +165,7 @@ public class TesteListaPosicional {
 		assertFalse(lista.remover(segundoNumero));
 		assertThat(lista.fornecerQuantidade(), is(1));
 	}
-	
+
 	@Test
 	public void contemUmElementoSeElePertence() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -174,7 +174,7 @@ public class TesteListaPosicional {
 		lista.inserir(terceiroNumero);
 		assertTrue(lista.contem(terceiroNumero));
 	}
-	
+
 	@Test
 	public void naoContemUmElementoSeEleNaoPertence() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -183,13 +183,13 @@ public class TesteListaPosicional {
 		lista.inserir(terceiroNumero);
 		assertFalse(lista.contem(quartoNumero));
 	}
-	
+
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoNaoTemElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		assertThat(lista.fornecerQuantidade(), is(0));
 	}
-	
+
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoTemElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -197,7 +197,7 @@ public class TesteListaPosicional {
 		lista.inserir(segundoNumero);
 		assertThat(lista.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void estaVaziaSeNaoPossuiNenhumElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -205,14 +205,14 @@ public class TesteListaPosicional {
 		lista.remover(primeiroNumero);
 		assertTrue(lista.vazio());
 	}
-	
+
 	@Test
 	public void naoEstaVaziaSePossuiElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		assertFalse(lista.vazio());
 	}
-	
+
 	@Test
 	public void iteradorNaoPassaPorElementosNulos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -225,7 +225,7 @@ public class TesteListaPosicional {
 			assertThat(iterador.iterarProximo(), notNullValue());
 		}
 	}
-	
+
 	@Test
 	public void iteradorPassaPorTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -238,7 +238,7 @@ public class TesteListaPosicional {
 		assertSame(iterador.iterarProximo(), terceiroNumero);
 		assertFalse(iterador.possuiProximo());
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -255,7 +255,7 @@ public class TesteListaPosicional {
 		assertFalse(iterador.possuiProximo());
 		assertTrue(lista.vazio());
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOPrimeiroElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -270,7 +270,7 @@ public class TesteListaPosicional {
 		assertFalse(iterador.possuiProximo());
 		assertThat(lista.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOSegundoElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -285,7 +285,7 @@ public class TesteListaPosicional {
 		assertFalse(iterador.possuiProximo());
 		assertThat(lista.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test
 	public void iteradorPermiteRemoverOUltimoElmento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -300,7 +300,7 @@ public class TesteListaPosicional {
 		assertFalse(iterador.possuiProximo());
 		assertThat(lista.fornecerQuantidade(), is(2));
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -310,14 +310,14 @@ public class TesteListaPosicional {
 		lista.fornecerIterador().remover();
 		lista.fornecerIterador().remover();
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.fornecerIterador().remover();
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -332,7 +332,7 @@ public class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(0), terceiroNumero);
 		assertSame(lista.fornecerDaPosicao(1), quartoNumero);
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirOPrimeiroElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -346,7 +346,7 @@ public class TesteListaPosicional {
 		}
 		assertSame(lista.fornecerDaPosicao(0), terceiroNumero);
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirOUltimoElmento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -360,7 +360,7 @@ public class TesteListaPosicional {
 		}
 		assertSame(lista.fornecerDaPosicao(1), terceiroNumero);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -370,20 +370,20 @@ public class TesteListaPosicional {
 		iterador.substituir(segundoNumero);
 		iterador.substituir(segundoNumero);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.fornecerIterador().substituir(segundoNumero);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.fornecerIterador().iterarProximo();
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -394,7 +394,7 @@ public class TesteListaPosicional {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 	}
-	
+
 	@Test
 	public void iteradorPermiteSubstituirEDepoisRemover() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
@@ -405,7 +405,7 @@ public class TesteListaPosicional {
 		iterador.substituir(terceiroNumero);
 		assertSame(iterador.remover(), terceiroNumero);
 	}
-	
+
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();

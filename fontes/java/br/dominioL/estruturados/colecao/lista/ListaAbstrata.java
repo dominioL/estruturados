@@ -8,7 +8,7 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 	protected ListaAbstrata() {
 		
 	}
-	
+
 	@Override
 	public final Integer contarElemento(E elemento) {
 		Integer quantidade = 0;
@@ -20,7 +20,7 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 		}
 		return quantidade;
 	}
-	
+
 	@Override
 	public final E reter(E elemento) {
 		Iterador<E> iterador = fornecerIterador();
@@ -32,7 +32,7 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 		}
 		return null;
 	}
-	
+
 	@Override
 	public final Boolean contem(E elemento) {
 		E elementoEncontrado = reter(elemento);
@@ -41,7 +41,7 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 		}
 		return true;
 	}
-	
+
 	@Override
 	public final Boolean remover(E elemento) {
 		if (elemento != null) {

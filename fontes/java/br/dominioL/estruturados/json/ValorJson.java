@@ -11,29 +11,29 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 	protected final static String SEPARADOR = ", ";
 	protected final static String DELIMITADOR_TEXTUAL = "\"";
 	protected final static String SEPARADOR_DE_IDENTIFICADOR = ": ";
-	
+
 	public String fornecerComoTexto() {
 		throw new ExcecaoJsonDeTipo();
 	}
-	
+
 	public Double fornecerComoNumero() {
 		throw new ExcecaoJsonDeTipo();
 	}
-	
+
 	public Boolean fornecerComoBooleano() {
 		throw new ExcecaoJsonDeTipo();
 	}
-	
+
 	public ObjetoJson fornecerComoObjeto() {
 		throw new ExcecaoJsonDeTipo();
 	}
-	
+
 	public ListaJson fornecerComoLista() {
 		throw new ExcecaoJsonDeTipo();
 	}
-	
+
 	public abstract String fornecerComoJson();
-	
+
 	@Override
 	public final Boolean igual(ValorJson outro) {
 		return this == outro;

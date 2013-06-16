@@ -9,16 +9,16 @@ public final class ListaJson extends ValorJson {
 	protected ListaJson() {
 		elementos = ListaPosicional.criar();
 	}
-	
+
 	public void inserir(ValorJson valor) {
 		elementos.inserir(valor);
 	}
-	
+
 	@Override
 	public ListaJson fornecerComoLista() {
 		return this;
 	}
-	
+
 	@Override
 	public String fornecerComoJson() {
 		StringBuilder textoJson = new StringBuilder();
