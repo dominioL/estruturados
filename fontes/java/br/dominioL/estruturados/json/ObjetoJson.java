@@ -16,11 +16,11 @@ public final class ObjetoJson extends ValorJson {
 	public void inserir(IdentificadorJson identificador, ValorJson valor) {
 		elementos.inserir(identificador, valor);
 	}
-	
+
 	public ValorJson fornecerElemento(IdentificadorJson identificador) {
 		return elementos.fornecer(identificador);
 	}
-	
+
 	@Override
 	public ObjetoJson fornecerComoObjeto() {
 		return this;
