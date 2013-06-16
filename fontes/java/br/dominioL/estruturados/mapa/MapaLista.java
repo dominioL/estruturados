@@ -146,8 +146,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 			if (iteradorDosGrupos.possuiProximo()) {
 				do {
 					iteradorDoGrupo = iteradorDosGrupos.iterarProximo().fornecerIterador();
-				}
-				while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo());
+				} while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo());
 			}
 		}
 		
@@ -160,10 +159,11 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		public Par<C, V> iterarProximo() {
 			if (possuiProximo()) {
 				iteradorAtual = iteradorDoGrupo;
+				Par<C, V> elemento = iteradorAtual.iterarProximo();
 				while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo()) {
 					iteradorDoGrupo = iteradorDosGrupos.iterarProximo().fornecerIterador();
 				}
-				return iteradorAtual.iterarProximo();
+				return elemento;
 			}
 			throw new ExcecaoDeIteracaoInvalida();
 		}

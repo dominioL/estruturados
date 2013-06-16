@@ -34,7 +34,13 @@ public class TesteJson {
 		objetoPrimario.inserir(Json.criarIdentificador("secundario"), objetoSecundario);
 		assertThat(objetoPrimario.fornecerComoJson(), is("{\"secundario\": {\"terciario\": {}}}"));
 	}
-	
+
+	@Test
+	public void objetoComDuasPropriedades() {
+		ObjetoJson json = Json.criarObjeto("{\"access_token\":\"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\",\"token_type\":\"bearer\"}");
+		assertThat(json.fornecerComoJson(), is("{\"token_type\": \"bearer\", \"access_token\": \"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\"}"));
+	}
+
 	@Test
 	public void objetoComTextoDentro() {
 		ObjetoJson json = Json.criarObjeto("{\"texto\" : 'valorTextual'}");
