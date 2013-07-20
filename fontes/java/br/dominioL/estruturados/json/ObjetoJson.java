@@ -27,14 +27,14 @@ public final class ObjetoJson extends ValorJson {
 	}
 
 	@Override
-	public String fornecerComoJson() {
+	public String fornecerComoTextoJson() {
 		StringBuilder textoJson = new StringBuilder();
 		textoJson.append(ABERTURA_DE_OBJETO);
 		Iterador<Par<IdentificadorJson, ValorJson>> iterador = elementos.fornecerIterador();
 		while (iterador.possuiProximo()) {
 			Par<IdentificadorJson, ValorJson> elemento = iterador.iterarProximo();
-			textoJson.append(elemento.fornecerChave().fornecerComoJson());
-			textoJson.append(elemento.fornecerValor().fornecerComoJson());
+			textoJson.append(elemento.fornecerChave().fornecerComoTextoJson());
+			textoJson.append(elemento.fornecerValor().fornecerComoTextoJson());
 			if (iterador.possuiProximo()) {
 				textoJson.append(SEPARADOR);
 			}

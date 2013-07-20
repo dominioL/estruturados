@@ -9,7 +9,7 @@ public final class IdentificadorJson implements Codificavel<IdentificadorJson> {
 		this.identificador = identificador;
 	}
 
-	public String fornecerComoJson() {
+	public String fornecerComoTextoJson() {
 		StringBuilder textoJson = new StringBuilder();
 		textoJson.append(ValorJson.DELIMITADOR_TEXTUAL);
 		textoJson.append(identificador);

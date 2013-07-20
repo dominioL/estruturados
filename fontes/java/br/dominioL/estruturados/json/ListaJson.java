@@ -20,13 +20,13 @@ public final class ListaJson extends ValorJson {
 	}
 
 	@Override
-	public String fornecerComoJson() {
+	public String fornecerComoTextoJson() {
 		StringBuilder textoJson = new StringBuilder();
 		textoJson.append(ABERTURA_DE_LISTA);
 		Iterador<ValorJson> iterador = elementos.fornecerIterador();
 		while (iterador.possuiProximo()) {
 			ValorJson elemento = iterador.iterarProximo();
-			textoJson.append(elemento.fornecerComoJson());
+			textoJson.append(elemento.fornecerComoTextoJson());
 			if (iterador.possuiProximo()) {
 				textoJson.append(SEPARADOR);
 			}

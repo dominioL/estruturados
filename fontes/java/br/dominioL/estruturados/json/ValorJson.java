@@ -32,7 +32,7 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 		throw new ExcecaoJsonDeTipo();
 	}
 
-	public abstract String fornecerComoJson();
+	public abstract String fornecerComoTextoJson();
 
 	@Override
 	public final Boolean igual(ValorJson outro) {

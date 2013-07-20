@@ -20,7 +20,7 @@ public final class NumeroJson extends ValorJson {
 	}
 
 	@Override
-	public String fornecerComoJson() {
+	public String fornecerComoTextoJson() {
 		return valor.toString();
 	}
 }
