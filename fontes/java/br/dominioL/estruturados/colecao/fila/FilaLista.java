@@ -17,12 +17,12 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	}
 
 	@Override
-	public void enfilerar(E elemento) {
+	public void enfileirar(E elemento) {
 		elementos.inserirNoFim(elemento);
 	}
 
 	@Override
-	public E desenfilerar() {
+	public E desenfileirar() {
 		return elementos.removerDoInicio();
 	}
 
@@ -67,7 +67,7 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 
 	@Override
 	public void inserir(E elemento) {
-		enfilerar(elemento);
+		enfileirar(elemento);
 	}
 
 	@Override

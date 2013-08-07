@@ -13,28 +13,36 @@ public final class ObjetoJson extends ValorJson {
 		elementos = MapaLista.criar();
 	}
 
+	public void inserir(String identificador, ValorJson valor) {
+		elementos.inserir(Json.criarIdentificador(identificador), valor);
+	}
+
+	public ValorJson fornecer(String identificador) {
+		return elementos.fornecer(Json.criarIdentificador(identificador));
+	}
+
 	public void inserir(IdentificadorJson identificador, ValorJson valor) {
 		elementos.inserir(identificador, valor);
 	}
 
-	public ValorJson fornecerElemento(IdentificadorJson identificador) {
+	public ValorJson fornecer(IdentificadorJson identificador) {
 		return elementos.fornecer(identificador);
 	}
 
 	@Override
-	public ObjetoJson fornecerComoObjeto() {
+	public ObjetoJson comoObjeto() {
 		return this;
 	}
 
 	@Override
-	public String fornecerComoTextoJson() {
+	public String comoTextoJson() {
 		StringBuilder textoJson = new StringBuilder();
 		textoJson.append(ABERTURA_DE_OBJETO);
 		Iterador<Par<IdentificadorJson, ValorJson>> iterador = elementos.fornecerIterador();
 		while (iterador.possuiProximo()) {
 			Par<IdentificadorJson, ValorJson> elemento = iterador.iterarProximo();
-			textoJson.append(elemento.fornecerChave().fornecerComoTextoJson());
-			textoJson.append(elemento.fornecerValor().fornecerComoTextoJson());
+			textoJson.append(elemento.fornecerChave().comoTextoJson());
+			textoJson.append(elemento.fornecerValor().comoTextoJson());
 			if (iterador.possuiProximo()) {
 				textoJson.append(SEPARADOR);
 			}

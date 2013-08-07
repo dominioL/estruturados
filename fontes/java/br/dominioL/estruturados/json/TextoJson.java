@@ -8,12 +8,12 @@ public final class TextoJson extends ValorJson {
 	}
 
 	@Override
-	public String fornecerComoTexto() {
+	public String comoTexto() {
 		return valor;
 	}
 
 	@Override
-	public String fornecerComoTextoJson() {
-		return "\"" + valor + "\"";
+	public String comoTextoJson() {
+		return String.format("\"%s\"", valor);
 	}
 }

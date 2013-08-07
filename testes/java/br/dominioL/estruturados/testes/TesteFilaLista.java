@@ -26,8 +26,8 @@ public class TesteFilaLista {
 	@Test
 	public void enfileirarAdicionaUmElementoNoFim() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
 		assertThat(fila.fornecerQuantidade(), is(2));
 	}
@@ -35,9 +35,9 @@ public class TesteFilaLista {
 	@Test
 	public void enfileirarAdicionaUmElementoNoFimMesmoQueElePertenca() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
-		fila.enfilerar(numeroUm);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
+		fila.enfileirar(numeroUm);
 		assertSame(fila.fornecerDoFim(), numeroUm);
 		assertThat(fila.fornecerQuantidade(), is(3));
 	}
@@ -45,29 +45,29 @@ public class TesteFilaLista {
 	@Test(expected = ExcecaoDeElementoNulo.class)
 	public void enfileirarLancaUmaExcecaoSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroNulo);
+		fila.enfileirar(numeroNulo);
 	}
 
 	@Test
 	public void desenfileirarRemoveUmElementoDoInicio() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
-		assertSame(fila.desenfilerar(), numeroUm);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
+		assertSame(fila.desenfileirar(), numeroUm);
 		assertThat(fila.fornecerQuantidade(), is(1));
 	}
 
 	@Test(expected = ExcecaoDeEstruturaVazia.class)
 	public void desenfileirarLancaUmExcecaoSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.desenfilerar();
+		fila.desenfileirar();
 	}
 
 	@Test
 	public void fornecerDoInicioForneceOPrimeiroElementoEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoInicio(), numeroUm);
 		assertThat(fila.fornecerQuantidade(), is(2));
 	}
@@ -75,8 +75,8 @@ public class TesteFilaLista {
 	@Test
 	public void fornecerDoFimForneceOUltimoElementoEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
 		assertThat(fila.fornecerQuantidade(), is(2));
 	}
@@ -96,23 +96,23 @@ public class TesteFilaLista {
 	@Test
 	public void estaNoInicioSeOElementoFoiOPrimeiroEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertTrue(fila.estaNoInicio(numeroUm));
 	}
 
 	@Test
 	public void estaNoInicioSeForOUnicoElemento() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
+		fila.enfileirar(numeroUm);
 		assertTrue(fila.estaNoInicio(numeroUm));
 	}
 
 	@Test
 	public void naoEstaNoInicioSeOElementoNaoFoiOPrimeiroEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertFalse(fila.estaNoInicio(numeroDois));
 	}
 
@@ -125,30 +125,30 @@ public class TesteFilaLista {
 	@Test
 	public void naoEstaNoInicioSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
+		fila.enfileirar(numeroUm);
 		assertFalse(fila.estaNoInicio(numeroNulo));
 	}
 
 	@Test
 	public void estaNoFimSeOElementoFoiOUltimoEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertTrue(fila.estaNoFim(numeroDois));
 	}
 
 	@Test
 	public void estaNoFimSeForOUnicoElemento() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
+		fila.enfileirar(numeroUm);
 		assertTrue(fila.estaNoFim(numeroUm));
 	}
 
 	@Test
 	public void naoEstaNoFimSeOElementoNaoFoiOUltimoEnfileirado() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
-		fila.enfilerar(numeroDois);
+		fila.enfileirar(numeroUm);
+		fila.enfileirar(numeroDois);
 		assertFalse(fila.estaNoFim(numeroUm));
 	}
 
@@ -161,7 +161,7 @@ public class TesteFilaLista {
 	@Test
 	public void naoEstaNoFimSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		fila.enfilerar(numeroUm);
+		fila.enfileirar(numeroUm);
 		assertFalse(fila.estaNoFim(numeroNulo));
 	}
 

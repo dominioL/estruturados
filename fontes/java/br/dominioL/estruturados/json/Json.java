@@ -52,7 +52,7 @@ public final class Json {
 
 	public static ObjetoJson criarObjeto(String entrada) {
 		Json json = new Json(entrada);
-		return json.analisar().fornecerComoObjeto();
+		return json.analisar().comoObjeto();
 	}
 
 	public static ObjetoJson criarObjeto() {
@@ -61,7 +61,7 @@ public final class Json {
 
 	public static ListaJson criarLista(String entrada) {
 		Json json = new Json(entrada);
-		return json.analisar().fornecerComoLista();
+		return json.analisar().comoLista();
 	}
 
 	public static ListaJson criarLista() {
@@ -122,7 +122,7 @@ public final class Json {
 			json();
 			IdentificadorJson identificador = identificadoresAbertos.desempilhar();
 			ValorJson valor = valoresAbertos.desempilhar();
-			valoresAbertos.fornecerDoTopo().fornecerComoObjeto().inserir(identificador, valor);
+			valoresAbertos.fornecerDoTopo().comoObjeto().inserir(identificador, valor);
 			consumirEspacos();
 			encontrarSimbolo(FECHAMENTO_DE_OBJETO_OU_SEPARADOR);
 			consumirSimboloSeFor(SEPARADOR);
@@ -135,7 +135,7 @@ public final class Json {
 		while (!simboloAtual.matches(FECHAMENTO_DE_LISTA)) {
 			json();
 			ValorJson valor = valoresAbertos.desempilhar();
-			valoresAbertos.fornecerDoTopo().fornecerComoLista().inserir(valor);
+			valoresAbertos.fornecerDoTopo().comoLista().inserir(valor);
 			consumirEspacos();
 			encontrarSimbolo(FECHAMENTO_DE_LISTA_OU_SEPARADOR);
 			consumirSimboloSeFor(SEPARADOR);

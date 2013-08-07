@@ -8,12 +8,12 @@ public final class BooleanoJson extends ValorJson {
 	}
 
 	@Override
-	public Boolean fornecerComoBooleano() {
+	public Boolean comoBooleano() {
 		return valor;
 	}
 
 	@Override
-	public String fornecerComoTextoJson() {
+	public String comoTextoJson() {
 		return valor.toString();
 	}
 }

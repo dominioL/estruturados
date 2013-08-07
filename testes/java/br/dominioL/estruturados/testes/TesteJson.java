@@ -15,15 +15,15 @@ public class TesteJson {
 	@Test
 	public void objetoVazio() {
 		ObjetoJson json = Json.criarObjeto("{}");
-		assertThat(json.fornecerComoTextoJson(), is("{}"));
+		assertThat(json.comoTextoJson(), is("{}"));
 		json = Json.criarObjeto("{   }");
-		assertThat(json.fornecerComoTextoJson(), is("{}"));
+		assertThat(json.comoTextoJson(), is("{}"));
 	}
 
 	@Test
 	public void objetoComObjetoDentro() {
 		ObjetoJson json = Json.criarObjeto("   {   \"outroObjeto\"   : {   }   }   ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"outroObjeto\": {}}"));
+		assertThat(json.comoTextoJson(), is("{\"outroObjeto\": {}}"));
 	}
 
 	@Test
@@ -33,49 +33,49 @@ public class TesteJson {
 		ObjetoJson objetoTerciario = Json.criarObjeto();
 		objetoSecundario.inserir(Json.criarIdentificador("terciario"), objetoTerciario);
 		objetoPrimario.inserir(Json.criarIdentificador("secundario"), objetoSecundario);
-		assertThat(objetoPrimario.fornecerComoTextoJson(), is("{\"secundario\": {\"terciario\": {}}}"));
+		assertThat(objetoPrimario.comoTextoJson(), is("{\"secundario\": {\"terciario\": {}}}"));
 	}
 
 	@Test
 	public void objetoComDuasPropriedades() {
 		ObjetoJson json = Json.criarObjeto("{\"access_token\":\"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\",\"token_type\":\"bearer\"}");
-		assertThat(json.fornecerComoTextoJson(), is("{\"token_type\": \"bearer\", \"access_token\": \"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\"}"));
+		assertThat(json.comoTextoJson(), is("{\"token_type\": \"bearer\", \"access_token\": \"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\"}"));
 	}
 
 	@Test
 	public void objetoComTextoDentro() {
 		ObjetoJson json = Json.criarObjeto("{\"texto\" : 'valorTextual'}");
-		assertThat(json.fornecerComoTextoJson(), is("{\"texto\": \"valorTextual\"}"));
+		assertThat(json.comoTextoJson(), is("{\"texto\": \"valorTextual\"}"));
 	}
 
 	@Test
 	public void objetoComBooleanoFalsoDentro() {
 		ObjetoJson json = Json.criarObjeto("   {   \"booleano\" : false   }   ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"booleano\": false}"));
+		assertThat(json.comoTextoJson(), is("{\"booleano\": false}"));
 	}
 
 	@Test
 	public void objetoComBooleanoVerdadeiroDentro() {
 		ObjetoJson json = Json.criarObjeto(" {\"booleano\" : true} ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"booleano\": true}"));
+		assertThat(json.comoTextoJson(), is("{\"booleano\": true}"));
 	}
 
 	@Test
 	public void objetoComNumeroDentro() {
 		ObjetoJson json = Json.criarObjeto(" {\"numero\" : 1} ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"numero\": 1}"));
+		assertThat(json.comoTextoJson(), is("{\"numero\": 1}"));
 		json = Json.criarObjeto(" {\"numero\" : 1.0} ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"numero\": 1.0}"));
+		assertThat(json.comoTextoJson(), is("{\"numero\": 1.0}"));
 		json = Json.criarObjeto(" {\"numero\" : 1.0101} ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"numero\": 1.0101}"));
+		assertThat(json.comoTextoJson(), is("{\"numero\": 1.0101}"));
 		json = Json.criarObjeto(" {\"numero\" : 0.0101} ");
-		assertThat(json.fornecerComoTextoJson(), is("{\"numero\": 0.0101}"));
+		assertThat(json.comoTextoJson(), is("{\"numero\": 0.0101}"));
 	}
 
 	@Test
 	public void listaComElementosDentro() {
 		ListaJson json = Json.criarLista(" [ 10, 'texto' , true , false , \"outroTexto\" , { \"numero\": 10.1 } , [ 1, 2, 3, { } ] ] ");
-		assertThat(json.fornecerComoTextoJson(), is("[10, \"texto\", true, false, \"outroTexto\", {\"numero\": 10.1}, [1, 2, 3, {}]]"));
+		assertThat(json.comoTextoJson(), is("[10, \"texto\", true, false, \"outroTexto\", {\"numero\": 10.1}, [1, 2, 3, {}]]"));
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class TesteJson {
 		letras.inserir(Json.criarTexto("b"));
 		letras.inserir(Json.criarTexto("c"));
 		numeros.inserir(letras);
-		assertThat(numeros.fornecerComoTextoJson(), is("[1, 3, 2, [\"a\", \"b\", \"c\"]]"));
+		assertThat(numeros.comoTextoJson(), is("[1, 3, 2, [\"a\", \"b\", \"c\"]]"));
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)

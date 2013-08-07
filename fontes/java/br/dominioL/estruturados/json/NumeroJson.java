@@ -15,12 +15,12 @@ public final class NumeroJson extends ValorJson {
 	}
 
 	@Override
-	public Double fornecerComoNumero() {
+	public Double comoNumero() {
 		return valor.doubleValue();
 	}
 
 	@Override
-	public String fornecerComoTextoJson() {
+	public String comoTextoJson() {
 		return valor.toString();
 	}
 }
