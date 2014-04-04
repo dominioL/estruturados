@@ -8,11 +8,11 @@ import br.dominioL.estruturados.iteracao.Iterador;
 public final class ArvoreB<E extends Comparavel<E>> extends ColecaoAbstrata<E> implements Arvore<E> {
 	private static final Integer ORDEM_PADRAO = 3;
 	private static final Integer ORDEM_MINIMA = 3;
-	private Integer ordem;
+//	private Integer ordem;
 	private Integer quantidadeDeElementos;
 
 	private ArvoreB(Integer ordem) {
-		this.ordem = ordem;
+//		this.ordem = ordem;
 		this.quantidadeDeElementos = 0;
 	}
 
@@ -58,12 +58,12 @@ public final class ArvoreB<E extends Comparavel<E>> extends ColecaoAbstrata<E> i
 		return null;
 	}
 
-	private final class Nodo {
-		//TODO
-	}
+//	private final class Nodo {
+//		//TODO
+//	}
 
-	private final class Entrada {
-		private E valor;
-		private Nodo proximoNodo;
-	}
+//	private final class Entrada {
+////		private E valor;
+////		private Nodo proximoNodo;
+//	}
 }

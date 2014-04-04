@@ -3,7 +3,6 @@
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
 import br.dominioL.estruturados.excecoes.ExcecaoDeEstruturaVazia;
-import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 import br.dominioL.estruturados.iteracao.IteravelAbstrato;
 

@@ -182,7 +182,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 	}
 
-	private final class ParDeMapaLista<C extends Codificavel<C>, V extends Igualavel<V>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
+	private final class ParDeMapaLista<D extends Codificavel<D>, U extends Igualavel<U>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
 		private C chave;
 		private V valor;
 
