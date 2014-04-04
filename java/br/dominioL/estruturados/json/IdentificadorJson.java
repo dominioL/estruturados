@@ -31,4 +31,17 @@ public final class IdentificadorJson implements Codificavel<IdentificadorJson> {
 	public Integer fornecerCodigo() {
 		return identificador.hashCode();
 	}
+
+	@Override
+	public boolean equals(Object outro) {
+		if (outro instanceof IdentificadorJson) {
+			return igual((IdentificadorJson) outro);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return comoTextoJson();
+	}
 }

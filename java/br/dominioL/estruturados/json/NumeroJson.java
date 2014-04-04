@@ -1,10 +1,15 @@
 package br.dominioL.estruturados.json;
 
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
+
 import java.math.BigDecimal;
 
 public final class NumeroJson extends ValorJson {
 	BigDecimal valor;
+
+	protected NumeroJson(BigDecimal valor) {
+		this.valor = valor;
+	}
 
 	protected NumeroJson(String valor) {
 		try {
@@ -22,5 +27,13 @@ public final class NumeroJson extends ValorJson {
 	@Override
 	public String comoTextoJson() {
 		return valor.toString();
+	}
+
+	@Override
+	public Boolean igual(ValorJson outro) {
+		if (outro instanceof NumeroJson) {
+			return valor.equals(((NumeroJson) outro).valor);
+		}
+		return false;
 	}
 }

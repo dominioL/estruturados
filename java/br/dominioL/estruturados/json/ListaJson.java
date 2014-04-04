@@ -1,10 +1,11 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.colecao.lista.ListaPosicional;
-import br.dominioL.estruturados.iteracao.Iteravel;
-import br.dominioL.estruturados.iteracao.Iterador;
-
+import java.math.BigDecimal;
 import java.util.Iterator;
+
+import br.dominioL.estruturados.colecao.lista.ListaPosicional;
+import br.dominioL.estruturados.iteracao.Iterador;
+import br.dominioL.estruturados.iteracao.Iteravel;
 
 public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 	private ListaPosicional<ValorJson> elementos;
@@ -17,8 +18,32 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 		elementos.inserir(valor);
 	}
 
+	public void inserir(String valor) {
+		elementos.inserir(Json.criarTexto(valor));
+	}
+
+	public void inserir(BigDecimal valor) {
+		elementos.inserir(Json.criarNumero(valor));
+	}
+
+	public void inserir(Integer valor) {
+		elementos.inserir(Json.criarNumero(valor));
+	}
+
+	public void inserir(Double valor) {
+		elementos.inserir(Json.criarNumero(valor));
+	}
+
+	public void inserir(Boolean valor) {
+		elementos.inserir(Json.criarBooleano(valor));
+	}
+
 	public ValorJson fornecer(Integer posicao) {
 		return elementos.fornecerDaPosicao(posicao);
+	}
+
+	public Integer fornecerQuantidade() {
+		return elementos.fornecerQuantidade();
 	}
 
 	@Override
@@ -50,5 +75,10 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 		}
 		textoJson.append(FECHAMENTO_DE_LISTA);
 		return textoJson.toString();
+	}
+
+	@Override
+	public Boolean igual(ValorJson outro) {
+		return false;
 	}
 }

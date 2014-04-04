@@ -1,9 +1,10 @@
 package br.dominioL.estruturados.json;
 
+import java.math.BigDecimal;
+
 import br.dominioL.estruturados.colecao.pilha.Pilha;
 import br.dominioL.estruturados.colecao.pilha.PilhaLista;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
-import java.math.BigDecimal;
 
 public final class Json {
 	private final static String ABERTURA_DE_OBJETO = "\\{";
@@ -29,7 +30,6 @@ public final class Json {
 	private Integer posicaoDoSimboloAtual;
 	private Pilha<ValorJson> valoresAbertos;
 	private Pilha<IdentificadorJson> identificadoresAbertos;
-	private ValorJson valorFinal;
 
 	public Json(String entrada) {
 		this.entrada = new StringBuilder(entrada);
@@ -77,6 +77,10 @@ public final class Json {
 	}
 
 	public static NumeroJson criarNumero(String numero) {
+		return new NumeroJson(numero);
+	}
+
+	public static NumeroJson criarNumero(BigDecimal numero) {
 		return new NumeroJson(numero);
 	}
 

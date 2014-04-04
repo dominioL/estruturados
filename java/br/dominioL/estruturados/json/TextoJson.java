@@ -16,4 +16,12 @@ public final class TextoJson extends ValorJson {
 	public String comoTextoJson() {
 		return String.format("\"%s\"", valor);
 	}
+
+	@Override
+	public Boolean igual(ValorJson outro) {
+		if (outro instanceof TextoJson) {
+			return valor.equals(((TextoJson) outro).valor);
+		}
+		return false;
+	}
 }

@@ -39,7 +39,15 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 	public abstract String comoTextoJson();
 
 	@Override
-	public final Boolean igual(ValorJson outro) {
-		return this == outro;
+	public boolean equals(Object outro) {
+		if (outro instanceof ValorJson) {
+			return igual((ValorJson) outro);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return comoTextoJson();
 	}
 }

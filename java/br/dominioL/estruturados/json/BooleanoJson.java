@@ -16,4 +16,12 @@ public final class BooleanoJson extends ValorJson {
 	public String comoTextoJson() {
 		return valor.toString();
 	}
+
+	@Override
+	public Boolean igual(ValorJson outro) {
+		if (outro instanceof BooleanoJson) {
+			return valor.equals(((BooleanoJson) outro).valor);
+		}
+		return false;
+	}
 }
