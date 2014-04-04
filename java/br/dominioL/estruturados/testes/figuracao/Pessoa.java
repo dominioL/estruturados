@@ -14,4 +14,3 @@ public final class Pessoa implements Igualavel<Pessoa> {
 		return nome.equals(outro.nome);
 	}
 }
-

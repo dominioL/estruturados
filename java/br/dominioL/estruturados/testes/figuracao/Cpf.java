@@ -20,4 +20,3 @@ public final class Cpf implements Igualavel<Cpf>, Codificavel {
 		return (cpf % 10);
 	}
 }
-
