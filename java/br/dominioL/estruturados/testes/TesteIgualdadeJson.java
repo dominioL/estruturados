@@ -9,7 +9,12 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.dominioL.estruturados.json.BooleanoJson;
 import br.dominioL.estruturados.json.Json;
+import br.dominioL.estruturados.json.ListaJson;
+import br.dominioL.estruturados.json.NumeroJson;
+import br.dominioL.estruturados.json.ObjetoJson;
+import br.dominioL.estruturados.json.TextoJson;
 import br.dominioL.estruturados.json.ValorJson;
 
 public class TesteIgualdadeJson {
@@ -19,6 +24,12 @@ public class TesteIgualdadeJson {
 	private ValorJson objetoComTextinhoLucasBooleanoFalsoNumeroZero;
 	private ValorJson objetoComTextoLucasBooleanoFalsoNumeroUm;
 	private ValorJson listaVazia;
+	private ValorJson outraListaVazia;
+	private ValorJson listaComUmElemento;
+	private ValorJson listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoVerdadeiro;
+	private ValorJson listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoFalso;
+	private ValorJson listaComTextoLucasENumeroUm;
+	private ValorJson listaComNumeroUmETextoLucas;
 	private ValorJson textoVazio;
 	private ValorJson outroTextoVazio;
 	private ValorJson textoLucas;
@@ -33,6 +44,9 @@ public class TesteIgualdadeJson {
 		objetoVazio = Json.criarObjeto();
 		outroObjetoVazio = Json.criarObjeto();
 		listaVazia = Json.criarLista();
+		outraListaVazia = Json.criarLista();
+		listaComUmElemento = Json.criarLista();
+		listaComUmElemento.comoLista().igual(Json.criarNumero(10));
 		textoVazio = Json.criarTexto("");
 		outroTextoVazio = Json.criarTexto("");
 		textoLucas = Json.criarTexto("Lucas");
@@ -41,6 +55,7 @@ public class TesteIgualdadeJson {
 		booleanoFalso = Json.criarBooleano(false);
 		booleanoVerdadeiro = Json.criarBooleano(true);
 		outroBooleanoVerdadeiro = Json.criarBooleano(true);
+
 		objetoComTextoLucasBooleanoFalsoNumeroZero = Json.criarObjeto();
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("texto", textoLucas);
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("booleano", booleanoFalso);
@@ -53,6 +68,34 @@ public class TesteIgualdadeJson {
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("texto", textoLucas);
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("booleano", booleanoFalso);
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("numero", numeroUm);
+
+		TextoJson textoLucas = Json.criarTexto("Lucas");
+		NumeroJson numeroUm = Json.criarNumero(1);
+		BooleanoJson booleanoFalso = Json.criarBooleano(false);
+		BooleanoJson booleanoVerdadeiro = Json.criarBooleano(true);
+		ObjetoJson objetoComNumeroUmEListaComBooleanoVerdadeiro = Json.criarObjeto();
+		ObjetoJson objetoComNumeroUmEListaComBooleanoFalso = Json.criarObjeto();
+		ListaJson listaComBooleanoVerdadeiro = Json.criarLista();
+		ListaJson listaComBooleanoFalso = Json.criarLista();
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoVerdadeiro = Json.criarLista();
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoFalso = Json.criarLista();
+		listaComBooleanoVerdadeiro.inserir(booleanoVerdadeiro);
+		listaComBooleanoFalso.inserir(booleanoFalso);
+		objetoComNumeroUmEListaComBooleanoVerdadeiro.inserir("numero", numeroUm);
+		objetoComNumeroUmEListaComBooleanoVerdadeiro.inserir("lista", listaComBooleanoVerdadeiro);
+		objetoComNumeroUmEListaComBooleanoFalso.inserir("numero", numeroUm);
+		objetoComNumeroUmEListaComBooleanoFalso.inserir("lista", listaComBooleanoFalso);
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoVerdadeiro.comoLista().inserir(textoLucas);
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoVerdadeiro.comoLista().inserir(objetoComNumeroUmEListaComBooleanoVerdadeiro);
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoFalso.comoLista().inserir(textoLucas);
+		listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoFalso.comoLista().inserir(objetoComNumeroUmEListaComBooleanoFalso);
+		
+		listaComTextoLucasENumeroUm = Json.criarLista();
+		listaComTextoLucasENumeroUm.comoLista().inserir(textoLucas);
+		listaComTextoLucasENumeroUm.comoLista().inserir(numeroUm);
+		listaComNumeroUmETextoLucas = Json.criarLista();
+		listaComNumeroUmETextoLucas.comoLista().inserir(numeroUm);
+		listaComNumeroUmETextoLucas.comoLista().inserir(textoLucas);
 	}
 
 	@Test
@@ -147,5 +190,38 @@ public class TesteIgualdadeJson {
 	public void comprarObjetosComIdentificadoresIguaisEValoresDiferentes() {
 		assertThat(objetoComTextoLucasBooleanoFalsoNumeroUm, is(not(sameInstance(objetoComTextoLucasBooleanoFalsoNumeroZero))));
 		assertThat(objetoComTextoLucasBooleanoFalsoNumeroUm, is(not(equalTo(objetoComTextoLucasBooleanoFalsoNumeroZero))));
+	}
+
+	@Test
+	public void compararListaVaziaComNulo() {
+		assertThat(listaVazia, is(not(equalTo(null))));
+	}
+
+	@Test
+	public void compararListaVaziaComListaVazia() {
+		assertThat(listaVazia, is(sameInstance(listaVazia)));
+		assertThat(listaVazia, is(equalTo(listaVazia)));
+		assertThat(listaVazia, is(not(sameInstance(outraListaVazia))));
+		assertThat(listaVazia, is(equalTo(outraListaVazia)));
+	}
+
+	@Test
+	public void compararListaVaziaComObjetoVazio() {
+		assertThat(listaVazia, is(not(equalTo(objetoVazio))));
+	}
+
+	@Test
+	public void comprarListaVaziaComListaComUmElemento() {
+		assertThat(listaVazia, is(equalTo(listaComUmElemento)));
+	}
+
+	@Test
+	public void compararListaComElementosDiferentes() {
+		assertThat(listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoVerdadeiro, is(not(equalTo(listaComTextoLucasEObjetoComNumeroUmEListaComBooleanoFalso))));
+	}
+
+	@Test
+	public void compararListaComElementosInvertidos() {
+		assertThat(listaComTextoLucasENumeroUm, is(not(equalTo(listaComNumeroUmETextoLucas))));
 	}
 }

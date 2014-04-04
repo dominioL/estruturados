@@ -79,6 +79,23 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 
 	@Override
 	public Boolean igual(ValorJson outro) {
+		if (outro instanceof ListaJson) {
+			Integer quatidade = fornecerQuantidade();
+			ListaJson outroListaJson = (ListaJson) outro;
+			if (quatidade.equals(outroListaJson.fornecerQuantidade())) {
+				Integer contador = 0;
+				while (contador < quatidade) {
+					ValorJson meuElemento = fornecer(contador);
+					ValorJson outroElemento = outroListaJson.fornecer(contador);
+					if (!meuElemento.equals(outroElemento)) {
+						return false;
+					}
+					contador++;
+				}
+				return true;
+			}
+			return false;
+		}
 		return false;
 	}
 }
