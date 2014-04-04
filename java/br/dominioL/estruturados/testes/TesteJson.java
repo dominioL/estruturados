@@ -94,46 +94,46 @@ public class TesteJson {
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void textoIncompletoLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"texto\": \"inicio}");
+		Json.criarObjeto("{\"texto\": \"inicio}");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void booleanoIncompletoLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"booleano\": fals}");
+		Json.criarObjeto("{\"booleano\": fals}");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void numeroComLetrasLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"numero\": 10A0}");
+		Json.criarObjeto("{\"numero\": 10A0}");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void vazioLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("");
+		Json.criarObjeto("");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void objetoComVazioLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"outro\":   }");
+		Json.criarObjeto("{\"outro\":   }");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void objetoNaoFechadoLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"outroObjeto\": {}");
+		Json.criarObjeto("{\"outroObjeto\": {}");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void listaNaoFechadaLancaExcecao() {
-		ListaJson json = Json.criarLista("[1, 2, 3");
+		Json.criarLista("[1, 2, 3");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void listaComSeparadorAMaisLancaExcecao() {
-		ListaJson json = Json.criarLista("[1, 2, 3, ]");
+		Json.criarLista("[1, 2, 3, ]");
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)
 	public void objetoSemSeparadorDeIdentificadorLancaExcecao() {
-		ObjetoJson json = Json.criarObjeto("{\"outroObjeto\" {}}");
+		Json.criarObjeto("{\"outroObjeto\" {}}");
 	}
 }

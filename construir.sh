@@ -2,78 +2,66 @@
 
 projeto=Estruturados
 pacoteDoProjeto=estruturados
+pacoteGeral=br.dominioL
 
-bibliotecas=bibliotecas
-binarios=binarios
+class=class
+jar=jar
+java=java
 construcao=construcao
-fontes=fontes
-recursos=recursos
-testes=testes
 
-bibliotecasJava=${bibliotecas}/jar
-binariosJava=${binarios}/class
-fontesJava=${fontes}/java
-testesJava=${testes}/java
-
-arquivosFontesJava=$(find ${fontesJava} -name *.java)
-arquivosTestesJava=$(find ${testesJava} -name *.java)
-classesTestesJava=$(echo ${arquivosTestesJava} | sed -e s:${testesJava}::g -e s:^/::g -e "s:\s/: :g" -e s:/:.:g -e s:[.]java::g -e s:[a-Z.]*figuracao[a-Z.]*::g)
+contrucaoCompilacao=${construcao}/compilacao.txt
+arquivosJava=$(find ${java} -name *.java)
+arquivosTestesJava=$(find ${java} -name *Teste*.java)
+classesTestesJava=$(echo ${arquivosTestesJava} | sed -e s:${java}/::g -e s:^/::g -e "s:\s/: :g" -e s:/:.:g -e s:\.java::g -e s:[a-Z.]*figuracao[a-Z.]*::g)
 
 limpar() {
-	echo ":limpar";
-	rm -rf ${binarios};
-	rm -rf ${construcao};
+	echo ":limpar"
+	rm -rf ${construcao}
 }
 
 criarEstrutura() {
-	echo ":criarEstrutura";
-	mkdir -p ${bibliotecasJava};
-	mkdir -p ${binariosJava};
-	mkdir -p ${construcao};
-	mkdir -p ${fontesJava};
-	mkdir -p ${testesJava};
+	echo ":criarEstrutura"
+	mkdir -p ${class}
+	mkdir -p ${jar}
+	mkdir -p ${java}
+	mkdir -p ${construcao}
 }
 
 adicionarBibliotecas() {
-	echo ":adicionarBibliotecas";
+	echo ":adicionarBibliotecas"
 }
 
 compilar() {
-	limpar;
-	criarEstrutura;
-	adicionarBibliotecas;
-	echo ":compilar";
-	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${fontesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosFontesJava} -Xlint -Xmaxwarns 10;
-	javac -classpath ${bibliotecasJava}/*:${binariosJava} -sourcepath ${testesJava} -d ${binariosJava} -Werror -deprecation -g ${arquivosTestesJava} -Xlint -Xmaxerrs 10;
+	limpar
+	criarEstrutura
+	adicionarBibliotecas
+	echo ":compilar"
+	touch ${contrucaoCompilacao}
+	javac -classpath ${jar}/*:${class} -sourcepath ${java} -d ${class} -Werror -deprecation -g ${arquivosJava} -Xlint -Xmaxerrs 10 -Xmaxwarns 10 &> ${contrucaoCompilacao}
+	less ${contrucaoCompilacao}
 }
 
 construir() {
-	compilar;
-	echo ":construir";
-	jar -cf ${construcao}/${pacoteDoProjeto}.jar -C ${binariosJava} .;
+	compilar
+	echo ":construir"
 }
 
 testar() {
-	construir;
-	echo ":testar";
-	java -classpath ${bibliotecasJava}/*:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
-}
-
-depurar() {
-	construir;
-	echo ":depurar";
-	jdb -classpath ${bibliotecasJava}/*:${binariosJava} org.junit.runner.JUnitCore ${classesTestesJava};
+	construir
+	echo ":testar"
+	java -classpath ${jar}/*:${class} org.junit.runner.JUnitCore ${classesTestesJava}
 }
 
 executar() {
-	construir;
-	echo ":executar";
+	construir
+	echo ":executar"
+	java -classpath ${jar}/*:${class} ${pacoteGeral}.${pacoteDoProjeto}.${projeto}
 }
 
 echo :${pacoteDoProjeto}
 if [ -n "$1" ]
 then
-	$1;
+	$1
 else
-	construir;
+	construir
 fi

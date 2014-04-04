@@ -1,4 +1,4 @@
-package br.dominioL.estruturados.arvore;
+package br.dominioL.estruturados.colecao.arvore;
 
 import br.dominioL.estruturados.colecao.ColecaoAbstrata;
 import br.dominioL.estruturados.colecao.arvore.Arvore;
