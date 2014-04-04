@@ -1,8 +1,9 @@
 package br.dominioL.estruturados.json;
 
 import br.dominioL.estruturados.elemento.Codificavel;
+import br.dominioL.estruturados.elemento.Igualavel;
 
-public final class IdentificadorJson implements Codificavel<IdentificadorJson> {
+public final class IdentificadorJson implements Igualavel<IdentificadorJson>, Codificavel {
 	private String identificador;
 
 	protected IdentificadorJson(String identificador) {

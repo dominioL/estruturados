@@ -16,7 +16,7 @@ import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 
-public class TestePilhaLista {
+public final class TestePilhaLista {
 	private Numero numeroUm = new Numero(1);
 	private Numero numeroDois = new Numero(2);
 	private Numero numeroTres = new Numero(3);

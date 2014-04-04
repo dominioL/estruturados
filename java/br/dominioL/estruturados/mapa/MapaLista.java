@@ -13,7 +13,7 @@ import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
-public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> implements Mapa<C, V> {
+public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V> {
 	private final static Integer TAMANHO_INICIAL = 10;
 	private final static Integer FATOR_DE_CARGA = 1;
 	private final static Integer FATOR_DE_CRESCIMENTO = 2;
@@ -25,7 +25,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		elementos = ListaPosicional.criar(TAMANHO_INICIAL);
 	}
 
-	public static <D extends Codificavel<D>, U extends Igualavel<U>> MapaLista<D, U> criar() {
+	public static <D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> MapaLista<D, U> criar() {
 		return new MapaLista<D, U>();
 	}
 
@@ -182,7 +182,7 @@ public final class MapaLista<C extends Codificavel<C>, V extends Igualavel<V>> i
 		}
 	}
 
-	private final class ParDeMapaLista<D extends Codificavel<D>, U extends Igualavel<U>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
+	private final class ParDeMapaLista<D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
 		private C chave;
 		private V valor;
 

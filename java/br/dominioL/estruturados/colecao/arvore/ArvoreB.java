@@ -1,11 +1,11 @@
 package br.dominioL.estruturados.colecao.arvore;
 
 import br.dominioL.estruturados.colecao.ColecaoAbstrata;
-import br.dominioL.estruturados.colecao.arvore.Arvore;
 import br.dominioL.estruturados.elemento.Comparavel;
+import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.iteracao.Iterador;
 
-public final class ArvoreB<E extends Comparavel<E>> extends ColecaoAbstrata<E> implements Arvore<E> {
+public final class ArvoreB<E extends Igualavel<E> & Comparavel<E>> extends ColecaoAbstrata<E> implements Arvore<E> {
 	private static final Integer ORDEM_PADRAO = 3;
 	private static final Integer ORDEM_MINIMA = 3;
 //	private Integer ordem;
@@ -16,11 +16,11 @@ public final class ArvoreB<E extends Comparavel<E>> extends ColecaoAbstrata<E> i
 		this.quantidadeDeElementos = 0;
 	}
 
-	public static <F extends Comparavel<F>> ArvoreB<F> criar() {
+	public static <F extends Igualavel<F> & Comparavel<F>> ArvoreB<F> criar() {
 		return new ArvoreB<F>(ORDEM_PADRAO);
 	}
 
-	public static <F extends Comparavel<F>> ArvoreB<F> criar(Integer ordem) {
+	public static <F extends Igualavel<F> & Comparavel<F>> ArvoreB<F> criar(Integer ordem) {
 		return new ArvoreB<F>((ordem >= ORDEM_MINIMA) ? ordem : ORDEM_PADRAO);
 	}
 

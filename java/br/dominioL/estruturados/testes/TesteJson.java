@@ -11,7 +11,7 @@ import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;
 import br.dominioL.estruturados.json.ObjetoJson;
 
-public class TesteJson {
+public final class TesteJson {
 	@Test
 	public void objetoVazio() {
 		ObjetoJson json = Json.criarObjeto("{}");

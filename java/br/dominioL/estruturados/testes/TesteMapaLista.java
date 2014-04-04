@@ -15,7 +15,7 @@ import br.dominioL.estruturados.mapa.MapaLista;
 import br.dominioL.estruturados.testes.figuracao.Cpf;
 import br.dominioL.estruturados.testes.figuracao.Pessoa;
 
-public class TesteMapaLista {
+public final class TesteMapaLista {
 	private Pessoa joao = new Pessoa("João");
 	private Pessoa jose = new Pessoa("José");
 	private Pessoa maria = new Pessoa("Maria");

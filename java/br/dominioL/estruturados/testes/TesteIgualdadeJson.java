@@ -17,7 +17,7 @@ import br.dominioL.estruturados.json.ObjetoJson;
 import br.dominioL.estruturados.json.TextoJson;
 import br.dominioL.estruturados.json.ValorJson;
 
-public class TesteIgualdadeJson {
+public final class TesteIgualdadeJson {
 	private ValorJson objetoVazio;
 	private ValorJson outroObjetoVazio;
 	private ValorJson objetoComTextoLucasBooleanoFalsoNumeroZero;
