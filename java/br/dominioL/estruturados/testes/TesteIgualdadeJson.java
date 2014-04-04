@@ -45,6 +45,10 @@ public class TesteIgualdadeJson {
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("texto", textoLucas);
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("booleano", booleanoFalso);
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("numero", numeroZero);
+		objetoComTextinhoLucasBooleanoFalsoNumeroZero = Json.criarObjeto();
+		objetoComTextinhoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("textinho", textoLucas);
+		objetoComTextinhoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("booleano", booleanoFalso);
+		objetoComTextinhoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("numero", numeroZero);
 		objetoComTextoLucasBooleanoFalsoNumeroUm = Json.criarObjeto();
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("texto", textoLucas);
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("booleano", booleanoFalso);
@@ -92,7 +96,7 @@ public class TesteIgualdadeJson {
 	}
 
 	@Test
-	public void comprarBooleanoVerdadeiroComEleMesmo() {
+	public void comprarBooleanoVerdadeiroComBooleanoVerdadeiro() {
 		assertThat(booleanoVerdadeiro, is(sameInstance(booleanoVerdadeiro)));
 		assertThat(booleanoVerdadeiro, is(equalTo(booleanoVerdadeiro)));
 		assertThat(booleanoVerdadeiro, is(not(sameInstance(outroBooleanoVerdadeiro))));
@@ -116,7 +120,7 @@ public class TesteIgualdadeJson {
 	}
 
 	@Test
-	public void compararObjetoVazioComEleMesmo() {
+	public void compararObjetoVazioComObjetoVazio() {
 		assertThat(objetoVazio, is(sameInstance(objetoVazio)));
 		assertThat(objetoVazio, is(equalTo(objetoVazio)));
 		assertThat(objetoVazio, is(not(sameInstance(outroObjetoVazio))));
@@ -129,7 +133,7 @@ public class TesteIgualdadeJson {
 	}
 
 	@Test
-	public void comprarObjetoVazioComOutroObjetoComValoresPrimitivos() {
+	public void comprarObjetoVazioComObjetoComTextoLucasBooleanoFalsoNumeroZero() {
 		assertThat(objetoVazio, is(not(equalTo(objetoComTextoLucasBooleanoFalsoNumeroZero))));
 	}
 
