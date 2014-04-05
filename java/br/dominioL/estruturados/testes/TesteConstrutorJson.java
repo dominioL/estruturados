@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.dominioL.estruturados.json.BooleanoJson;
+import br.dominioL.estruturados.json.ConstrutorJson;
 import br.dominioL.estruturados.json.IdentificadorJson;
 import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;

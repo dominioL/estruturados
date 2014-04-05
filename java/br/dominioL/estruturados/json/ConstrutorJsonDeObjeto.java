@@ -1,11 +1,6 @@
-package br.dominioL.estruturados.testes;
+package br.dominioL.estruturados.json;
 
 import java.math.BigDecimal;
-
-import br.dominioL.estruturados.json.IdentificadorJson;
-import br.dominioL.estruturados.json.Json;
-import br.dominioL.estruturados.json.ObjetoJson;
-import br.dominioL.estruturados.json.ValorJson;
 
 public final class ConstrutorJsonDeObjeto extends ConstrutorJson<ObjetoJson> {
 	private ObjetoJson objeto;

@@ -1,6 +1,5 @@
-package br.dominioL.estruturados.testes;
+package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.json.ValorJson;
 
 public abstract class ConstrutorJson<T extends ValorJson> {
 	public final static ConstrutorJsonDeObjeto deObjeto() {
