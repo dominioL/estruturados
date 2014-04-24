@@ -3,7 +3,7 @@
   associations="false" dependencies="false" nesting-relationships="false">  
   <interface id="1" language="java" name="br.dominioL.estruturados.colecao.Colecao" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/Colecao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="524" y="196"/>    
+    <position height="-1" width="-1" x="490" y="153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -12,7 +12,7 @@
   </interface>  
   <interface id="2" language="java" name="br.dominioL.estruturados.iteracao.Iteravel" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/iteracao/Iteravel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="619" y="50"/>    
+    <position height="-1" width="-1" x="227" y="7"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -21,7 +21,7 @@
   </interface>  
   <class id="3" language="java" name="br.dominioL.estruturados.json.ObjetoJson" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/json/ObjetoJson.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="709" y="196"/>    
+    <position height="-1" width="-1" x="116" y="153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="br.dominioL.estruturados.json.ListaJson" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/json/ListaJson.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="884" y="196"/>    
+    <position height="-1" width="-1" x="291" y="153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -39,7 +39,7 @@
   </class>  
   <interface id="5" language="java" name="br.dominioL.estruturados.mapa.Mapa" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/mapa/Mapa.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-47" y="196"/>    
+    <position height="-1" width="-1" x="-81" y="153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -48,7 +48,7 @@
   </interface>  
   <interface id="6" language="java" name="br.dominioL.estruturados.colecao.pilha.Pilha" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/pilha/Pilha.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="420" y="345"/>    
+    <position height="-1" width="-1" x="386" y="302"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -57,7 +57,7 @@
   </interface>  
   <interface id="7" language="java" name="br.dominioL.estruturados.colecao.fila.Fila" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/fila/Fila.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="820" y="345"/>    
+    <position height="-1" width="-1" x="786" y="302"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -66,7 +66,7 @@
   </interface>  
   <interface id="8" language="java" name="br.dominioL.estruturados.colecao.arvore.Arvore" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/arvore/Arvore.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="620" y="345"/>    
+    <position height="-1" width="-1" x="586" y="302"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -75,7 +75,7 @@
   </interface>  
   <interface id="9" language="java" name="br.dominioL.estruturados.colecao.lista.Lista" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/lista/Lista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="137" y="345"/>    
+    <position height="-1" width="-1" x="103" y="302"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -84,7 +84,7 @@
   </interface>  
   <class id="10" language="java" name="br.dominioL.estruturados.mapa.MapaLista" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/mapa/MapaLista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-47" y="345"/>    
+    <position height="-1" width="-1" x="-81" y="302"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -94,7 +94,7 @@
   <class id="11" language="java" name="br.dominioL.estruturados.colecao.pilha.PilhaLista" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/pilha/PilhaLista.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="420" y="496"/>    
+    <position height="-1" width="-1" x="386" y="453"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -104,7 +104,7 @@
   <class id="12" language="java" name="br.dominioL.estruturados.colecao.lista.ListaEncadeada" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/lista/ListaEncadeada.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="222" y="496"/>    
+    <position height="-1" width="-1" x="188" y="453"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -114,7 +114,7 @@
   <class id="13" language="java" name="br.dominioL.estruturados.colecao.lista.ListaPosicional" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/lista/ListaPosicional.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="30" y="496"/>    
+    <position height="-1" width="-1" x="-4" y="453"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -123,7 +123,7 @@
   </class>  
   <class id="14" language="java" name="br.dominioL.estruturados.colecao.fila.FilaLista" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/fila/FilaLista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="824" y="496"/>    
+    <position height="-1" width="-1" x="790" y="453"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -132,69 +132,69 @@
   </class>  
   <class id="15" language="java" name="br.dominioL.estruturados.colecao.arvore.ArvoreB" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/arvore/ArvoreB.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="620" y="496"/>    
+    <position height="-1" width="-1" x="586" y="453"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <generalization id="16">    
+  <realization id="16">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="18">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <realization id="17">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="18">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="19">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="8"/>    
+  <generalization id="19">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
   </generalization>  
   <realization id="21">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
   <realization id="22">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
   </realization>  
-  <realization id="23">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <realization id="24">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <generalization id="25">    
+  <realization id="25">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="26">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="29">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
-  <generalization id="26">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="27">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="28">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <realization id="29">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="false" package="false" protected="false" private="false" static="false"/>    
