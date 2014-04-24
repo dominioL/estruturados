@@ -16,7 +16,7 @@ public final class Cpf implements Igualavel<Cpf>, Codificavel {
 	};
 
 	@Override
-	public Integer fornecerCodigo() {
+	public Integer codificar() {
 		return (cpf % 10);
 	}
 }

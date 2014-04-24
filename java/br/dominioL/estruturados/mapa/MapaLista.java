@@ -114,7 +114,7 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	private ListaEncadeada<ParDeMapaLista<C, V>> obterGrupo(C chave) {
-		Integer posicaoDoGrupo = Math.abs(chave.fornecerCodigo() % elementos.fornecerTamanho());
+		Integer posicaoDoGrupo = Math.abs(chave.codificar() % elementos.fornecerTamanho());
 		ListaEncadeada<ParDeMapaLista<C, V>> grupo = elementos.fornecerDaPosicao(posicaoDoGrupo);
 		if (grupo == null) {
 			grupo = ListaEncadeada.criar();

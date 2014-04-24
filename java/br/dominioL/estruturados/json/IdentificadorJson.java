@@ -29,7 +29,7 @@ public final class IdentificadorJson implements Igualavel<IdentificadorJson>, Co
 	}
 
 	@Override
-	public Integer fornecerCodigo() {
+	public Integer codificar() {
 		return identificador.hashCode();
 	}
 
