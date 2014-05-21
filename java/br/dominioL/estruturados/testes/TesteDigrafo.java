@@ -108,9 +108,20 @@ public class TesteDigrafo {
 		assertTrue(aresta12Segunda.igual(digrafo.fornecerAresta(vertice1, vertice2)));
 	}
 
-	public void comUmaArestaComVerticeDeOutroGrafo() {}
+	@Test
+	public void contemVerticeComVerticeDeOutroGrafo() {
+		fail();
+	}
 
-	public void criarArestaComVerticesDeOrigemDeOutroGrafo() {}
+	public void comUmaArestaComVerticeDeOrigemDeOutroGrafo() {}
 
-	public void criarArestaComVerticesDeDestinoDeOutroGrafo() {}
+	public void comUmaArestaComVerticeDeDestinoDeOutroGrafo() {}
+	
+	public void contemArestaComVerticeDeOrigemDeOutroGrafo() {}
+	
+	public void contemArestaComVerticeDeDestinoDeOutroGrafo() {}
+
+	public void fornecerArestaComVerticeDeOrigemDeOutroGrafo() {}
+	
+	public void fornecerArestaComVerticeDeDestinoDeOutroGrafo() {}
 }

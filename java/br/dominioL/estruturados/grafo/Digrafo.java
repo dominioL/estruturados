@@ -44,7 +44,7 @@ public final class Digrafo<V, A> {
 		return aresta;
 	}
 
-	public boolean contemVertice(Vertice<V> vertice) {
+	public Boolean contemVertice(Vertice<V> vertice) {
 		return adjacencia.contem(vertice);
 	}
 
