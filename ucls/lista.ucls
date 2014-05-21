@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <interface id="1" language="java" name="br.dominioL.estruturados.colecao.lista.Lista" project="estruturados" 
-    file="/estruturados/java/br/dominioL/estruturados/colecao/lista/Lista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="15" y="103"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </interface>  
-  <interface id="2" language="java" name="br.dominioL.estruturados.colecao.Colecao" project="estruturados" 
+  <interface id="1" language="java" name="br.dominioL.estruturados.colecao.Colecao" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/Colecao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="15" y="12"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
@@ -19,7 +10,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="br.dominioL.estruturados.colecao.lista.ListaEncadeada" project="estruturados" 
+  <class id="2" language="java" name="br.dominioL.estruturados.colecao.lista.ListaEncadeada" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/lista/ListaEncadeada.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-85" y="194"/>    
@@ -29,7 +20,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="br.dominioL.estruturados.colecao.lista.ListaPosicional" project="estruturados" 
+  <class id="3" language="java" name="br.dominioL.estruturados.colecao.lista.ListaPosicional" project="estruturados" 
     file="/estruturados/java/br/dominioL/estruturados/colecao/lista/ListaPosicional.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="108" y="194"/>    
@@ -39,18 +30,6 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <realization id="5">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <generalization id="6">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <realization id="7">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="false" package="false" protected="false" private="false" static="true"/>    

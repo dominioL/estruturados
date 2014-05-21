@@ -43,7 +43,7 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 	}
 
 	public Integer fornecerQuantidade() {
-		return elementos.fornecerQuantidade();
+		return elementos.contarElementos();
 	}
 
 	@Override

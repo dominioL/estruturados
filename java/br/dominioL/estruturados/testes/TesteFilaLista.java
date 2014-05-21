@@ -29,7 +29,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
-		assertThat(fila.fornecerQuantidade(), is(2));
+		assertThat(fila.contarElementos(), is(2));
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroDois);
 		fila.enfileirar(numeroUm);
 		assertSame(fila.fornecerDoFim(), numeroUm);
-		assertThat(fila.fornecerQuantidade(), is(3));
+		assertThat(fila.contarElementos(), is(3));
 	}
 
 	@Test(expected = ExcecaoDeElementoNulo.class)
@@ -54,7 +54,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.desenfileirar(), numeroUm);
-		assertThat(fila.fornecerQuantidade(), is(1));
+		assertThat(fila.contarElementos(), is(1));
 	}
 
 	@Test(expected = ExcecaoDeEstruturaVazia.class)
@@ -69,7 +69,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoInicio(), numeroUm);
-		assertThat(fila.fornecerQuantidade(), is(2));
+		assertThat(fila.contarElementos(), is(2));
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
-		assertThat(fila.fornecerQuantidade(), is(2));
+		assertThat(fila.contarElementos(), is(2));
 	}
 
 	@Test(expected = ExcecaoDeEstruturaVazia.class)
@@ -170,7 +170,7 @@ public final class TesteFilaLista {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
 		assertTrue(colecao.contem(numeroUm));
-		assertThat(colecao.fornecerQuantidade(), is(1));
+		assertThat(colecao.contarElementos(), is(1));
 	}
 
 	@Test
@@ -180,7 +180,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroUm);
 		assertTrue(colecao.contem(numeroUm));
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 	}
 
 	@Test(expected = ExcecaoDeElementoNulo.class)
@@ -195,7 +195,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		assertTrue(colecao.remover(numeroUm));
-		assertThat(colecao.fornecerQuantidade(), is(1));
+		assertThat(colecao.contarElementos(), is(1));
 	}
 
 	@Test
@@ -205,7 +205,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroUm);
 		assertTrue(colecao.remover(numeroUm));
-		assertThat(colecao.fornecerQuantidade(), is(2));
+		assertThat(colecao.contarElementos(), is(2));
 	}
 
 	@Test
@@ -214,7 +214,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		assertFalse(colecao.remover(numeroTres));
-		assertThat(colecao.fornecerQuantidade(), is(2));
+		assertThat(colecao.contarElementos(), is(2));
 	}
 
 	@Test
@@ -223,7 +223,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		assertFalse(colecao.remover(numeroNulo));
-		assertThat(colecao.fornecerQuantidade(), is(2));
+		assertThat(colecao.contarElementos(), is(2));
 	}
 
 	@Test
@@ -285,7 +285,7 @@ public final class TesteFilaLista {
 		assertSame(numeroTres, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
 		assertFalse(iterador.possuiProximo());
-		assertThat(colecao.fornecerQuantidade(), is(4));
+		assertThat(colecao.contarElementos(), is(4));
 	}
 
 	@Test
@@ -305,7 +305,7 @@ public final class TesteFilaLista {
 		iterador.iterarProximo();
 		assertSame(numeroQuatro, iterador.remover());
 		assertFalse(iterador.possuiProximo());
-		assertThat(colecao.fornecerQuantidade(), is(0));
+		assertThat(colecao.contarElementos(), is(0));
 	}
 
 	@Test
@@ -318,7 +318,7 @@ public final class TesteFilaLista {
 		Iterador<Numero> iterador = colecao.fornecerIterador();
 		iterador.iterarProximo();
 		assertSame(numeroUm, iterador.remover());
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 		assertSame(numeroDois, colecao.fornecerDoInicio());
 	}
 
@@ -333,7 +333,7 @@ public final class TesteFilaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(numeroDois, iterador.remover());
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 		assertSame(numeroUm, colecao.fornecerDoInicio());
 		assertSame(numeroQuatro, colecao.fornecerDoFim());
 	}
@@ -351,7 +351,7 @@ public final class TesteFilaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(numeroQuatro, iterador.remover());
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 		assertSame(numeroTres, colecao.fornecerDoFim());
 	}
 
@@ -391,7 +391,7 @@ public final class TesteFilaLista {
 		iterador = colecao.fornecerIterador();
 		assertSame(numeroTres, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
-		assertThat(colecao.fornecerQuantidade(), is(2));
+		assertThat(colecao.contarElementos(), is(2));
 	}
 
 	@Test
@@ -410,7 +410,7 @@ public final class TesteFilaLista {
 		assertSame(numeroQuatro, iterador.iterarProximo());
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroTres, iterador.iterarProximo());
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 	}
 
 	@Test
@@ -429,7 +429,7 @@ public final class TesteFilaLista {
 		assertSame(numeroUm, iterador.iterarProximo());
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
-		assertThat(colecao.fornecerQuantidade(), is(3));
+		assertThat(colecao.contarElementos(), is(3));
 	}
 
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)

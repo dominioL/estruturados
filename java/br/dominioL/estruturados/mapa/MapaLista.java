@@ -13,12 +13,14 @@ import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
-public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V> {
+public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V>,
+		Igualavel<MapaLista<C, V>>, Codificavel {
 	private final static Integer TAMANHO_INICIAL = 10;
 	private final static Integer FATOR_DE_CARGA = 1;
 	private final static Integer FATOR_DE_CRESCIMENTO = 2;
 	private Integer quantidadeDeElementos;
 	private ListaPosicional<ListaEncadeada<ParDeMapaLista<C, V>>> elementos;
+	private V valorNulo;
 
 	private MapaLista() {
 		quantidadeDeElementos = 0;
@@ -30,7 +32,7 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	@Override
-	public Integer fornecerQuantidade() {
+	public Integer contarElementos() {
 		return quantidadeDeElementos;
 	}
 
@@ -83,7 +85,12 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		if (elemento != null) {
 			return elemento.valor;
 		}
-		return null;
+		return valorNulo;
+	}
+
+	@Override
+	public void fixarValorNulo(V valor) {
+		this.valorNulo = valor;
 	}
 
 	@Override
@@ -136,6 +143,20 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		}
 	}
 
+	@Override
+	public Boolean igual(MapaLista<C, V> outro) {
+		return (this == outro);
+	}
+
+	@Override
+	public Integer codificar() {
+		Integer primo = 31;
+		Integer codigo = 1;
+		codigo = primo * codigo + ((elementos == null) ? 0 : elementos.codificar());
+		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
+		return codigo;
+	}
+
 	private final class IteradorDeMapaLista extends IteradorAbstrato<Par<C, V>> implements Iterador<Par<C, V>> {
 		private Iterador<ListaEncadeada<ParDeMapaLista<C, V>>> iteradorDosGrupos;
 		private Iterador<ParDeMapaLista<C, V>> iteradorDoGrupo;
@@ -182,7 +203,8 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		}
 	}
 
-	private final class ParDeMapaLista<D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
+	private final class ParDeMapaLista<D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> implements Par<C, V>,
+			Igualavel<ParDeMapaLista<C, V>> {
 		private C chave;
 		private V valor;
 

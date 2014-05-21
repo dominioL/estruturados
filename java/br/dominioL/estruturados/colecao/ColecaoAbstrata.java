@@ -1,4 +1,4 @@
- package br.dominioL.estruturados.colecao;
+package br.dominioL.estruturados.colecao;
 
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
@@ -7,13 +7,13 @@ import br.dominioL.estruturados.iteracao.Iteravel;
 import br.dominioL.estruturados.iteracao.IteravelAbstrato;
 
 public abstract class ColecaoAbstrata<E extends Igualavel<E>> extends IteravelAbstrato<E> implements Colecao<E> {
-	protected ColecaoAbstrata() {
-		
-	}
+	protected E valorNulo;
+
+	protected ColecaoAbstrata() {}
 
 	@Override
 	public final Boolean vazio() {
-		return (fornecerQuantidade() == 0);
+		return (contarElementos() == 0);
 	}
 
 	@Override

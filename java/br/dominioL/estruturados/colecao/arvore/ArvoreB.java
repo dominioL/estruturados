@@ -30,7 +30,7 @@ public final class ArvoreB<E extends Comparavel<E>> extends ColecaoAbstrata<E> i
 	}
 
 	@Override
-	public Integer fornecerQuantidade() {
+	public Integer contarElementos() {
 		return quantidadeDeElementos;
 	}
 

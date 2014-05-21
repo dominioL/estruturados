@@ -98,7 +98,7 @@ public final class ObjetoJson extends ValorJson implements Iteravel<Par<Identifi
 	}
 
 	public Integer fornecerQuantidade() {
-		return elementos.fornecerQuantidade();
+		return elementos.contarElementos();
 	}
 
 	@Override

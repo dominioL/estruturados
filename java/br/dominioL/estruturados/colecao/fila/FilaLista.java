@@ -53,8 +53,8 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	}
 
 	@Override
-	public Integer fornecerQuantidade() {
-		return elementos.fornecerQuantidade();
+	public Integer contarElementos() {
+		return elementos.contarElementos();
 	}
 
 	@Override

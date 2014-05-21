@@ -5,7 +5,7 @@ import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
 public interface Mapa<C extends Igualavel<C> & Codificavel, V extends Igualavel<V>> extends Iteravel<Par<C, V>> {
-	public Integer fornecerQuantidade();
+	public Integer contarElementos();
 
 	public Boolean vazio();
 
@@ -18,4 +18,6 @@ public interface Mapa<C extends Igualavel<C> & Codificavel, V extends Igualavel<
 	public void inserir(Iteravel<Par<C, V>> elementos);
 
 	public V fornecer(C chave);
+	
+	public void fixarValorNulo(V valor);
 }

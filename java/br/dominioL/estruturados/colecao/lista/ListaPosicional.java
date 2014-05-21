@@ -1,5 +1,8 @@
 package br.dominioL.estruturados.colecao.lista;
 
+import java.util.Arrays;
+
+import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoDeIndiceForaDosLimites;
 import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
@@ -7,7 +10,8 @@ import br.dominioL.estruturados.excecoes.ExcecaoDeTamanhoInvalido;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>, Igualavel<ListaPosicional<E>> {
+public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>,
+		Igualavel<ListaPosicional<E>>, Codificavel {
 	private static final Integer TAMANHO_PADRAO = 10;
 	private static final Integer FATOR_DE_CRESCIMENTO = 2;
 	private Object[] elementos;
@@ -57,8 +61,12 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return elementos.length;
 	}
 
+	public void fixarValorNulo(E elemento) {
+		valorNulo = elemento;
+	}
+
 	@Override
-	public Integer fornecerQuantidade() {
+	public Integer contarElementos() {
 		return quantidadeDeElementos;
 	}
 
@@ -92,6 +100,15 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return (this == outro);
 	}
 
+	@Override
+	public Integer codificar() {
+		Integer primo = 31;
+		Integer codigo = 1;
+		codigo = primo * codigo + Arrays.hashCode(elementos);
+		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
+		return codigo;
+	}
+
 	private void crescerSeNecessario() {
 		if (quantidadeDeElementos == elementos.length) {
 			Object[] novoElementos = new Object[elementos.length * FATOR_DE_CRESCIMENTO];
@@ -111,7 +128,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 
 	@SuppressWarnings("unchecked")
 	private E castrar(Object elemento) {
-		return (E) elemento;
+		return (elemento == null) ? valorNulo : (E) elemento;
 	}
 
 	private final class IteradorDeListaPosicionnal extends IteradorAbstrato<E> implements Iterador<E> {

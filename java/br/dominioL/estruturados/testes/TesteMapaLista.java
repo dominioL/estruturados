@@ -1,12 +1,5 @@
 package br.dominioL.estruturados.testes;
 
-import static org.hamcrest.core.Is.is;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
-
 import org.junit.Test;
 
 import br.dominioL.estruturados.excecoes.ExcecaoDeChaveNula;
@@ -14,6 +7,9 @@ import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
 import br.dominioL.estruturados.mapa.MapaLista;
 import br.dominioL.estruturados.testes.figuracao.Cpf;
 import br.dominioL.estruturados.testes.figuracao.Pessoa;
+import static org.hamcrest.core.Is.*;
+
+import static org.junit.Assert.*;
 
 public final class TesteMapaLista {
 	private Pessoa joao = new Pessoa("João");
@@ -28,7 +24,7 @@ public final class TesteMapaLista {
 	@Test
 	public void quantidadeDeElementosInicialEZero() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
-		assertThat(mapa.fornecerQuantidade(), is(0));
+		assertThat(mapa.contarElementos(), is(0));
 	}
 
 	@Test
@@ -41,7 +37,7 @@ public final class TesteMapaLista {
 	public void inserirAumentaAQuantidadeDeElementos() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
-		assertThat(mapa.fornecerQuantidade(), is(1));
+		assertThat(mapa.contarElementos(), is(1));
 		assertFalse(mapa.vazio());
 	}
 
@@ -67,7 +63,7 @@ public final class TesteMapaLista {
 	public void fonrecerElementoNaoInseridoRetornaNull() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		assertSame(mapa.fornecer(cpfDoJoao), null);
-		assertThat(mapa.fornecerQuantidade(), is(0));
+		assertThat(mapa.contarElementos(), is(0));
 	}
 
 	@Test
@@ -75,7 +71,7 @@ public final class TesteMapaLista {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
 		assertSame(mapa.fornecer(cpfDoJoao), joao);
-		assertThat(mapa.fornecerQuantidade(), is(1));
+		assertThat(mapa.contarElementos(), is(1));
 	}
 
 	@Test
@@ -84,7 +80,7 @@ public final class TesteMapaLista {
 		mapa.inserir(cpfDoJoao, joao);
 		mapa.inserir(cpfDoJoao, jose);
 		assertSame(mapa.fornecer(cpfDoJoao), jose);
-		assertThat(mapa.fornecerQuantidade(), is(1));
+		assertThat(mapa.contarElementos(), is(1));
 	}
 
 	@Test
@@ -94,7 +90,7 @@ public final class TesteMapaLista {
 		mapa.inserir(cpfDoJose, jose);
 		assertSame(mapa.fornecer(cpfDoJoao), joao);
 		assertSame(mapa.fornecer(cpfDoJose), jose);
-		assertThat(mapa.fornecerQuantidade(), is(2));
+		assertThat(mapa.contarElementos(), is(2));
 	}
 
 	@Test(expected = ExcecaoDeChaveNula.class)
@@ -109,7 +105,7 @@ public final class TesteMapaLista {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
 		assertFalse(mapa.remover(cpfDaMaria));
-		assertThat(mapa.fornecerQuantidade(), is(1));
+		assertThat(mapa.contarElementos(), is(1));
 	}
 
 	@Test
@@ -118,7 +114,7 @@ public final class TesteMapaLista {
 		mapa.inserir(cpfDoJoao, joao);
 		mapa.inserir(cpfDaMaria, maria);
 		assertTrue(mapa.remover(cpfDaMaria));
-		assertThat(mapa.fornecerQuantidade(), is(1));
+		assertThat(mapa.contarElementos(), is(1));
 	}
 
 	@Test(expected = ExcecaoDeChaveNula.class)
@@ -139,5 +135,14 @@ public final class TesteMapaLista {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
 		assertTrue(mapa.contem(cpfDoJoao));
+	}
+
+	@Test
+	public void fixarValorNulo() {
+		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
+		assertNull(mapa.fornecer(cpfDoJoao));
+		mapa.fixarValorNulo(jose);
+		assertNotNull(mapa.fornecer(cpfDoJoao));
+		assertTrue(jose.igual(mapa.fornecer(cpfDoJoao)));
 	}
 }

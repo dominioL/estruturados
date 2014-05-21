@@ -44,7 +44,7 @@ public final class Json {
 		json();
 		consumirEspacos();
 		encontrarSimbolo(FIM_DE_ENTRADA);
-		if (valoresAbertos.fornecerQuantidade() != 1) {
+		if (valoresAbertos.contarElementos() != 1) {
 			throw new ExcecaoJsonDeAnalise();
 		}
 		return valoresAbertos.desempilhar();

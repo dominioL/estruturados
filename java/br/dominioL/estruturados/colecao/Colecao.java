@@ -4,7 +4,7 @@ import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
 public interface Colecao<E extends Igualavel<E>> extends Iteravel<E> {
-	public Integer fornecerQuantidade();
+	public Integer contarElementos();
 
 	public Boolean vazio();
 
