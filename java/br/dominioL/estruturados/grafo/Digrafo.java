@@ -3,6 +3,7 @@ package br.dominioL.estruturados.grafo;
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
 import br.dominioL.estruturados.mapa.Mapa;
 import br.dominioL.estruturados.mapa.MapaLista;
+import br.dominioL.estruturados.mapa.Par;
 
 public final class Digrafo<V, A> {
 	private Integer numeroDeArestas;
@@ -34,33 +35,68 @@ public final class Digrafo<V, A> {
 		return vertice;
 	}
 
-	public Aresta<A> criarAresta(Vertice<V> verticeDeOrigem, Vertice<V> verticeDeDestino, A descritor) {
+	public Aresta<A> criarAresta(Vertice<V> origem, Vertice<V> destino, A descritor) {
+		veriticarSeVerticesPertencemAoGrafo(origem);
+		veriticarSeVerticesPertencemAoGrafo(destino);
 		Aresta<A> aresta = Aresta.unidirecional(descritor);
-		MapaLista<Vertice<V>, Aresta<A>> sucessores = adjacencia.fornecer(verticeDeOrigem);
-		if (!sucessores.contem(verticeDeDestino)) {
+		MapaLista<Vertice<V>, Aresta<A>> sucessores = adjacencia.fornecer(origem);
+		if (!sucessores.contem(destino)) {
 			numeroDeArestas++;
 		}
-		sucessores.inserir(verticeDeDestino, aresta);
+		sucessores.inserir(destino, aresta);
 		return aresta;
+	}
+
+	public void removerVertice(Vertice<V> vertice) {
+		veriticarSeVerticesPertencemAoGrafo(vertice);
+		adjacencia.remover(vertice);
+		for (Par<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> par : adjacencia) {
+			par.fornecerValor().remover(vertice);
+		}
+	}
+
+	public void removerAresta(Vertice<V> origem, Vertice<V> destino) {
+		veriticarSeVerticesPertencemAoGrafo(origem);
+		veriticarSeVerticesPertencemAoGrafo(destino);
+		Boolean removido = adjacencia.fornecer(origem).remover(destino);
+		if (removido ) {
+			numeroDeArestas--;
+		}
 	}
 
 	public Boolean contemVertice(Vertice<V> vertice) {
 		return adjacencia.contem(vertice);
 	}
 
-	public Boolean contemAresta(Vertice<V> verticeDeOrigem, Vertice<V> verticeDeDestino) {
-		return (fornecerAresta(verticeDeOrigem, verticeDeDestino) != null);
+	public Boolean contemAresta(Vertice<V> origem, Vertice<V> destino) {
+		return adjacencia.fornecer(origem).contem(destino);
 	}
 
 	public Aresta<A> fornecerAresta(Vertice<V> origem, Vertice<V> destino) {
+		veriticarSeVerticesPertencemAoGrafo(origem);
+		veriticarSeVerticesPertencemAoGrafo(destino);
 		return adjacencia.fornecer(origem).fornecer(destino);
 	}
 
 	public ListaEncadeada<Vertice<V>> sucessores(Vertice<V> origem) {
-		return null;
+		veriticarSeVerticesPertencemAoGrafo(origem);
+		return adjacencia.fornecer(origem).chaves();
 	}
 
 	public ListaEncadeada<Vertice<V>> antecessores(Vertice<V> destino) {
-		return null;
+		veriticarSeVerticesPertencemAoGrafo(destino);
+		ListaEncadeada<Vertice<V>> antecessores = ListaEncadeada.criar();
+		for (Par<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> par : adjacencia) {
+			if (par.fornecerValor().contem(destino)) {
+				antecessores.inserirNoFim(par.fornecerChave());
+			}
+		}
+		return antecessores;
+	}
+
+	private void veriticarSeVerticesPertencemAoGrafo(Vertice<V> vertice) {
+		if (!contemVertice(vertice)) {
+			throw new ExcecaoVerticeNaoPertencenteAoGrafo();
+		}
 	}
 }

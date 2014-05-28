@@ -7,7 +7,7 @@ public final class Vertice<T> extends ComponenteDeGrafo<T> implements Igualavel<
 		super(descritor);
 	}
 
-	public static <T> Vertice<T> criar(T descritor) {
+	static <T> Vertice<T> criar(T descritor) {
 		return new Vertice<T>(descritor);
 	}
 

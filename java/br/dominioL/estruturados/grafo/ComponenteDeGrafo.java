@@ -2,13 +2,13 @@ package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 
-public abstract class ComponenteDeGrafo<T> implements Codificavel {
+abstract class ComponenteDeGrafo<T> implements Codificavel {
 	private T descritor;
 	private Peso peso;
 	private Cor cor;
 	private Boolean marcacao;
 
-	protected ComponenteDeGrafo(T descritor) {
+	ComponenteDeGrafo(T descritor) {
 		this.descritor = descritor;
 		peso = Peso.zero();
 		cor = Cor.TRANSPARENTE;

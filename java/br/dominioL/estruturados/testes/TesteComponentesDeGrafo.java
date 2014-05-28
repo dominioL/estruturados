@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import br.dominioL.estruturados.grafo.Aresta;
 import br.dominioL.estruturados.grafo.Cor;
+import br.dominioL.estruturados.grafo.Digrafo;
 import br.dominioL.estruturados.grafo.Peso;
 import br.dominioL.estruturados.grafo.Vertice;
 import br.dominioL.estruturados.grafo.utilidades.Descritor;
@@ -13,14 +14,16 @@ import static org.hamcrest.Matchers.*;
 
 import static org.junit.Assert.*;
 
-public class TesteComponentesDeGrafo {
+public final class TesteComponentesDeGrafo {
 	private Descritor a;
 	private Descritor a1;
 	private Descritor a2;
 	private Descritor b;
+	private Digrafo<Descritor, Descritor> grafo;
 
 	@Before
 	public void iniciar() {
+		grafo = Digrafo.criar();
 		a = new Descritor("a");
 		a1 = new Descritor("a");
 		a2 = new Descritor("a");
@@ -46,44 +49,44 @@ public class TesteComponentesDeGrafo {
 
 	@Test
 	public void verticeIGualAEleMesmo() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		assertTrue(vertice.igual(vertice));
 	}
 
 	@Test
 	public void verticesDiferentesComDescritoresDiferentes() {
-		Vertice<Descritor> verticeA = Vertice.criar(a);
-		Vertice<Descritor> verticeB = Vertice.criar(b);
+		Vertice<Descritor> verticeA = grafo.criarVertice(a);
+		Vertice<Descritor> verticeB = grafo.criarVertice(a);
 		assertFalse(verticeA.igual(verticeB));
 		assertFalse(verticeB.igual(verticeA));
 	}
 
 	@Test
 	public void verticesDiferentesComDescritoresIguais() {
-		Vertice<Descritor> verticeA = Vertice.criar(a);
-		Vertice<Descritor> verticeB = Vertice.criar(a);
+		Vertice<Descritor> verticeA = grafo.criarVertice(a);
+		Vertice<Descritor> verticeB = grafo.criarVertice(a);
 		assertFalse(verticeA.igual(verticeB));
 		assertFalse(verticeB.igual(verticeA));
 	}
 
 	@Test
 	public void arestaIgualAElaMesma() {
-		Aresta<Descritor> aresta = Aresta.unidirecional(a);
+		Aresta<Descritor> aresta = grafo.criarAresta(grafo.criarVertice(a), grafo.criarVertice(b), a1);
 		assertTrue(aresta.igual(aresta));
 	}
 
 	@Test
 	public void arestasDiferentesComDescritoresDiferentes() {
-		Aresta<Descritor> arestaA = Aresta.unidirecional(a);
-		Aresta<Descritor> arestaB = Aresta.unidirecional(b);
+		Aresta<Descritor> arestaA = grafo.criarAresta(grafo.criarVertice(a), grafo.criarVertice(b), a1);
+		Aresta<Descritor> arestaB = grafo.criarAresta(grafo.criarVertice(a), grafo.criarVertice(b), a2);
 		assertFalse(arestaA.igual(arestaB));
 		assertFalse(arestaB.igual(arestaA));
 	}
 
 	@Test
 	public void arestasDiferentesComDescritoresIguais() {
-		Aresta<Descritor> arestaA = Aresta.unidirecional(a);
-		Aresta<Descritor> arestaB = Aresta.unidirecional(a);
+		Aresta<Descritor> arestaA = grafo.criarAresta(grafo.criarVertice(a), grafo.criarVertice(b), a1);
+		Aresta<Descritor> arestaB = grafo.criarAresta(grafo.criarVertice(a), grafo.criarVertice(b), a1);
 		assertFalse(arestaA.igual(arestaB));
 		assertFalse(arestaB.igual(arestaA));
 	}
@@ -106,13 +109,13 @@ public class TesteComponentesDeGrafo {
 
 	@Test
 	public void componenteComCorPadrao() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		assertTrue(vertice.coloridoCom(Cor.TRANSPARENTE));
 	}
 
 	@Test
 	public void colorirComponente() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		vertice.colorir(Cor.BRANCO);
 		assertTrue(vertice.coloridoCom(Cor.BRANCO));
 		vertice.colorir(Cor.PRETO);
@@ -121,21 +124,21 @@ public class TesteComponentesDeGrafo {
 
 	@Test
 	public void componenteNaoVisitado() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		assertFalse(vertice.marcado());
 	}
 
 	@Test
 	public void visitarComponente() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		vertice.marcar();
 		assertTrue(vertice.marcado());
 	}
 
 	@Test
 	public void componenteComPesoPadrao() {
-		Vertice<Descritor> verticeA = Vertice.criar(a);
-		Vertice<Descritor> verticeB = Vertice.criar(b);
+		Vertice<Descritor> verticeA = grafo.criarVertice(a);
+		Vertice<Descritor> verticeB = grafo.criarVertice(b);
 		verticeB.fixarPeso(Peso.zero());
 		assertTrue(verticeA.mesmoPesoQue(verticeB));
 		assertTrue(verticeB.mesmoPesoQue(verticeA));
@@ -147,8 +150,8 @@ public class TesteComponentesDeGrafo {
 
 	@Test
 	public void componenteComPesoDiferenteDoPadrao() {
-		Vertice<Descritor> verticeA = Vertice.criar(a);
-		Vertice<Descritor> verticeB = Vertice.criar(b);
+		Vertice<Descritor> verticeA = grafo.criarVertice(a);
+		Vertice<Descritor> verticeB = grafo.criarVertice(b);
 		verticeB.fixarPeso(Peso.um());
 		assertFalse(verticeA.mesmoPesoQue(verticeB));
 		assertFalse(verticeB.mesmoPesoQue(verticeA));
@@ -160,7 +163,7 @@ public class TesteComponentesDeGrafo {
 
 	@Test
 	public void descritor() {
-		Vertice<Descritor> vertice = Vertice.criar(a);
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
 		assertTrue(vertice.fornecerDescritor().igual(a));
 	}
 

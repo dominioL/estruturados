@@ -7,7 +7,7 @@ public final class Aresta<T> extends ComponenteDeGrafo<T> implements Igualavel<A
 		super(descritor);
 	}
 
-	public static <U> Aresta<U> unidirecional(U descritor) {
+	static <U> Aresta<U> unidirecional(U descritor) {
 		return new Aresta<U>(descritor);
 	}
 
