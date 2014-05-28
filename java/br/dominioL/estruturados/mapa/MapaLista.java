@@ -94,6 +94,24 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	@Override
+	public ListaEncadeada<C> chaves() {
+		ListaEncadeada<C> chaves = ListaEncadeada.criar();
+		for (Par<C, V> par : this) {
+			chaves.inserirNoInicio(par.fornecerChave());
+		}
+		return chaves;
+	}
+
+	@Override
+	public ListaEncadeada<V> valores() {
+		ListaEncadeada<V> valores = ListaEncadeada.criar();
+		for (Par<C, V> par : this) {
+			valores.inserirNoInicio(par.fornecerValor());
+		}
+		return valores;
+	}
+
+	@Override
 	public Iterador<Par<C, V>> fornecerIterador() {
 		return new IteradorDeMapaLista();
 	}

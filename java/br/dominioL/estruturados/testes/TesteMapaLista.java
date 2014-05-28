@@ -1,5 +1,14 @@
 package br.dominioL.estruturados.testes;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import br.dominioL.estruturados.excecoes.ExcecaoDeChaveNula;
@@ -7,19 +16,30 @@ import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
 import br.dominioL.estruturados.mapa.MapaLista;
 import br.dominioL.estruturados.testes.figuracao.Cpf;
 import br.dominioL.estruturados.testes.figuracao.Pessoa;
-import static org.hamcrest.core.Is.*;
-
-import static org.junit.Assert.*;
 
 public final class TesteMapaLista {
-	private Pessoa joao = new Pessoa("João");
-	private Pessoa jose = new Pessoa("José");
-	private Pessoa maria = new Pessoa("Maria");
-	private Pessoa pessoaNula = null;
-	private Cpf cpfDoJoao = new Cpf(1);
-	private Cpf cpfDoJose = new Cpf(11);
-	private Cpf cpfDaMaria = new Cpf(5);
-	private Cpf cpfNulo = null;
+	private Pessoa joao;
+	private Pessoa jose;
+	private Pessoa maria;
+	private Pessoa pessoaNula;
+	private Cpf cpfDoJoao;
+	private Cpf cpfDoJose;
+	private Cpf cpfDaMaria;
+	private Cpf cpfNulo;
+	private MapaLista<Cpf, Pessoa> mapa;
+
+	@Before
+	public void inciar() {
+		mapa = MapaLista.criar();
+		joao = new Pessoa("João");
+		jose = new Pessoa("José");
+		maria = new Pessoa("Maria");
+		pessoaNula = null;
+		cpfDoJoao = new Cpf(1);
+		cpfDoJose = new Cpf(11);
+		cpfDaMaria = new Cpf(5);
+		cpfNulo = null;
+	}
 
 	@Test
 	public void quantidadeDeElementosInicialEZero() {
@@ -139,10 +159,80 @@ public final class TesteMapaLista {
 
 	@Test
 	public void fixarValorNulo() {
-		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		assertNull(mapa.fornecer(cpfDoJoao));
 		mapa.fixarValorNulo(jose);
 		assertNotNull(mapa.fornecer(cpfDoJoao));
 		assertTrue(jose.igual(mapa.fornecer(cpfDoJoao)));
+	}
+
+	@Test
+	public void fornecerChavesDeMapaVazio() {
+		assertThat(mapa.chaves().contarElementos(), is(equalTo(0)));
+	}
+
+	@Test
+	public void fornecerChavesDeMapaComUmElemento() {
+		mapa.inserir(cpfDaMaria, maria);
+		assertThat(mapa.chaves().contarElementos(), is(equalTo(1)));
+		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()));
+	}
+
+	@Test
+	public void fornecerChavesDeMapaComUmElementoSobrescrito() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.inserir(cpfDaMaria, joao);
+		assertThat(mapa.chaves().contarElementos(), is(equalTo(1)));
+		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()));
+	}
+
+	@Test
+	public void fornecerChavesDeMapaComUmElementoRemovido() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.remover(cpfDaMaria);
+		assertThat(mapa.chaves().contarElementos(), is(equalTo(0)));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaVazio() {
+		assertThat(mapa.valores().contarElementos(), is(equalTo(0)));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaComUmElemento() {
+		mapa.inserir(cpfDaMaria, maria);
+		assertThat(mapa.valores().contarElementos(), is(equalTo(1)));
+		assertTrue(maria.igual(mapa.valores().fornecerDoInicio()));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaComUmElementoSobrescrito() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.inserir(cpfDaMaria, joao);
+		assertThat(mapa.valores().contarElementos(), is(equalTo(1)));
+		assertTrue(joao.igual(mapa.valores().fornecerDoInicio()));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaComUmElementoRemovido() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.remover(cpfDaMaria);
+		assertThat(mapa.valores().contarElementos(), is(equalTo(0)));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaComUmElementoEmDuasChaves() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.inserir(cpfDoJoao, maria);
+		assertThat(mapa.valores().contarElementos(), is(equalTo(2)));
+		assertTrue(mapa.valores().contem(maria));
+	}
+
+	@Test
+	public void fornecerValoresDeMapaComDoisElementos() {
+		mapa.inserir(cpfDaMaria, maria);
+		mapa.inserir(cpfDoJoao, joao);
+		assertThat(mapa.valores().contarElementos(), is(equalTo(2)));
+		assertTrue(mapa.valores().contem(joao));
+		assertTrue(mapa.valores().contem(maria));
 	}
 }
