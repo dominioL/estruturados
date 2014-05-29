@@ -50,10 +50,7 @@ public final class Digrafo<V, A> {
 		Aresta<A> aresta = Aresta.criar(descritor);
 		MapaLista<Vertice<V>, Aresta<A>> sucessoresDaOrigem = sucessores.fornecer(origem);
 		MapaLista<Vertice<V>, Aresta<A>> antecessoresDoDestino = antecessores.fornecer(destino);
-		Boolean contemNosSucessores = sucessoresDaOrigem.contem(destino);
-		Boolean contemNosAntecessores = antecessoresDoDestino.contem(origem);
-		assert (contemNosSucessores == contemNosAntecessores);
-		if (!contemNosSucessores && !contemNosAntecessores) {
+		if (!sucessoresDaOrigem.contem(destino)) {
 			numeroDeArestas++;
 		}
 		sucessoresDaOrigem.inserir(destino, aresta);
@@ -79,26 +76,18 @@ public final class Digrafo<V, A> {
 	public void removerAresta(Vertice<V> origem, Vertice<V> destino) {
 		veriticarSeVerticesPertencemAoGrafo(origem);
 		veriticarSeVerticesPertencemAoGrafo(destino);
-		Boolean removidoDosSucessores = sucessores.fornecer(origem).remover(destino);
-		Boolean removidoDosAntecessores = antecessores.fornecer(destino).remover(origem);
-		assert (removidoDosSucessores == removidoDosAntecessores);
-		if (removidoDosSucessores && removidoDosAntecessores) {
+		if (sucessores.fornecer(origem).remover(destino)) {
+			antecessores.fornecer(destino).remover(origem);
 			numeroDeArestas--;
 		}
 	}
 
 	public Boolean contemVertice(Vertice<V> vertice) {
-		Boolean contemNosSucessores = sucessores.contem(vertice);
-		Boolean contemNosAntecessores = antecessores.contem(vertice);
-		assert (contemNosSucessores == contemNosAntecessores);
-		return (contemNosSucessores && contemNosAntecessores);
+		return sucessores.contem(vertice);
 	}
 
 	public Boolean contemAresta(Vertice<V> origem, Vertice<V> destino) {
-		Boolean contemNosSucessores = sucessores.fornecer(origem).contem(destino);
-		Boolean contemNosAntecessores = antecessores.fornecer(destino).contem(origem);
-		assert (contemNosSucessores == contemNosAntecessores);
-		return (contemNosSucessores && contemNosAntecessores);
+		return sucessores.fornecer(origem).contem(destino);
 	}
 
 	public Aresta<A> fornecerAresta(Vertice<V> origem, Vertice<V> destino) {
