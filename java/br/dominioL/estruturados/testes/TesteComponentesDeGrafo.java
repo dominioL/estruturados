@@ -28,6 +28,7 @@ public final class TesteComponentesDeGrafo {
 		a1 = new Descritor("a");
 		a2 = new Descritor("a");
 		b = new Descritor("b");
+		Descritor.reiniciarContagem();
 	}
 
 	@Test

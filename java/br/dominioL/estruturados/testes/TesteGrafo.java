@@ -1,27 +1,28 @@
 package br.dominioL.estruturados.testes;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import br.dominioL.estruturados.grafo.Aresta;
-import br.dominioL.estruturados.grafo.Digrafo;
+import br.dominioL.estruturados.grafo.Grafo;
 import br.dominioL.estruturados.grafo.Vertice;
 import br.dominioL.estruturados.grafo.excecoes.ExcecaoVerticeNaoPertencenteAoGrafo;
 import br.dominioL.estruturados.grafo.utilidades.Descritor;
 
-public final class TesteDigrafo {
-	private Digrafo<Descritor, Descritor> grafo;
-	private Digrafo<Descritor, Descritor> outroGrafo;
+public final class TesteGrafo {
+	private Grafo<Descritor, Descritor> grafo;
+	private Grafo<Descritor, Descritor> outroGrafo;
 	private Descritor descritorDeVertice;
 	private Descritor descritorDeAresta;
 
 	@Before
 	public void iniciar() {
-		grafo = Digrafo.criar();
-		outroGrafo = Digrafo.criar();
+		grafo = Grafo.criar();
+		outroGrafo = Grafo.criar();
 		descritorDeVertice = Descritor.deVertice();
 		descritorDeAresta = Descritor.deAresta();
 	}
@@ -65,9 +66,10 @@ public final class TesteDigrafo {
 		Vertice<Descritor> vertice2 = grafo.criarVertice(Descritor.deVertice());
 		Aresta<Descritor> aresta = grafo.criarAresta(vertice1, vertice2, Descritor.deAresta());
 		assertThat(grafo.contarArestas(), is(equalTo(1)));
-		assertFalse(grafo.contemAresta(vertice2, vertice1));
 		assertTrue(grafo.contemAresta(vertice1, vertice2));
+		assertTrue(grafo.contemAresta(vertice2, vertice1));
 		assertTrue(aresta.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertTrue(aresta.igual(grafo.fornecerAresta(vertice2, vertice1)));
 	}
 
 	@Test
@@ -76,13 +78,13 @@ public final class TesteDigrafo {
 		Vertice<Descritor> vertice2 = grafo.criarVertice(Descritor.deVertice());
 		Aresta<Descritor> aresta12 = grafo.criarAresta(vertice1, vertice2, Descritor.deAresta());
 		Aresta<Descritor> aresta21 = grafo.criarAresta(vertice2, vertice1, Descritor.deAresta());
-		assertThat(grafo.contarArestas(), is(equalTo(2)));
+		assertThat(grafo.contarArestas(), is(equalTo(1)));
 		assertTrue(grafo.contemAresta(vertice1, vertice2));
 		assertTrue(grafo.contemAresta(vertice2, vertice1));
-		assertTrue(aresta12.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertFalse(aresta12.igual(grafo.fornecerAresta(vertice1, vertice2)));
 		assertFalse(aresta12.igual(grafo.fornecerAresta(vertice2, vertice1)));
 		assertTrue(aresta21.igual(grafo.fornecerAresta(vertice2, vertice1)));
-		assertFalse(aresta21.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertTrue(aresta21.igual(grafo.fornecerAresta(vertice1, vertice2)));
 	}
 
 	@Test
@@ -93,9 +95,11 @@ public final class TesteDigrafo {
 		Aresta<Descritor> aresta12b = grafo.criarAresta(vertice1, vertice2, Descritor.deAresta());
 		assertThat(grafo.contarArestas(), is(equalTo(1)));
 		assertTrue(grafo.contemAresta(vertice1, vertice2));
-		assertFalse(grafo.contemAresta(vertice2, vertice1));
+		assertTrue(grafo.contemAresta(vertice2, vertice1));
 		assertFalse(aresta12a.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertFalse(aresta12a.igual(grafo.fornecerAresta(vertice2, vertice1)));
 		assertTrue(aresta12b.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertTrue(aresta12b.igual(grafo.fornecerAresta(vertice2, vertice1)));
 	}
 
 	@Test
@@ -106,13 +110,15 @@ public final class TesteDigrafo {
 		Aresta<Descritor> aresta12Segunda = grafo.criarAresta(vertice1, vertice2, descritorDeAresta);
 		assertThat(grafo.contarArestas(), is(equalTo(1)));
 		assertTrue(grafo.contemAresta(vertice1, vertice2));
-		assertFalse(grafo.contemAresta(vertice2, vertice1));
+		assertTrue(grafo.contemAresta(vertice2, vertice1));
 		assertFalse(aresta12Primeira.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertFalse(aresta12Primeira.igual(grafo.fornecerAresta(vertice2, vertice1)));
 		assertTrue(aresta12Segunda.igual(grafo.fornecerAresta(vertice1, vertice2)));
+		assertTrue(aresta12Segunda.igual(grafo.fornecerAresta(vertice2, vertice1)));
 	}
 
 	@Test
-	public void comArestasReflexiva() {
+	public void comArestaReflexiva() {
 		Vertice<Descritor> vertice = grafo.criarVertice(Descritor.deVertice());
 		Aresta<Descritor> aresta = grafo.criarAresta(vertice, vertice, descritorDeAresta);
 		assertThat(grafo.contarArestas(), is(equalTo(1)));
@@ -201,27 +207,29 @@ public final class TesteDigrafo {
 	}
 
 	@Test
-	public void sucessoresDoVerticeSemArestasDeSaida() {
+	public void adjacentesDoVerticeSemArestas() {
 		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
-		assertThat(grafo.sucessores(vertice).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(vertice).contarElementos(), is(equalTo(0)));
 	}
 
 	@Test
-	public void sucessoresDoVerticeComArestaDeSaidaReflexiva() {
+	public void adjacentesDoVerticeComArestaReflexiva() {
 		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
 		grafo.criarAresta(vertice, vertice, descritorDeVertice);
-		assertThat(grafo.sucessores(vertice).contarElementos(), is(equalTo(1)));
-		assertTrue(vertice.igual(grafo.sucessores(vertice).fornecerDoInicio()));
+		assertThat(grafo.adjacentes(vertice).contarElementos(), is(equalTo(1)));
+		assertTrue(vertice.igual(grafo.adjacentes(vertice).fornecerDoInicio()));
 	}
 
 	@Test
-	public void sucessoresDoVerticeComArestaDeSaida() {
+	public void adjacentesDoVerticeComArestaParaOutroVertice() {
 		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
 		grafo.criarAresta(origem, destino, descritorDeVertice);
-		assertThat(grafo.sucessores(origem).contarElementos(), is(equalTo(1)));
-		assertThat(grafo.sucessores(destino).contarElementos(), is(equalTo(0)));
-		assertTrue(destino.igual(grafo.sucessores(origem).fornecerDoInicio()));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(1)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(1)));
+		assertTrue(origem.igual(grafo.adjacentes(destino).fornecerDoInicio()));
+		;
+		assertTrue(destino.igual(grafo.adjacentes(origem).fornecerDoInicio()));
 	}
 
 	@Test
@@ -230,70 +238,25 @@ public final class TesteDigrafo {
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
 		grafo.criarAresta(origem, destino, descritorDeVertice);
 		grafo.criarAresta(origem, origem, descritorDeVertice);
-		assertThat(grafo.sucessores(origem).contarElementos(), is(equalTo(2)));
-		assertThat(grafo.sucessores(destino).contarElementos(), is(equalTo(0)));
-		assertTrue(grafo.sucessores(origem).contem(origem));
-		assertTrue(grafo.sucessores(origem).contem(destino));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(2)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(1)));
+		assertTrue(grafo.adjacentes(origem).contem(origem));
+		assertTrue(grafo.adjacentes(origem).contem(destino));
+		assertTrue(grafo.adjacentes(destino).contem(origem));
+		assertFalse(grafo.adjacentes(destino).contem(destino));
 	}
 
 	@Test(expected = ExcecaoVerticeNaoPertencenteAoGrafo.class)
-	public void sucessoresDeVerticeDeOutroGrafo() {
+	public void adjacentesDeVerticeDeOutroGrafo() {
 		Vertice<Descritor> verticeDeOutroGrafo = outroGrafo.criarVertice(descritorDeVertice);
-		grafo.sucessores(verticeDeOutroGrafo);
+		grafo.adjacentes(verticeDeOutroGrafo);
 	}
 
 	@Test(expected = ExcecaoVerticeNaoPertencenteAoGrafo.class)
-	public void sucessoresDeVerticeRemovido() {
+	public void adjacentesDeVerticeRemovido() {
 		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
 		grafo.removerVertice(vertice);
-		grafo.sucessores(vertice);
-	}
-
-	@Test
-	public void antecessoresDeVerticeSemArestasDeEntrada() {
-		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
-		assertThat(grafo.antecessores(vertice).contarElementos(), is(equalTo(0)));
-	}
-
-	@Test
-	public void antecessoresComArestaDeEntradaReflexiva() {
-		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
-		grafo.criarAresta(vertice, vertice, descritorDeAresta);
-		assertThat(grafo.antecessores(vertice).contarElementos(), is(equalTo(1)));
-		assertTrue(vertice.igual(grafo.antecessores(vertice).fornecerDoInicio()));
-	}
-
-	@Test
-	public void antecessoresComArestaDeEntrada() {
-		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
-		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
-		grafo.criarAresta(origem, destino, descritorDeAresta);
-		assertThat(grafo.antecessores(destino).contarElementos(), is(equalTo(1)));
-		assertTrue(origem.igual(grafo.antecessores(destino).fornecerDoInicio()));
-	}
-
-	@Test
-	public void antecessoresComArestasDeEntradaDeDoisVertices() {
-		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
-		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
-		grafo.criarAresta(origem, destino, descritorDeAresta);
-		grafo.criarAresta(destino, destino, descritorDeAresta);
-		assertThat(grafo.antecessores(destino).contarElementos(), is(equalTo(2)));
-		assertTrue(grafo.antecessores(destino).contem(origem));
-		assertTrue(grafo.antecessores(destino).contem(destino));
-	}
-
-	@Test(expected = ExcecaoVerticeNaoPertencenteAoGrafo.class)
-	public void antecessoresDeVerticeDeOutroGrafo() {
-		Vertice<Descritor> verticeDeOutroGrafo = outroGrafo.criarVertice(descritorDeVertice);
-		grafo.antecessores(verticeDeOutroGrafo);
-	}
-
-	@Test(expected = ExcecaoVerticeNaoPertencenteAoGrafo.class)
-	public void antecessoresDeVerticeRemovido() {
-		Vertice<Descritor> vertice = grafo.criarVertice(descritorDeVertice);
-		grafo.removerVertice(vertice);
-		grafo.antecessores(vertice);
+		grafo.adjacentes(vertice);
 	}
 
 	@Test
@@ -315,30 +278,67 @@ public final class TesteDigrafo {
 	}
 
 	@Test
-	public void removerVerticeComArestaDeSaidaParaDoisVertices() {
+	public void removerVerticeComArestaParaDoisVertices() {
 		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
 		grafo.criarAresta(origem, destino, descritorDeAresta);
 		grafo.criarAresta(origem, origem, descritorDeAresta);
 		grafo.removerVertice(origem);
 		assertFalse(grafo.contemVertice(origem));
+		assertTrue(grafo.contemVertice(destino));
 		assertThat(grafo.contarVertices(), is(equalTo(1)));
 		assertThat(grafo.contarArestas(), is(equalTo(0)));
-		assertThat(grafo.sucessores(destino).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(destino).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(0)));
+		assertFalse(grafo.adjacentes(destino).contem(origem));
+		assertFalse(grafo.adjacentes(destino).contem(destino));
 	}
 
 	@Test
-	public void removerVerticeComArestaDeEntradaDeDoisVertices() {
+	public void removerVerticeComArestaParaDoisVerticesMantendoUmaAresta() {
+		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
+		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
+		grafo.criarAresta(origem, destino, descritorDeAresta);
+		grafo.criarAresta(origem, origem, descritorDeAresta);
+		grafo.removerVertice(destino);
+		assertTrue(grafo.contemVertice(origem));
+		assertFalse(grafo.contemVertice(destino));
+		assertThat(grafo.contarVertices(), is(equalTo(1)));
+		assertThat(grafo.contarArestas(), is(equalTo(1)));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(1)));
+		assertTrue(grafo.adjacentes(origem).contem(origem));
+		assertFalse(grafo.adjacentes(origem).contem(destino));
+	}
+
+	@Test
+	public void removerVerticeComArestaDeDoisVertices() {
 		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
 		grafo.criarAresta(origem, destino, descritorDeAresta);
 		grafo.criarAresta(destino, destino, descritorDeAresta);
 		grafo.removerVertice(destino);
 		assertFalse(grafo.contemVertice(destino));
+		assertTrue(grafo.contemVertice(origem));
 		assertThat(grafo.contarVertices(), is(equalTo(1)));
-		assertThat(grafo.sucessores(origem).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(origem).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.contarArestas(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(0)));
+		assertFalse(grafo.adjacentes(origem).contem(origem));
+		assertFalse(grafo.adjacentes(origem).contem(destino));
+	}
+
+	@Test
+	public void removerVerticeComArestaDeDoisVerticesMantendoUmaAresta() {
+		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
+		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
+		grafo.criarAresta(origem, destino, descritorDeAresta);
+		grafo.criarAresta(destino, destino, descritorDeAresta);
+		grafo.removerVertice(origem);
+		assertTrue(grafo.contemVertice(destino));
+		assertFalse(grafo.contemVertice(origem));
+		assertThat(grafo.contarVertices(), is(equalTo(1)));
+		assertThat(grafo.contarArestas(), is(equalTo(1)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(1)));
+		assertFalse(grafo.adjacentes(destino).contem(origem));
+		assertTrue(grafo.adjacentes(destino).contem(destino));
 	}
 
 	@Test
@@ -370,10 +370,8 @@ public final class TesteDigrafo {
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
 		grafo.removerAresta(origem, destino);
 		assertThat(grafo.contarArestas(), is(equalTo(0)));
-		assertThat(grafo.sucessores(origem).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(origem).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.sucessores(destino).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(destino).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(0)));
 		assertFalse(grafo.contemAresta(origem, destino));
 		assertFalse(grafo.contemAresta(destino, origem));
 		assertNull(grafo.fornecerAresta(origem, destino));
@@ -386,8 +384,7 @@ public final class TesteDigrafo {
 		grafo.criarAresta(vertice, vertice, descritorDeAresta);
 		grafo.removerAresta(vertice, vertice);
 		assertThat(grafo.contarArestas(), is(equalTo(0)));
-		assertThat(grafo.sucessores(vertice).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(vertice).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(vertice).contarElementos(), is(equalTo(0)));
 		assertFalse(grafo.contemAresta(vertice, vertice));
 		assertNull(grafo.fornecerAresta(vertice, vertice));
 	}
@@ -396,17 +393,15 @@ public final class TesteDigrafo {
 	public void removerArestaEntreDoisVertices() {
 		Vertice<Descritor> origem = grafo.criarVertice(descritorDeVertice);
 		Vertice<Descritor> destino = grafo.criarVertice(descritorDeVertice);
-		Aresta<Descritor> aresta = grafo.criarAresta(origem, destino, descritorDeAresta);
+		grafo.criarAresta(origem, destino, descritorDeAresta);
 		grafo.criarAresta(destino, origem, descritorDeAresta);
 		grafo.removerAresta(destino, origem);
-		assertThat(grafo.contarArestas(), is(equalTo(1)));
-		assertThat(grafo.sucessores(origem).contarElementos(), is(equalTo(1)));
-		assertThat(grafo.antecessores(origem).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.sucessores(destino).contarElementos(), is(equalTo(0)));
-		assertThat(grafo.antecessores(destino).contarElementos(), is(equalTo(1)));
-		assertTrue(grafo.contemAresta(origem, destino));
+		assertThat(grafo.contarArestas(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(origem).contarElementos(), is(equalTo(0)));
+		assertThat(grafo.adjacentes(destino).contarElementos(), is(equalTo(0)));
+		assertFalse(grafo.contemAresta(origem, destino));
 		assertFalse(grafo.contemAresta(destino, origem));
-		assertTrue(aresta.igual(grafo.fornecerAresta(origem, destino)));
+		assertNull(grafo.fornecerAresta(origem, destino));
 		assertNull(grafo.fornecerAresta(destino, origem));
 	}
 

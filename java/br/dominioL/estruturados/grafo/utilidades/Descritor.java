@@ -27,6 +27,11 @@ public class Descritor implements Igualavel<Descritor>, Codificavel {
 	public String fornecerTexto() {
 		return descritor;
 	}
+	
+	public static void reiniciarContagem() {
+		VERTICES = 1;
+		ARESTAS = 1;
+	}
 
 	@Override
 	public Boolean igual(Descritor outro) {
