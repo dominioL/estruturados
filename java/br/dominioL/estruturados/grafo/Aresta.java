@@ -2,12 +2,12 @@ package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Igualavel;
 
-public final class Aresta<T> extends ComponenteDeGrafo<T> implements Igualavel<Aresta<T>> {
+public final class Aresta<T> extends Componente<T> implements Igualavel<Aresta<T>> {
 	private Aresta(T descritor) {
 		super(descritor);
 	}
 
-	static <U> Aresta<U> unidirecional(U descritor) {
+	static <U> Aresta<U> criar(U descritor) {
 		return new Aresta<U>(descritor);
 	}
 

@@ -2,13 +2,13 @@ package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 
-abstract class ComponenteDeGrafo<T> implements Codificavel {
+abstract class Componente<T> implements Codificavel {
 	private T descritor;
 	private Peso peso;
 	private Cor cor;
 	private Boolean marcacao;
 
-	ComponenteDeGrafo(T descritor) {
+	Componente(T descritor) {
 		this.descritor = descritor;
 		peso = Peso.zero();
 		cor = Cor.TRANSPARENTE;
@@ -40,15 +40,15 @@ abstract class ComponenteDeGrafo<T> implements Codificavel {
 		this.peso = peso;
 	}
 
-	public final Boolean mesmoPesoQue(ComponenteDeGrafo<T> componente) {
+	public final Boolean mesmoPesoQue(Componente<T> componente) {
 		return peso.igual(componente.peso);
 	}
 
-	public final Boolean maisPesadoQue(ComponenteDeGrafo<T> componente) {
+	public final Boolean maisPesadoQue(Componente<T> componente) {
 		return peso.maiorQue(componente.peso);
 	}
 
-	public final Boolean menosPesadoQue(ComponenteDeGrafo<T> componente) {
+	public final Boolean menosPesadoQue(Componente<T> componente) {
 		return peso.menorQue(componente.peso);
 	}
 

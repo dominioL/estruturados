@@ -2,7 +2,7 @@ package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Igualavel;
 
-public final class Vertice<T> extends ComponenteDeGrafo<T> implements Igualavel<Vertice<T>> {
+public final class Vertice<T> extends Componente<T> implements Igualavel<Vertice<T>> {
 	private Vertice(T descritor) {
 		super(descritor);
 	}

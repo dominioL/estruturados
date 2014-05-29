@@ -5,7 +5,7 @@ import br.dominioL.estruturados.elemento.Igualavel;
 public enum Cor implements Igualavel<Cor> {
 	TRANSPARENTE,
 	BRANCO,
-	CINZE,
+	CINZA,
 	PRETO,
 	AZUL,
 	ROXO,
