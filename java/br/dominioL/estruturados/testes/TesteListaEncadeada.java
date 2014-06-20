@@ -342,11 +342,12 @@ public final class TesteListaEncadeada {
 		lista.inserirNoInicio(primeiroNumero);
 		lista.inserirNoFim(segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == primeiroNumero) {
-				iterador.substituir(terceiroNumero);
-			}
-		}
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
+		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero));
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero));
+		assertFalse(iterador.possuiProximo());
 		assertSame(lista.fornecerDoInicio(), terceiroNumero);
 	}
 
@@ -356,11 +357,12 @@ public final class TesteListaEncadeada {
 		lista.inserirNoInicio(primeiroNumero);
 		lista.inserirNoFim(segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == segundoNumero) {
-				iterador.substituir(terceiroNumero);
-			}
-		}
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero));
+		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero));
+		assertFalse(iterador.possuiProximo());
 		assertSame(lista.fornecerDoFim(), terceiroNumero);
 	}
 

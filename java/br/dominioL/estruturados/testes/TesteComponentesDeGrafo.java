@@ -137,6 +137,15 @@ public final class TesteComponentesDeGrafo {
 	}
 
 	@Test
+	public void visitarComponenteEDesmarcar() {
+		Vertice<Descritor> vertice = grafo.criarVertice(a);
+		vertice.marcar();
+		assertTrue(vertice.marcado());
+		vertice.desmarcar();
+		assertFalse(vertice.marcado());
+	}
+
+	@Test
 	public void componenteComPesoPadrao() {
 		Vertice<Descritor> verticeA = grafo.criarVertice(a);
 		Vertice<Descritor> verticeB = grafo.criarVertice(b);

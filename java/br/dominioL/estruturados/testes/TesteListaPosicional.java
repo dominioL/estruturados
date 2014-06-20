@@ -10,7 +10,6 @@ import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsNull.*;
-
 import static org.junit.Assert.*;
 
 public final class TesteListaPosicional {
@@ -217,9 +216,9 @@ public final class TesteListaPosicional {
 		lista.inserirNaPosicao(2, terceiroNumero);
 		lista.removerDaPosicao(1);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			assertThat(iterador.iterarProximo(), notNullValue());
-		}
+		assertThat(iterador.iterarProximo(), notNullValue());
+		assertThat(iterador.iterarProximo(), notNullValue());
+		assertFalse(iterador.possuiProximo());
 	}
 
 	@Test
@@ -335,12 +334,12 @@ public final class TesteListaPosicional {
 		lista.inserirNaPosicao(0, primeiroNumero);
 		lista.inserirNaPosicao(1, segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == primeiroNumero) {
-				iterador.substituir(terceiroNumero);
-			}
-		}
-		assertSame(lista.fornecerDaPosicao(0), terceiroNumero);
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
+		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero));
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero));
+		assertFalse(iterador.possuiProximo());
 	}
 
 	@Test
@@ -349,11 +348,12 @@ public final class TesteListaPosicional {
 		lista.inserirNaPosicao(0, primeiroNumero);
 		lista.inserirNaPosicao(1, segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == segundoNumero) {
-				iterador.substituir(terceiroNumero);
-			}
-		}
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
+		assertTrue(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero));
+		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero));
+		assertFalse(iterador.possuiProximo());
 		assertSame(lista.fornecerDaPosicao(1), terceiroNumero);
 	}
 

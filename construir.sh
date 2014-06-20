@@ -4,26 +4,31 @@ projeto=Estruturados
 pacoteDoProjeto=estruturados
 pacoteGeral=br.dominioL
 
-class=class
-cobertura=cobertura
 jar=jar
 java=java
 construcao=construcao
 
+class=${construcao}/class
+coberturaClasses=${construcao}/coberturaClasses
+coberturaRelatorio=${construcao}/coberturaRelatorio
+ser=${construcao}/ser
+
 limpar() {
 	echo ":limpar"
 	rm -rf ${construcao}
-	rm -rf ${class}
-	rm -rf ${cobertura}
 }
 
 criarEstrutura() {
 	echo ":criarEstrutura"
-	mkdir -p ${class}
 	mkdir -p ${cobertura}
 	mkdir -p ${jar}
 	mkdir -p ${java}
 	mkdir -p ${construcao}
+
+	mkdir -p ${class}
+	mkdir -p ${coberturaClasses}
+	mkdir -p ${coberturaRelatorio}
+	mkdir -p ${ser}
 }
 
 adicionarBibliotecas() {
@@ -56,16 +61,31 @@ testar() {
 analisar() {
 	compilar
 	echo ":analisar"
-	# java \
-	# 	-classpath ${jar}/cobertura.jar:${jar}/asm.jar:${jar}/asmAnalysis.jar:${jar}/asmUtil.jar:${jar}/asmTree.jar:${jar}/asmCommons.jar:${jar}/log4j.jar:${jar}/oro.jar \
-	# 	net.sourceforge.cobertura.instrument.Main \
-	# 	--datafile ${construcao}/cobertura.ser \
-	# 	--destination ${cobertura} \
-	# 	classes ${class}
-	# java \
-	# 	-classpath 
-	# 	-classpath ${jar}/cobertura.jar:${jar}/asm.jar:${jar}/asmAnalysis.jar:${jar}/asmUtil.jar:${jar}/asmTree.jar:${jar}/asmCommons.jar:${jar}/log4j.jar:${jar}/oro.jar \
-	# 	net.sourceforge.cobertura.reporting.Main
+	arquivosTestesJava=$(find ${java} -name *Teste*.java)
+	classesTestesJava=$(echo ${arquivosTestesJava} | sed -e s:${java}/::g -e s:^/::g -e "s:\s/: :g" -e s:/:.:g -e s:\.java::g -e s:[a-Z.]*figuracao[a-Z.]*::g)
+	cp -R ${class}/* ${coberturaClasses}
+
+	java \
+		-classpath ${jar}/cobertura.jar:${jar}/asm.jar:${jar}/asmAnalysis.jar:${jar}/asmUtil.jar:${jar}/asmTree.jar:${jar}/asmCommons.jar:${jar}/log4j.jar:${jar}/oro.jar \
+		net.sourceforge.cobertura.instrument.Main \
+		--datafile ${ser}/cobertura.ser \
+		--destination ${coberturaClasses} \
+		classes ${class}
+
+	cd ${ser}
+	java \
+		-classpath ../../${coberturaClasses}:../../${jar}/hamcrest.jar:../../${jar}/jUnit.jar:../../${jar}/cobertura.jar:../../${jar}/asm.jar:../../${jar}/asmAnalysis.jar:../../${jar}/asmUtil.jar:../../${jar}/asmTree.jar:../../${jar}/asmCommons.jar:../../${jar}/log4j.jar:../../${jar}/oro.jar \
+		org.junit.runner.JUnitCore ${classesTestesJava}
+	cd ..
+	cd ..
+
+	java \
+		-classpath ${jar}/cobertura.jar:${jar}/asm.jar:${jar}/asmAnalysis.jar:${jar}/asmUtil.jar:${jar}/asmTree.jar:${jar}/asmCommons.jar:${jar}/log4j.jar:${jar}/oro.jar \
+		net.sourceforge.cobertura.reporting.Main \
+		--datafile ${ser}/cobertura.ser \
+		--destination ${coberturaRelatorio} \
+		--source ${java} \
+		--format html
 }
 
 executar() {

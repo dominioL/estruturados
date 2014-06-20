@@ -314,11 +314,10 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroDois);
 		pilha.empilhar(numeroUm);
 		Iterador<Numero> iterador = pilha.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == numeroUm) {
-				iterador.substituir(numeroTres);
-			}
-		}
+		assertTrue(iterador.iterarProximo().igual(numeroUm));
+		assertTrue(iterador.substituir(numeroTres).igual(numeroUm));
+		assertTrue(iterador.iterarProximo().igual(numeroDois));
+		assertFalse(iterador.possuiProximo());
 		assertSame(pilha.fornecerDoTopo(), numeroTres);
 	}
 
@@ -328,12 +327,11 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		pilha.empilhar(numeroDois);
 		Iterador<Numero> iterador = pilha.fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo() == numeroDois) {
-				iterador.substituir(numeroTres);
-			}
-		}
-		assertSame(pilha.fornecerDoTopo(), numeroTres);
+		assertTrue(iterador.iterarProximo().igual(numeroDois));
+		assertTrue(iterador.iterarProximo().igual(numeroUm));
+		assertTrue(iterador.substituir(numeroTres).igual(numeroUm));
+		assertFalse(iterador.possuiProximo());
+		assertSame(pilha.fornecerDoTopo(), numeroDois);
 	}
 
 	@Test(expected = ExcecaoDeIteracaoInvalida.class)
