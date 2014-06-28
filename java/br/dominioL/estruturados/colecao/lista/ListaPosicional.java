@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIndiceForaDosLimites;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
-import br.dominioL.estruturados.excecoes.ExcecaoDeTamanhoInvalido;
+import br.dominioL.estruturados.excecoes.ExcecaoIndiceForaDosLimites;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoTamanhoInvalido;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
@@ -19,7 +19,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 
 	private ListaPosicional(Integer tamanho) {
 		if (tamanho <= 0) {
-			throw new ExcecaoDeTamanhoInvalido();
+			throw new ExcecaoTamanhoInvalido();
 		}
 		elementos = new Object[tamanho];
 		quantidadeDeElementos = 0;
@@ -122,7 +122,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 
 	private void lancarExcecaoDeIndiceForaDosLimitesSeNecessario(Integer indice) {
 		if (indice < 0 || indice >= elementos.length) {
-			throw new ExcecaoDeIndiceForaDosLimites();
+			throw new ExcecaoIndiceForaDosLimites();
 		}
 	}
 
@@ -152,7 +152,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		@Override
 		public E iterarProximo() {
 			if (!possuiProximo()) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			removeu = false;
 			substituiu = false;
@@ -163,7 +163,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		@Override
 		public E remover() {
 			if (removeu || cursorAnterior == -1) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			removeu = true;
 			return removerDaPosicao(cursorAnterior);
@@ -172,7 +172,7 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		@Override
 		public E substituir(E substituto) {
 			if (removeu || substituiu || cursorAnterior == -1) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			substituiu = true;
 			E elemento = removerDaPosicao(cursorAnterior);

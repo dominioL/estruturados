@@ -3,9 +3,9 @@ package br.dominioL.estruturados.testes;
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeEstruturaVazia;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 import static org.hamcrest.core.Is.*;
@@ -50,13 +50,13 @@ public final class TesteListaEncadeada {
 		assertSame(terceiroNumero, lista.fornecerDoFim());
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void fornecerUmElmentoDoInicioDeUmaListaVazia() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.fornecerDoInicio();
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void fornecerUmElmentoDoFimDeUmaListaVazia() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.fornecerDoFim();
@@ -82,13 +82,13 @@ public final class TesteListaEncadeada {
 		assertThat(lista.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void inserirUmElementoNuloNoInicio() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserirNoInicio(null);
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void inserirUmElementoNuloNoFim() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserirNoInicio(null);
@@ -128,13 +128,13 @@ public final class TesteListaEncadeada {
 		assertSame(terceiroNumeroRemovido, terceiroNumero);
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void removerUmElmentoDoInicioDeUmaListaVazia() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.removerDoInicio();
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void removerUmElmentoDoFimDeUmaListaVazia() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.removerDoFim();
@@ -304,7 +304,7 @@ public final class TesteListaEncadeada {
 		assertThat(lista.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
@@ -314,7 +314,7 @@ public final class TesteListaEncadeada {
 		lista.fornecerIterador().remover();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
@@ -366,7 +366,7 @@ public final class TesteListaEncadeada {
 		assertSame(lista.fornecerDoFim(), terceiroNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
@@ -376,20 +376,20 @@ public final class TesteListaEncadeada {
 		iterador.substituir(segundoNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
 		lista.fornecerIterador().substituir(segundoNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.fornecerIterador().iterarProximo();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
@@ -411,7 +411,7 @@ public final class TesteListaEncadeada {
 		assertSame(iterador.remover(), terceiroNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);

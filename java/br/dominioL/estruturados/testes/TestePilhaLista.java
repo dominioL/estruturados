@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.pilha.PilhaLista;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeEstruturaVazia;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 
@@ -76,19 +76,19 @@ public final class TestePilhaLista {
 		assertThat(pilha.contarElementos(), is(0));
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void empilharElementoNuloLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.empilhar(null);
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void desempilharPilhaVaziaLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.desempilhar();
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void fornecerElementoDoTopoDeUmaPilhaVaziaLancaUmaExcecao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.fornecerDoTopo();
@@ -275,7 +275,7 @@ public final class TestePilhaLista {
 		assertThat(pilha.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
@@ -285,7 +285,7 @@ public final class TestePilhaLista {
 		pilha.fornecerIterador().remover();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
@@ -334,7 +334,7 @@ public final class TestePilhaLista {
 		assertSame(pilha.fornecerDoTopo(), numeroDois);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
@@ -344,20 +344,20 @@ public final class TestePilhaLista {
 		iterador.substituir(numeroDois);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.fornecerIterador().substituir(numeroDois);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.fornecerIterador().iterarProximo();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
@@ -379,7 +379,7 @@ public final class TestePilhaLista {
 		assertSame(iterador.remover(), numeroTres);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);

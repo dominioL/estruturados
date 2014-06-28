@@ -1,8 +1,8 @@
 package br.dominioL.estruturados.colecao;
 
 import br.dominioL.estruturados.elemento.Igualavel;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeEstruturaVazia;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
 import br.dominioL.estruturados.iteracao.Iteravel;
 import br.dominioL.estruturados.iteracao.IteravelAbstrato;
 
@@ -25,13 +25,13 @@ public abstract class ColecaoAbstrata<E extends Igualavel<E>> extends IteravelAb
 
 	protected final void lancarExcecaoDeElementoNuloSeNecessario(E elemento) {
 		if (elemento == null) {
-			throw new ExcecaoDeElementoNulo();
+			throw new ExcecaoElementoNulo();
 		}
 	}
 
 	protected final void lancarExcecaoDeEstruturaVaziaSeNecessario() {
 		if (vazio()) {
-			throw new ExcecaoDeEstruturaVazia();
+			throw new ExcecaoEstruturaVazia();
 		}
 	}
 }

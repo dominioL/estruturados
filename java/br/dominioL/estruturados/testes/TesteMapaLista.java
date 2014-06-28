@@ -11,8 +11,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.dominioL.estruturados.excecoes.ExcecaoDeChaveNula;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoChaveNula;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
 import br.dominioL.estruturados.mapa.MapaLista;
 import br.dominioL.estruturados.testes.figuracao.Cpf;
 import br.dominioL.estruturados.testes.figuracao.Pessoa;
@@ -61,19 +61,19 @@ public final class TesteMapaLista {
 		assertFalse(mapa.vazio());
 	}
 
-	@Test(expected = ExcecaoDeChaveNula.class)
+	@Test(expected = ExcecaoChaveNula.class)
 	public void inserirChaveNulaLancaUmaExcecao() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfNulo, joao);
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void inserirElementoNuloLancaUmaExcecao() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, pessoaNula);
 	}
 
-	@Test(expected = ExcecaoDeChaveNula.class)
+	@Test(expected = ExcecaoChaveNula.class)
 	public void fornecerElementoDeChaveNulaLancaUmaExcecao() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.fornecer(cpfNulo);
@@ -113,7 +113,7 @@ public final class TesteMapaLista {
 		assertThat(mapa.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeChaveNula.class)
+	@Test(expected = ExcecaoChaveNula.class)
 	public void removerElementoComChaveNulaLancaUmaExcecao() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
@@ -137,7 +137,7 @@ public final class TesteMapaLista {
 		assertThat(mapa.contarElementos(), is(1));
 	}
 
-	@Test(expected = ExcecaoDeChaveNula.class)
+	@Test(expected = ExcecaoChaveNula.class)
 	public void contemLancaUmaExcecaoSeChaveForNula() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.contem(cpfNulo);

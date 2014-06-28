@@ -6,9 +6,9 @@ import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
 import br.dominioL.estruturados.colecao.lista.ListaPosicional;
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
-import br.dominioL.estruturados.excecoes.ExcecaoDeChaveNula;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoChaveNula;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 import br.dominioL.estruturados.iteracao.Iteravel;
@@ -123,13 +123,13 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 
 	private void checarChave(C chave) {
 		if (chave == null) {
-			throw new ExcecaoDeChaveNula();
+			throw new ExcecaoChaveNula();
 		}
 	}
 
 	private void checarValor(V valor) {
 		if (valor == null) {
-			throw new ExcecaoDeElementoNulo();
+			throw new ExcecaoElementoNulo();
 		}
 	}
 
@@ -204,7 +204,7 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 				}
 				return elemento;
 			}
-			throw new ExcecaoDeIteracaoInvalida();
+			throw new ExcecaoIteracaoInvalida();
 		}
 
 		@Override
@@ -212,12 +212,12 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 			if (iteradorAtual != null) {
 				return iteradorAtual.remover();
 			}
-			throw new ExcecaoDeIteracaoInvalida();
+			throw new ExcecaoIteracaoInvalida();
 		}
 
 		@Override
 		public Par<C, V> substituir(Par<C, V> substituto) {
-			throw new ExcecaoDeIteracaoInvalida();
+			throw new ExcecaoIteracaoInvalida();
 		}
 	}
 

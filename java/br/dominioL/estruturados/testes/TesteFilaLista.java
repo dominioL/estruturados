@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.fila.FilaLista;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeEstruturaVazia;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 
@@ -42,7 +42,7 @@ public final class TesteFilaLista {
 		assertThat(fila.contarElementos(), is(3));
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void enfileirarLancaUmaExcecaoSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroNulo);
@@ -57,7 +57,7 @@ public final class TesteFilaLista {
 		assertThat(fila.contarElementos(), is(1));
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void desenfileirarLancaUmExcecaoSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.desenfileirar();
@@ -81,13 +81,13 @@ public final class TesteFilaLista {
 		assertThat(fila.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void fornecerDoInicioLancaUmaExcecaoSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.fornecerDoInicio();
 	}
 
-	@Test(expected = ExcecaoDeEstruturaVazia.class)
+	@Test(expected = ExcecaoEstruturaVazia.class)
 	public void fornecerDoFimLancaUmaExcecaoSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.fornecerDoFim();
@@ -183,7 +183,7 @@ public final class TesteFilaLista {
 		assertThat(colecao.contarElementos(), is(3));
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void inserirLancaUmaExecacaoSeOElementoForNulo() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroNulo);
@@ -355,7 +355,7 @@ public final class TesteFilaLista {
 		assertSame(numeroTres, colecao.fornecerDoFim());
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -367,7 +367,7 @@ public final class TesteFilaLista {
 		iterador.remove();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -432,7 +432,7 @@ public final class TesteFilaLista {
 		assertThat(colecao.contarElementos(), is(3));
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -443,7 +443,7 @@ public final class TesteFilaLista {
 		iterador.substituir(numeroQuatro);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -452,7 +452,7 @@ public final class TesteFilaLista {
 		iterador.substituir(numeroQuatro);
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void iteradorNaoPermiteSubstituirPorUmelementoNulo() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -462,14 +462,14 @@ public final class TesteFilaLista {
 		iterador.substituir(numeroNulo);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		Iterador<Numero> iterador = colecao.fornecerIterador();
 		iterador.iterarProximo();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
@@ -491,7 +491,7 @@ public final class TesteFilaLista {
 		assertSame(numeroQuatro, iterador.remover());
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);

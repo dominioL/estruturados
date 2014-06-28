@@ -3,9 +3,9 @@ package br.dominioL.estruturados.testes;
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.lista.ListaPosicional;
-import br.dominioL.estruturados.excecoes.ExcecaoDeElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIndiceForaDosLimites;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoIndiceForaDosLimites;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.testes.figuracao.Numero;
 import static org.hamcrest.core.Is.*;
@@ -34,7 +34,7 @@ public final class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(1), segundoNumero);
 	}
 
-	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
+	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void fornecerUmElementoDeUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
 		lista.fornecerDaPosicao(1);
@@ -65,7 +65,7 @@ public final class TesteListaPosicional {
 		assertThat(lista.contarElementos(), is(1));
 	}
 
-	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
+	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void inserirUmElementoEmUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
 		lista.inserirNaPosicao(1, primeiroNumero);
@@ -80,7 +80,7 @@ public final class TesteListaPosicional {
 		assertThat(lista.contarElementos(), is(1));
 	}
 
-	@Test(expected = ExcecaoDeElementoNulo.class)
+	@Test(expected = ExcecaoElementoNulo.class)
 	public void inserirUmElementoNulo() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(numeroNulo);
@@ -103,7 +103,7 @@ public final class TesteListaPosicional {
 		assertThat(lista.contarElementos(), is(1));
 	}
 
-	@Test(expected = ExcecaoDeIndiceForaDosLimites.class)
+	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void removerUmElementoDeUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.removerDaPosicao(-1);
@@ -296,7 +296,7 @@ public final class TesteListaPosicional {
 		assertThat(lista.contarElementos(), is(2));
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverDuasVezesNaMesmaIteracao() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
@@ -306,7 +306,7 @@ public final class TesteListaPosicional {
 		lista.fornecerIterador().remover();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
@@ -357,7 +357,7 @@ public final class TesteListaPosicional {
 		assertSame(lista.fornecerDaPosicao(1), terceiroNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirDuasVezesNaMesmaIteracao() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
@@ -367,20 +367,20 @@ public final class TesteListaPosicional {
 		iterador.substituir(segundoNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteSubstituirSemQueSeTenhaIteradoPeloMenosUmaVez() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.fornecerIterador().substituir(segundoNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoZeroElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.fornecerIterador().iterarProximo();
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteIterarMaisVezesQueONumeroDeElementosTendoMaisDeUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
@@ -402,7 +402,7 @@ public final class TesteListaPosicional {
 		assertSame(iterador.remover(), terceiroNumero);
 	}
 
-	@Test(expected = ExcecaoDeIteracaoInvalida.class)
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void iteradorNaoPermiteRemoverEDepoisSubstituir() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);

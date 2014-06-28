@@ -2,7 +2,7 @@ package br.dominioL.estruturados.colecao.lista;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
-import br.dominioL.estruturados.excecoes.ExcecaoDeIteracaoInvalida;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
@@ -139,7 +139,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		@Override
 		public E iterarProximo() {
 			if (!possuiProximo()) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoAtual = cursor.fornecerElemento();
 			cursorAnterior = cursor;
@@ -152,7 +152,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		@Override
 		public E remover() {
 			if (removeu || cursorAnterior == null) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoRemovido = cursorAnterior.fornecerElemento();
 			Caixa caixaDaEsquerdaNova = cursorAnterior.fornecerCaixaDaEsquerda();
@@ -176,7 +176,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		public E substituir(E substituto) {
 			lancarExcecaoDeElementoNuloSeNecessario(substituto);
 			if (removeu || substituiu || cursorAnterior == null) {
-				throw new ExcecaoDeIteracaoInvalida();
+				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoSubstituido = cursorAnterior.fornecerElemento();
 			cursorAnterior.fixarElemento(substituto);
