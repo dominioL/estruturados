@@ -19,6 +19,7 @@ limpar() {
 }
 
 criarEstrutura() {
+	limpar
 	echo ":criarEstrutura"
 	mkdir -p ${jar}
 	mkdir -p ${java}
@@ -31,12 +32,11 @@ criarEstrutura() {
 }
 
 adicionarBibliotecas() {
+	criarEstrutura
 	echo ":adicionarBibliotecas"
 }
 
 compilar() {
-	limpar
-	criarEstrutura
 	adicionarBibliotecas
 	echo ":compilar"
 	arquivosJava=$(find ${java} -name *.java)
@@ -50,7 +50,7 @@ construir() {
 }
 
 testar() {
-	compilar
+	construir
 	echo ":testar"
 	arquivosTestesJava=$(find ${java} -name *Teste*.java)
 	classesTestesJava=$(echo ${arquivosTestesJava} | sed -e s:${java}/::g -e s:^/::g -e "s:\s/: :g" -e s:/:.:g -e s:\.java::g -e s:[a-Z.]*figuracao[a-Z.]*::g)
@@ -58,7 +58,7 @@ testar() {
 }
 
 analisar() {
-	compilar
+	construir
 	echo ":analisar"
 	arquivosTestesJava=$(find ${java} -name *Teste*.java)
 	classesTestesJava=$(echo ${arquivosTestesJava} | sed -e s:${java}/::g -e s:^/::g -e "s:\s/: :g" -e s:/:.:g -e s:\.java::g -e s:[a-Z.]*figuracao[a-Z.]*::g)
@@ -87,7 +87,7 @@ analisar() {
 }
 
 executar() {
-	compilar
+	construir
 	echo ":executar"
 }
 
