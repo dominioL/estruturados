@@ -20,7 +20,6 @@ limpar() {
 
 criarEstrutura() {
 	echo ":criarEstrutura"
-	mkdir -p ${cobertura}
 	mkdir -p ${jar}
 	mkdir -p ${java}
 	mkdir -p ${construcao}
@@ -78,7 +77,6 @@ analisar() {
 		org.junit.runner.JUnitCore ${classesTestesJava}
 	cd ..
 	cd ..
-
 	java \
 		-classpath ${jar}/cobertura.jar:${jar}/asm.jar:${jar}/asmAnalysis.jar:${jar}/asmUtil.jar:${jar}/asmTree.jar:${jar}/asmCommons.jar:${jar}/log4j.jar:${jar}/oro.jar \
 		net.sourceforge.cobertura.reporting.Main \
@@ -91,11 +89,6 @@ analisar() {
 executar() {
 	compilar
 	echo ":executar"
-	java -classpath ${class}:${jar}/* ${pacoteGeral}.${pacoteDoProjeto}.${projeto}
-}
-
-executarTarefa() {
-	dependencias=$1
 }
 
 echo :${pacoteDoProjeto}
