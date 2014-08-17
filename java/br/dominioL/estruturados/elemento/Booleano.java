@@ -7,15 +7,15 @@ public class Booleano implements Igualavel<Booleano>, Comparavel<Booleano>, Codi
 		this.valor = valor;
 	}
 
-	public static Booleano comValor(Boolean valor) {
+	public static Booleano criar(Boolean valor) {
 		return new Booleano(valor);
 	}
 
-	public static Booleano verdadeiro() {
+	public static Booleano criarVerdadeiro() {
 		return new Booleano(Boolean.TRUE);
 	}
 
-	public static Booleano falso() {
+	public static Booleano criarFalso() {
 		return new Booleano(Boolean.FALSE);
 	}
 
@@ -41,5 +41,13 @@ public class Booleano implements Igualavel<Booleano>, Comparavel<Booleano>, Codi
 
 	public Boolean valor() {
 		return valor;
+	}
+
+	public Boolean verdadeiro() {
+		return (valor == Boolean.TRUE);
+	}
+
+	public Boolean falso() {
+		return (valor == Boolean.FALSE);
 	}
 }

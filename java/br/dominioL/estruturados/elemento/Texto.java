@@ -7,11 +7,11 @@ public class Texto implements Igualavel<Texto>, Comparavel<Texto>, Codificavel {
 		this.valor = valor;
 	}
 
-	public static Texto comValor(String valor) {
+	public static Texto criar(String valor) {
 		return new Texto(valor);
 	}
 
-	public static Texto vazio() {
+	public static Texto criar() {
 		return new Texto("");
 	}
 
