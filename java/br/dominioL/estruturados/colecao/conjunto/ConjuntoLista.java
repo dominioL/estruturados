@@ -46,11 +46,6 @@ public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrat
 		return elementos.reter(elemento);
 	}
 
-//	@Override
-//	public Integer codificar() {
-//		return elementos.codificar();
-//	}
-
 	@Override
 	public Boolean igual(ConjuntoLista<E> outro) {
 		return (this == outro);

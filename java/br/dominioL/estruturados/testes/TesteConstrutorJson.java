@@ -4,11 +4,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.math.BigDecimal;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.json.BooleanoJson;
 import br.dominioL.estruturados.json.ConstrutorJson;
 import br.dominioL.estruturados.json.IdentificadorJson;
@@ -23,11 +24,11 @@ public final class TesteConstrutorJson {
 	private String identificadorTexto;
 	private String identificadorNumero;
 	private String identificadorBooleano;
-	private String textoLucas;
-	private BigDecimal decimalUm;
-	private Integer inteiroUm;
-	private Double flutuanteUm;
-	private Boolean booleanoFalso;
+	private Texto textoLucas;
+	private Numero decimalUm;
+	private Numero inteiroUm;
+	private Numero flutuanteUm;
+	private Booleano booleanoFalso;
 	private IdentificadorJson identificadorJson;
 	private IdentificadorJson identificadorJsonTexto;
 	private IdentificadorJson identificadorJsonNumero;
@@ -55,11 +56,11 @@ public final class TesteConstrutorJson {
 		identificadorTexto = "texto";
 		identificadorNumero = "numero";
 		identificadorBooleano = "booleano";
-		textoLucas = "Lucas";
-		decimalUm = BigDecimal.ONE;
-		inteiroUm = 1;
-		flutuanteUm = 1.0;
-		booleanoFalso = false;
+		textoLucas = Texto.criar("Lucas");
+		decimalUm = Numero.criar("1");
+		inteiroUm = Numero.criar(1);
+		flutuanteUm = Numero.criar(1.0);
+		booleanoFalso = Booleano.criarFalso();
 		identificadorJson = Json.criarIdentificador(identificador);
 		identificadorJsonTexto = Json.criarIdentificador(identificadorTexto);
 		identificadorJsonNumero = Json.criarIdentificador(identificadorNumero);

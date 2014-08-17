@@ -96,15 +96,6 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return (this == outro);
 	}
 
-//	@Override
-//	public Integer codificar() {
-//		Integer primo = 31;
-//		Integer codigo = 1;
-//		codigo = primo * codigo + Arrays.hashCode(elementos);
-//		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-//		return codigo;
-//	}
-
 	private void crescerSeNecessario() {
 		if (quantidadeDeElementos == elementos.length) {
 			Object[] novoElementos = new Object[elementos.length * FATOR_DE_CRESCIMENTO];

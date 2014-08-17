@@ -61,4 +61,17 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 	public Boolean igual(Numero outro) {
 		return valor.compareTo(outro.valor) == 0;
 	}
+
+	@Override
+	public boolean equals(Object outro) {
+		if (outro instanceof Numero) {
+			return igual((Numero) outro);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return valor.toString();
+	}
 }

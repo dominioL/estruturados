@@ -1,6 +1,9 @@
 package br.dominioL.estruturados.json;
 
+import br.dominioL.estruturados.elemento.Booleano;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeTipo;
 
 public abstract class ValorJson implements Igualavel<ValorJson> {
@@ -16,15 +19,15 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 		return this;
 	}
 
-	public String comoTexto() {
+	public Texto comoTexto() {
 		throw new ExcecaoJsonDeTipo();
 	}
 
-	public Double comoNumero() {
+	public Numero comoNumero() {
 		throw new ExcecaoJsonDeTipo();
 	}
 
-	public Boolean comoBooleano() {
+	public Booleano comoBooleano() {
 		throw new ExcecaoJsonDeTipo();
 	}
 

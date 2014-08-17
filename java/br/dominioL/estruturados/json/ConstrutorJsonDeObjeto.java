@@ -1,6 +1,8 @@
 package br.dominioL.estruturados.json;
 
-import java.math.BigDecimal;
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 
 public final class ConstrutorJsonDeObjeto extends ConstrutorJson<ObjetoJson> {
 	private ObjetoJson objeto;
@@ -23,52 +25,32 @@ public final class ConstrutorJsonDeObjeto extends ConstrutorJson<ObjetoJson> {
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(String identificador, String valor) {
+	public ConstrutorJsonDeObjeto inserir(String identificador, Texto valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, String valor) {
+	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Texto valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(String identificador, BigDecimal valor) {
+	public ConstrutorJsonDeObjeto inserir(String identificador, Numero valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, BigDecimal valor) {
+	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Numero valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(String identificador, Integer valor) {
+	public ConstrutorJsonDeObjeto inserir(String identificador, Booleano valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Integer valor) {
-		objeto.inserir(identificador, valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeObjeto inserir(String identificador, Double valor) {
-		objeto.inserir(identificador, valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Double valor) {
-		objeto.inserir(identificador, valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeObjeto inserir(String identificador, Boolean valor) {
-		objeto.inserir(identificador, valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Boolean valor) {
+	public ConstrutorJsonDeObjeto inserir(IdentificadorJson identificador, Booleano valor) {
 		objeto.inserir(identificador, valor);
 		return this;
 	}

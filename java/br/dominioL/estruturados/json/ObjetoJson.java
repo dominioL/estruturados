@@ -1,7 +1,8 @@
 package br.dominioL.estruturados.json;
 
-import java.math.BigDecimal;
-
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 import br.dominioL.estruturados.mapa.Mapa;
@@ -23,43 +24,27 @@ public final class ObjetoJson extends ValorJson implements Iteravel<Par<Identifi
 		elementos.inserir(identificador, valor);
 	}
 
-	public void inserir(String identificador, String valor) {
+	public void inserir(String identificador, Texto valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarTexto(valor));
 	}
 
-	public void inserir(IdentificadorJson identificador, String valor) {
+	public void inserir(IdentificadorJson identificador, Texto valor) {
 		elementos.inserir(identificador, Json.criarTexto(valor));
 	}
 
-	public void inserir(String identificador, BigDecimal valor) {
+	public void inserir(String identificador, Numero valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarNumero(valor));
 	}
 
-	public void inserir(IdentificadorJson identificador, BigDecimal valor) {
+	public void inserir(IdentificadorJson identificador, Numero valor) {
 		elementos.inserir(identificador, Json.criarNumero(valor));
 	}
 
-	public void inserir(String identificador, Integer valor) {
-		elementos.inserir(Json.criarIdentificador(identificador), Json.criarNumero(valor));
-	}
-
-	public void inserir(IdentificadorJson identificador, Integer valor) {
-		elementos.inserir(identificador, Json.criarNumero(valor));
-	}
-
-	public void inserir(String identificador, Double valor) {
-		elementos.inserir(Json.criarIdentificador(identificador), Json.criarNumero(valor));
-	}
-
-	public void inserir(IdentificadorJson identificador, Double valor) {
-		elementos.inserir(identificador, Json.criarNumero(valor));
-	}
-
-	public void inserir(String identificador, Boolean valor) {
+	public void inserir(String identificador, Booleano valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarBooleano(valor));
 	}
 
-	public void inserir(IdentificadorJson identificador, Boolean valor) {
+	public void inserir(IdentificadorJson identificador, Booleano valor) {
 		elementos.inserir(identificador, Json.criarBooleano(valor));
 	}
 

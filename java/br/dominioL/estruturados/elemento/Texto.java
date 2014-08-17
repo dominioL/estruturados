@@ -15,6 +15,10 @@ public class Texto implements Igualavel<Texto>, Comparavel<Texto>, Codificavel {
 		return new Texto("");
 	}
 
+	public String valor() {
+		return valor;
+	}
+
 	@Override
 	public Integer codificar() {
 		return valor.hashCode();
@@ -35,7 +39,16 @@ public class Texto implements Igualavel<Texto>, Comparavel<Texto>, Codificavel {
 		return valor.equals(outro.valor);
 	}
 
-	public String valor() {
+	@Override
+	public boolean equals(Object outro) {
+		if (outro instanceof Texto) {
+			return igual((Texto) outro);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
 		return valor;
 	}
 }

@@ -1,14 +1,16 @@
 package br.dominioL.estruturados.json;
 
-public final class BooleanoJson extends ValorJson {
-	Boolean valor;
+import br.dominioL.estruturados.elemento.Booleano;
 
-	protected BooleanoJson(Boolean valor) {
+public final class BooleanoJson extends ValorJson {
+	private Booleano valor;
+
+	protected BooleanoJson(Booleano valor) {
 		this.valor = valor;
 	}
 
 	@Override
-	public Boolean comoBooleano() {
+	public Booleano comoBooleano() {
 		return valor;
 	}
 
@@ -20,7 +22,7 @@ public final class BooleanoJson extends ValorJson {
 	@Override
 	public Boolean igual(ValorJson outro) {
 		if (outro instanceof BooleanoJson) {
-			return valor.equals(((BooleanoJson) outro).valor);
+			return valor.igual(((BooleanoJson) outro).valor);
 		}
 		return false;
 	}

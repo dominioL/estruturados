@@ -1,27 +1,17 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
-
-import java.math.BigDecimal;
+import br.dominioL.estruturados.elemento.Numero;
 
 public final class NumeroJson extends ValorJson {
-	BigDecimal valor;
+	private Numero valor;
 
-	protected NumeroJson(BigDecimal valor) {
+	protected NumeroJson(Numero valor) {
 		this.valor = valor;
 	}
 
-	protected NumeroJson(String valor) {
-		try {
-			this.valor = new BigDecimal(valor);
-		} catch (NumberFormatException excecao) {
-			throw new ExcecaoJsonDeAnalise();
-		}
-	}
-
 	@Override
-	public Double comoNumero() {
-		return valor.doubleValue();
+	public Numero comoNumero() {
+		return valor;
 	}
 
 	@Override
@@ -32,7 +22,7 @@ public final class NumeroJson extends ValorJson {
 	@Override
 	public Boolean igual(ValorJson outro) {
 		if (outro instanceof NumeroJson) {
-			return valor.equals(((NumeroJson) outro).valor);
+			return valor.igual(((NumeroJson) outro).valor);
 		}
 		return false;
 	}

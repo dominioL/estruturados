@@ -1,11 +1,12 @@
 package br.dominioL.estruturados.testes;
 
 import static org.hamcrest.core.Is.is;
-
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
 import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;
@@ -82,12 +83,12 @@ public final class TesteJson {
 	public void inserirElementosDentroDeLista() {
 		ListaJson letras = Json.criarLista();
 		ListaJson numeros = Json.criarLista();
-		numeros.inserir(Json.criarNumero(1));
-		numeros.inserir(Json.criarNumero(3));
-		numeros.inserir(Json.criarNumero(2));
-		letras.inserir(Json.criarTexto("a"));
-		letras.inserir(Json.criarTexto("b"));
-		letras.inserir(Json.criarTexto("c"));
+		numeros.inserir(Json.criarNumero(Numero.criar(1)));
+		numeros.inserir(Json.criarNumero(Numero.criar(3)));
+		numeros.inserir(Json.criarNumero(Numero.criar(2)));
+		letras.inserir(Json.criarTexto(Texto.criar("a")));
+		letras.inserir(Json.criarTexto(Texto.criar("b")));
+		letras.inserir(Json.criarTexto(Texto.criar("c")));
 		numeros.inserir(letras);
 		assertThat(numeros.comoTextoJson(), is("[1, 3, 2, [\"a\", \"b\", \"c\"]]"));
 	}

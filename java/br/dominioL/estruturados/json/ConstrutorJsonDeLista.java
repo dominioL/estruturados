@@ -1,6 +1,8 @@
 package br.dominioL.estruturados.json;
 
-import java.math.BigDecimal;
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 
 public final class ConstrutorJsonDeLista extends ConstrutorJson<ListaJson> {
 	private ListaJson lista;
@@ -18,27 +20,17 @@ public final class ConstrutorJsonDeLista extends ConstrutorJson<ListaJson> {
 		return this;
 	}
 
-	public ConstrutorJsonDeLista inserir(String valor) {
+	public ConstrutorJsonDeLista inserir(Texto valor) {
 		lista.inserir(valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeLista inserir(BigDecimal valor) {
+	public ConstrutorJsonDeLista inserir(Numero valor) {
 		lista.inserir(valor);
 		return this;
 	}
 
-	public ConstrutorJsonDeLista inserir(Integer valor) {
-		lista.inserir(valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeLista inserir(Double valor) {
-		lista.inserir(valor);
-		return this;
-	}
-
-	public ConstrutorJsonDeLista inserir(Boolean valor) {
+	public ConstrutorJsonDeLista inserir(Booleano valor) {
 		lista.inserir(valor);
 		return this;
 	}

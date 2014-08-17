@@ -9,6 +9,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.json.BooleanoJson;
 import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;
@@ -46,15 +49,15 @@ public final class TesteIgualdadeJson {
 		listaVazia = Json.criarLista();
 		outraListaVazia = Json.criarLista();
 		listaComUmElemento = Json.criarLista();
-		listaComUmElemento.comoLista().igual(Json.criarNumero(10));
-		textoVazio = Json.criarTexto("");
-		outroTextoVazio = Json.criarTexto("");
-		textoLucas = Json.criarTexto("Lucas");
-		numeroZero = Json.criarNumero(0);
-		numeroUm = Json.criarNumero(1);
-		booleanoFalso = Json.criarBooleano(false);
-		booleanoVerdadeiro = Json.criarBooleano(true);
-		outroBooleanoVerdadeiro = Json.criarBooleano(true);
+		listaComUmElemento.comoLista().igual(Json.criarNumero(Numero.criar(10)));
+		textoVazio = Json.criarTexto(Texto.criar());
+		outroTextoVazio = Json.criarTexto(Texto.criar());
+		textoLucas = Json.criarTexto(Texto.criar("Lucas"));
+		numeroZero = Json.criarNumero(Numero.criar(0));
+		numeroUm = Json.criarNumero(Numero.criar(1));
+		booleanoFalso = Json.criarBooleano(Booleano.criarFalso());
+		booleanoVerdadeiro = Json.criarBooleano(Booleano.criarVerdadeiro());
+		outroBooleanoVerdadeiro = Json.criarBooleano(Booleano.criarVerdadeiro());
 
 		objetoComTextoLucasBooleanoFalsoNumeroZero = Json.criarObjeto();
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("texto", textoLucas);
@@ -69,10 +72,10 @@ public final class TesteIgualdadeJson {
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("booleano", booleanoFalso);
 		objetoComTextoLucasBooleanoFalsoNumeroUm.comoObjeto().inserir("numero", numeroUm);
 
-		TextoJson textoLucas = Json.criarTexto("Lucas");
-		NumeroJson numeroUm = Json.criarNumero(1);
-		BooleanoJson booleanoFalso = Json.criarBooleano(false);
-		BooleanoJson booleanoVerdadeiro = Json.criarBooleano(true);
+		TextoJson textoLucas = Json.criarTexto(Texto.criar("Lucas"));
+		NumeroJson numeroUm = Json.criarNumero(Numero.criar(1));
+		BooleanoJson booleanoFalso = Json.criarBooleano(Booleano.criarVerdadeiro());
+		BooleanoJson booleanoVerdadeiro = Json.criarBooleano(Booleano.criarFalso());
 		ObjetoJson objetoComNumeroUmEListaComBooleanoVerdadeiro = Json.criarObjeto();
 		ObjetoJson objetoComNumeroUmEListaComBooleanoFalso = Json.criarObjeto();
 		ListaJson listaComBooleanoVerdadeiro = Json.criarLista();

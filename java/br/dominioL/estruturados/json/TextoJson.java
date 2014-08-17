@@ -1,14 +1,16 @@
 package br.dominioL.estruturados.json;
 
-public final class TextoJson extends ValorJson {
-	String valor;
+import br.dominioL.estruturados.elemento.Texto;
 
-	protected TextoJson(String valor) {
+public final class TextoJson extends ValorJson {
+	private Texto valor;
+
+	protected TextoJson(Texto valor) {
 		this.valor = valor;
 	}
 
 	@Override
-	public String comoTexto() {
+	public Texto comoTexto() {
 		return valor;
 	}
 
@@ -20,7 +22,7 @@ public final class TextoJson extends ValorJson {
 	@Override
 	public Boolean igual(ValorJson outro) {
 		if (outro instanceof TextoJson) {
-			return valor.equals(((TextoJson) outro).valor);
+			return valor.igual(((TextoJson) outro).valor);
 		}
 		return false;
 	}

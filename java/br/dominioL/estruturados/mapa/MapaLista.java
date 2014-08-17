@@ -165,15 +165,6 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		return (this == outro);
 	}
 
-//	@Override
-//	public Integer codificar() {
-//		Integer primo = 31;
-//		Integer codigo = 1;
-//		codigo = primo * codigo + ((elementos == null) ? 0 : elementos.codificar());
-//		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-//		return codigo;
-//	}
-
 	private final class IteradorDeMapaLista extends IteradorAbstrato<Par<C, V>> implements Iterador<Par<C, V>> {
 		private Iterador<ListaEncadeada<ParDeMapaLista<C, V>>> iteradorDosGrupos;
 		private Iterador<ParDeMapaLista<C, V>> iteradorDoGrupo;

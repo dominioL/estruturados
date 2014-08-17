@@ -1,9 +1,11 @@
 package br.dominioL.estruturados.json;
 
-import java.math.BigDecimal;
 import java.util.Iterator;
 
 import br.dominioL.estruturados.colecao.lista.ListaPosicional;
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
@@ -18,23 +20,15 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 		elementos.inserir(valor);
 	}
 
-	public void inserir(String valor) {
+	public void inserir(Texto valor) {
 		elementos.inserir(Json.criarTexto(valor));
 	}
 
-	public void inserir(BigDecimal valor) {
+	public void inserir(Numero valor) {
 		elementos.inserir(Json.criarNumero(valor));
 	}
 
-	public void inserir(Integer valor) {
-		elementos.inserir(Json.criarNumero(valor));
-	}
-
-	public void inserir(Double valor) {
-		elementos.inserir(Json.criarNumero(valor));
-	}
-
-	public void inserir(Boolean valor) {
+	public void inserir(Booleano valor) {
 		elementos.inserir(Json.criarBooleano(valor));
 	}
 

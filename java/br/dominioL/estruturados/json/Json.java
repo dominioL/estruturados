@@ -1,9 +1,10 @@
 package br.dominioL.estruturados.json;
 
-import java.math.BigDecimal;
-
 import br.dominioL.estruturados.colecao.pilha.Pilha;
 import br.dominioL.estruturados.colecao.pilha.PilhaLista;
+import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
 
 public final class Json {
@@ -68,28 +69,16 @@ public final class Json {
 		return new ListaJson();
 	}
 
-	public static TextoJson criarTexto(String texto) {
+	public static TextoJson criarTexto(Texto texto) {
 		return new TextoJson(texto);
 	}
 
-	public static BooleanoJson criarBooleano(Boolean booleano) {
+	public static BooleanoJson criarBooleano(Booleano booleano) {
 		return new BooleanoJson(booleano);
 	}
 
-	public static NumeroJson criarNumero(String numero) {
+	public static NumeroJson criarNumero(Numero numero) {
 		return new NumeroJson(numero);
-	}
-
-	public static NumeroJson criarNumero(BigDecimal numero) {
-		return new NumeroJson(numero);
-	}
-
-	public static NumeroJson criarNumero(Integer numero) {
-		return new NumeroJson(numero.toString());
-	}
-
-	public static NumeroJson criarNumero(Double numero) {
-		return new NumeroJson(numero.toString());
 	}
 
 	public static IdentificadorJson criarIdentificador(String identificador) {
@@ -173,16 +162,16 @@ public final class Json {
 			consumirSimbolo();
 		}
 		consumirSimbolo();
-		valoresAbertos.empilhar(Json.criarTexto(texto.toString()));
+		valoresAbertos.empilhar(Json.criarTexto(Texto.criar(texto.toString())));
 	}
 
 	private void booleano() {
 		if (simboloAtual.matches(INICIO_DE_VERDADEIRO)) {
 			encontrarSimboloLongo(VERDADEIRO);
-			valoresAbertos.empilhar(Json.criarBooleano(true));
+			valoresAbertos.empilhar(Json.criarBooleano(Booleano.criarVerdadeiro()));
 		} else if (simboloAtual.matches(INICIO_DE_FALSO)) {
 			encontrarSimboloLongo(FALSO);
-			valoresAbertos.empilhar(Json.criarBooleano(false));
+			valoresAbertos.empilhar(Json.criarBooleano(Booleano.criarFalso()));
 		}
 	}
 
@@ -194,7 +183,13 @@ public final class Json {
 			consumirSimbolo();
 			numero.append(sequenciaNumerica());
 		}
-		valoresAbertos.empilhar(Json.criarNumero(numero.toString()));
+		Numero numeroCriado;
+		try {
+			numeroCriado = Numero.criar(numero.toString());
+		} catch (NumberFormatException excecao) {
+			throw new ExcecaoJsonDeAnalise();
+		}
+		valoresAbertos.empilhar(Json.criarNumero(numeroCriado));
 	}
 
 	private String sequenciaNumerica() {

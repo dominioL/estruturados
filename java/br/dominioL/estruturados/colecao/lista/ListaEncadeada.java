@@ -106,16 +106,6 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		return (this == outro);
 	}
 
-//	@Override
-//	public Integer codificar() {
-//		Integer primo = 31;
-//		Integer resultado = 1;
-//		resultado = primo * resultado + ((caixaDoFim == null) ? 0 : caixaDoFim.codificar());
-//		resultado = primo * resultado + ((caixaDoInicio == null) ? 0 : caixaDoInicio.codificar());
-//		resultado = primo * resultado + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-//		return resultado;
-//	}
-
 	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> implements Iterador<E> {
 		private Caixa cursor;
 		private Caixa cursorAnterior;
@@ -221,20 +211,5 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDaEsquerda = null;
 			caixaDaDireita = null;
 		}
-
-//		@Override
-//		public Integer codificar() {
-//			Integer primo = 31;
-//			Integer codigo = 1;
-//			codigo = primo * codigo + ListaEncadeada.this.hashCode();
-//			if (elemento != null) {
-//				codigo = primo * codigo;
-//			} else if (elemento instanceof Codificavel) {
-//				codigo = primo * codigo + ((Codificavel) elemento).codificar();
-//			} else {
-//				codigo = primo * codigo + elemento.hashCode();
-//			}
-//			return codigo;
-//		}
 	}
 }

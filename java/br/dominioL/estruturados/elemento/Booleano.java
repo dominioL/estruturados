@@ -19,6 +19,18 @@ public class Booleano implements Igualavel<Booleano>, Comparavel<Booleano>, Codi
 		return new Booleano(Boolean.FALSE);
 	}
 
+	public Boolean valor() {
+		return valor;
+	}
+
+	public Boolean verdadeiro() {
+		return (valor == Boolean.TRUE);
+	}
+
+	public Boolean falso() {
+		return (valor == Boolean.FALSE);
+	}
+
 	@Override
 	public Integer codificar() {
 		return valor.hashCode();
@@ -39,15 +51,16 @@ public class Booleano implements Igualavel<Booleano>, Comparavel<Booleano>, Codi
 		return valor.equals(outro.valor);
 	}
 
-	public Boolean valor() {
-		return valor;
+	@Override
+	public boolean equals(Object outro) {
+		if (outro instanceof Booleano) {
+			return igual((Booleano) outro);
+		}
+		return false;
 	}
 
-	public Boolean verdadeiro() {
-		return (valor == Boolean.TRUE);
-	}
-
-	public Boolean falso() {
-		return (valor == Boolean.FALSE);
+	@Override
+	public String toString() {
+		return valor.toString();
 	}
 }
