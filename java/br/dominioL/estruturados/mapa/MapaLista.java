@@ -13,8 +13,7 @@ import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
-public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V>,
-		Igualavel<MapaLista<C, V>>, Codificavel {
+public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V>, Igualavel<MapaLista<C, V>> {
 	private final static Integer TAMANHO_INICIAL = 10;
 	private final static Integer FATOR_DE_CARGA = 1;
 	private final static Integer FATOR_DE_CRESCIMENTO = 2;
@@ -166,14 +165,14 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		return (this == outro);
 	}
 
-	@Override
-	public Integer codificar() {
-		Integer primo = 31;
-		Integer codigo = 1;
-		codigo = primo * codigo + ((elementos == null) ? 0 : elementos.codificar());
-		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-		return codigo;
-	}
+//	@Override
+//	public Integer codificar() {
+//		Integer primo = 31;
+//		Integer codigo = 1;
+//		codigo = primo * codigo + ((elementos == null) ? 0 : elementos.codificar());
+//		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
+//		return codigo;
+//	}
 
 	private final class IteradorDeMapaLista extends IteradorAbstrato<Par<C, V>> implements Iterador<Par<C, V>> {
 		private Iterador<ListaEncadeada<ParDeMapaLista<C, V>>> iteradorDosGrupos;

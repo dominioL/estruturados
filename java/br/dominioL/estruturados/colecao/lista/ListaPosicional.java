@@ -1,8 +1,5 @@
 package br.dominioL.estruturados.colecao.lista;
 
-import java.util.Arrays;
-
-import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoIndiceForaDosLimites;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
@@ -10,7 +7,7 @@ import br.dominioL.estruturados.excecoes.ExcecaoTamanhoInvalido;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaPosicional<E>>, Codificavel {
+public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaPosicional<E>> {
 	private static final Integer TAMANHO_PADRAO = 10;
 	private static final Integer FATOR_DE_CRESCIMENTO = 2;
 	private Object[] elementos;
@@ -99,14 +96,14 @@ public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata
 		return (this == outro);
 	}
 
-	@Override
-	public Integer codificar() {
-		Integer primo = 31;
-		Integer codigo = 1;
-		codigo = primo * codigo + Arrays.hashCode(elementos);
-		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-		return codigo;
-	}
+//	@Override
+//	public Integer codificar() {
+//		Integer primo = 31;
+//		Integer codigo = 1;
+//		codigo = primo * codigo + Arrays.hashCode(elementos);
+//		codigo = primo * codigo + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
+//		return codigo;
+//	}
 
 	private void crescerSeNecessario() {
 		if (quantidadeDeElementos == elementos.length) {

@@ -1,12 +1,11 @@
 package br.dominioL.estruturados.colecao.lista;
 
-import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaEncadeada<E>>, Codificavel {
+public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaEncadeada<E>> {
 	private Integer quantidadeDeElementos;
 	private Caixa caixaDoInicio;
 	private Caixa caixaDoFim;
@@ -107,15 +106,15 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		return (this == outro);
 	}
 
-	@Override
-	public Integer codificar() {
-		Integer primo = 31;
-		Integer resultado = 1;
-		resultado = primo * resultado + ((caixaDoFim == null) ? 0 : caixaDoFim.codificar());
-		resultado = primo * resultado + ((caixaDoInicio == null) ? 0 : caixaDoInicio.codificar());
-		resultado = primo * resultado + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
-		return resultado;
-	}
+//	@Override
+//	public Integer codificar() {
+//		Integer primo = 31;
+//		Integer resultado = 1;
+//		resultado = primo * resultado + ((caixaDoFim == null) ? 0 : caixaDoFim.codificar());
+//		resultado = primo * resultado + ((caixaDoInicio == null) ? 0 : caixaDoInicio.codificar());
+//		resultado = primo * resultado + ((quantidadeDeElementos == null) ? 0 : quantidadeDeElementos.hashCode());
+//		return resultado;
+//	}
 
 	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> implements Iterador<E> {
 		private Caixa cursor;
@@ -184,7 +183,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		}
 	}
 
-	private final class Caixa implements Codificavel {
+	private final class Caixa {
 		private E elemento;
 		private Caixa caixaDaEsquerda;
 		private Caixa caixaDaDireita;
@@ -223,19 +222,19 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDaDireita = null;
 		}
 
-		@Override
-		public Integer codificar() {
-			Integer primo = 31;
-			Integer codigo = 1;
-			codigo = primo * codigo + ListaEncadeada.this.hashCode();
-			if (elemento != null) {
-				codigo = primo * codigo;
-			} else if (elemento instanceof Codificavel) {
-				codigo = primo * codigo + ((Codificavel) elemento).codificar();
-			} else {
-				codigo = primo * codigo + elemento.hashCode();
-			}
-			return codigo;
-		}
+//		@Override
+//		public Integer codificar() {
+//			Integer primo = 31;
+//			Integer codigo = 1;
+//			codigo = primo * codigo + ListaEncadeada.this.hashCode();
+//			if (elemento != null) {
+//				codigo = primo * codigo;
+//			} else if (elemento instanceof Codificavel) {
+//				codigo = primo * codigo + ((Codificavel) elemento).codificar();
+//			} else {
+//				codigo = primo * codigo + elemento.hashCode();
+//			}
+//			return codigo;
+//		}
 	}
 }

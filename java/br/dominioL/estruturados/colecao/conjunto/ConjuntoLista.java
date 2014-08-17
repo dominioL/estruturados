@@ -1,11 +1,10 @@
 package br.dominioL.estruturados.colecao.conjunto;
 
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
-import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
 import br.dominioL.estruturados.iteracao.Iterador;
 
-public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrato<E> implements Igualavel<ConjuntoLista<E>>, Codificavel {
+public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrato<E> implements Igualavel<ConjuntoLista<E>> {
 	private ListaEncadeada<E> elementos;
 
 	private ConjuntoLista() {
@@ -47,10 +46,10 @@ public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrat
 		return elementos.reter(elemento);
 	}
 
-	@Override
-	public Integer codificar() {
-		return elementos.codificar();
-	}
+//	@Override
+//	public Integer codificar() {
+//		return elementos.codificar();
+//	}
 
 	@Override
 	public Boolean igual(ConjuntoLista<E> outro) {
