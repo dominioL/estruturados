@@ -10,8 +10,7 @@ import br.dominioL.estruturados.excecoes.ExcecaoTamanhoInvalido;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>,
-		Igualavel<ListaPosicional<E>>, Codificavel {
+public final class ListaPosicional<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaPosicional<E>>, Codificavel {
 	private static final Integer TAMANHO_PADRAO = 10;
 	private static final Integer FATOR_DE_CRESCIMENTO = 2;
 	private Object[] elementos;

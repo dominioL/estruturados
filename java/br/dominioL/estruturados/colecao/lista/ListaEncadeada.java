@@ -6,8 +6,7 @@ import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
-public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Lista<E>,
-		Igualavel<ListaEncadeada<E>>, Codificavel {
+public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaEncadeada<E>>, Codificavel {
 	private Integer quantidadeDeElementos;
 	private Caixa caixaDoInicio;
 	private Caixa caixaDoFim;
