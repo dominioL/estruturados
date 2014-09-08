@@ -18,6 +18,7 @@ import br.dominioL.estruturados.testes.figuracao.Cpf;
 import br.dominioL.estruturados.testes.figuracao.Pessoa;
 
 public final class TesteMapaLista {
+
 	private Pessoa joao;
 	private Pessoa jose;
 	private Pessoa maria;
@@ -44,21 +45,21 @@ public final class TesteMapaLista {
 	@Test
 	public void quantidadeDeElementosInicialEZero() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
-		assertThat(mapa.contarElementos(), is(0));
+		assertThat(mapa.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
 	public void estaVazioInicialmente() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
-		assertTrue(mapa.vazio());
+		assertTrue(mapa.vazio().avaliar());
 	}
 
 	@Test
 	public void inserirAumentaAQuantidadeDeElementos() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
-		assertThat(mapa.contarElementos(), is(1));
-		assertFalse(mapa.vazio());
+		assertThat(mapa.contarElementos().inteiro(), is(1));
+		assertFalse(mapa.vazio().avaliar());
 	}
 
 	@Test(expected = ExcecaoChaveNula.class)
@@ -83,7 +84,7 @@ public final class TesteMapaLista {
 	public void fonrecerElementoNaoInseridoRetornaNull() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		assertSame(mapa.fornecer(cpfDoJoao), null);
-		assertThat(mapa.contarElementos(), is(0));
+		assertThat(mapa.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -91,7 +92,7 @@ public final class TesteMapaLista {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
 		assertSame(mapa.fornecer(cpfDoJoao), joao);
-		assertThat(mapa.contarElementos(), is(1));
+		assertThat(mapa.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -100,7 +101,7 @@ public final class TesteMapaLista {
 		mapa.inserir(cpfDoJoao, joao);
 		mapa.inserir(cpfDoJoao, jose);
 		assertSame(mapa.fornecer(cpfDoJoao), jose);
-		assertThat(mapa.contarElementos(), is(1));
+		assertThat(mapa.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -110,7 +111,7 @@ public final class TesteMapaLista {
 		mapa.inserir(cpfDoJose, jose);
 		assertSame(mapa.fornecer(cpfDoJoao), joao);
 		assertSame(mapa.fornecer(cpfDoJose), jose);
-		assertThat(mapa.contarElementos(), is(2));
+		assertThat(mapa.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoChaveNula.class)
@@ -124,8 +125,8 @@ public final class TesteMapaLista {
 	public void removerElementoInexistenteRetornaFalse() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
-		assertFalse(mapa.remover(cpfDaMaria));
-		assertThat(mapa.contarElementos(), is(1));
+		assertFalse(mapa.remover(cpfDaMaria).avaliar());
+		assertThat(mapa.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -133,8 +134,8 @@ public final class TesteMapaLista {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
 		mapa.inserir(cpfDaMaria, maria);
-		assertTrue(mapa.remover(cpfDaMaria));
-		assertThat(mapa.contarElementos(), is(1));
+		assertTrue(mapa.remover(cpfDaMaria).avaliar());
+		assertThat(mapa.contarElementos().inteiro(), is(1));
 	}
 
 	@Test(expected = ExcecaoChaveNula.class)
@@ -147,14 +148,14 @@ public final class TesteMapaLista {
 	public void contemRetornaFalsoSeNaoExisteUmaChaveIgualEComMesmoCodigoDaChaveFornecida() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
-		assertFalse(mapa.contem(cpfDoJose));
+		assertFalse(mapa.contem(cpfDoJose).avaliar());
 	}
 
 	@Test
 	public void contemRetornaVerdadeiroSeExisteUmaChaveIgualEComMesmoCodigoDaChaveFornecida() {
 		MapaLista<Cpf, Pessoa> mapa = MapaLista.criar();
 		mapa.inserir(cpfDoJoao, joao);
-		assertTrue(mapa.contem(cpfDoJoao));
+		assertTrue(mapa.contem(cpfDoJoao).avaliar());
 	}
 
 	@Test
@@ -162,77 +163,78 @@ public final class TesteMapaLista {
 		assertNull(mapa.fornecer(cpfDoJoao));
 		mapa.fixarValorNulo(jose);
 		assertNotNull(mapa.fornecer(cpfDoJoao));
-		assertTrue(jose.igual(mapa.fornecer(cpfDoJoao)));
+		assertTrue(jose.igual(mapa.fornecer(cpfDoJoao)).avaliar());
 	}
 
 	@Test
 	public void fornecerChavesDeMapaVazio() {
-		assertThat(mapa.chaves().contarElementos(), is(equalTo(0)));
+		assertThat(mapa.chaves().contarElementos().inteiro(), is(equalTo(0)));
 	}
 
 	@Test
 	public void fornecerChavesDeMapaComUmElemento() {
 		mapa.inserir(cpfDaMaria, maria);
-		assertThat(mapa.chaves().contarElementos(), is(equalTo(1)));
-		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()));
+		assertThat(mapa.chaves().contarElementos().inteiro(), is(equalTo(1)));
+		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()).avaliar());
 	}
 
 	@Test
 	public void fornecerChavesDeMapaComUmElementoSobrescrito() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.inserir(cpfDaMaria, joao);
-		assertThat(mapa.chaves().contarElementos(), is(equalTo(1)));
-		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()));
+		assertThat(mapa.chaves().contarElementos().inteiro(), is(equalTo(1)));
+		assertTrue(cpfDaMaria.igual(mapa.chaves().fornecerDoInicio()).avaliar());
 	}
 
 	@Test
 	public void fornecerChavesDeMapaComUmElementoRemovido() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.remover(cpfDaMaria);
-		assertThat(mapa.chaves().contarElementos(), is(equalTo(0)));
+		assertThat(mapa.chaves().contarElementos().inteiro(), is(equalTo(0)));
 	}
 
 	@Test
 	public void fornecerValoresDeMapaVazio() {
-		assertThat(mapa.valores().contarElementos(), is(equalTo(0)));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(0)));
 	}
 
 	@Test
 	public void fornecerValoresDeMapaComUmElemento() {
 		mapa.inserir(cpfDaMaria, maria);
-		assertThat(mapa.valores().contarElementos(), is(equalTo(1)));
-		assertTrue(maria.igual(mapa.valores().fornecerDoInicio()));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(1)));
+		assertTrue(maria.igual(mapa.valores().fornecerDoInicio()).avaliar());
 	}
 
 	@Test
 	public void fornecerValoresDeMapaComUmElementoSobrescrito() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.inserir(cpfDaMaria, joao);
-		assertThat(mapa.valores().contarElementos(), is(equalTo(1)));
-		assertTrue(joao.igual(mapa.valores().fornecerDoInicio()));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(1)));
+		assertTrue(joao.igual(mapa.valores().fornecerDoInicio()).avaliar());
 	}
 
 	@Test
 	public void fornecerValoresDeMapaComUmElementoRemovido() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.remover(cpfDaMaria);
-		assertThat(mapa.valores().contarElementos(), is(equalTo(0)));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(0)));
 	}
 
 	@Test
 	public void fornecerValoresDeMapaComUmElementoEmDuasChaves() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.inserir(cpfDoJoao, maria);
-		assertThat(mapa.valores().contarElementos(), is(equalTo(2)));
-		assertTrue(mapa.valores().contem(maria));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(2)));
+		assertTrue(mapa.valores().contem(maria).avaliar());
 	}
 
 	@Test
 	public void fornecerValoresDeMapaComDoisElementos() {
 		mapa.inserir(cpfDaMaria, maria);
 		mapa.inserir(cpfDoJoao, joao);
-		assertThat(mapa.valores().contarElementos(), is(equalTo(2)));
-		assertTrue(mapa.valores().contem(joao));
-		assertTrue(mapa.valores().contem(maria));
+		assertThat(mapa.valores().contarElementos().inteiro(), is(equalTo(2)));
+		assertTrue(mapa.valores().contem(joao).avaliar());
+		assertTrue(mapa.valores().contem(maria).avaliar());
 	}
+
 }

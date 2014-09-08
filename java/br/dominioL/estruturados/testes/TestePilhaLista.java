@@ -1,34 +1,31 @@
 package br.dominioL.estruturados.testes;
 
-import static org.hamcrest.core.Is.is;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.pilha.PilhaLista;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
 import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
-import br.dominioL.estruturados.testes.figuracao.Numero;
 
 public final class TestePilhaLista {
-	private Numero numeroUm = new Numero(1);
-	private Numero numeroDois = new Numero(2);
-	private Numero numeroTres = new Numero(3);
-	private Numero numeroQuatro = new Numero(4);
+
+	private Numero numeroUm = Numero.criar(1);
+	private Numero numeroDois = Numero.criar(2);
+	private Numero numeroTres = Numero.criar(3);
+	private Numero numeroQuatro = Numero.criar(4);
 
 	@Test
 	public void empilharEmPilhaVazia() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.empilhar(numeroUm);
 		assertSame(pilha.fornecerDoTopo(), numeroUm);
-		assertFalse(pilha.vazio());
-		assertThat(pilha.contarElementos(), is(1));
+		assertFalse(pilha.vazio().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -37,8 +34,8 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		pilha.empilhar(numeroDois);
 		assertSame(pilha.fornecerDoTopo(), numeroDois);
-		assertFalse(pilha.vazio());
-		assertThat(pilha.contarElementos(), is(2));
+		assertFalse(pilha.vazio().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -47,8 +44,8 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroDois);
 		pilha.empilhar(numeroUm);
 		assertSame(pilha.desempilhar(), numeroUm);
-		assertFalse(pilha.vazio());
-		assertThat(pilha.contarElementos(), is(1));
+		assertFalse(pilha.vazio().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -59,8 +56,8 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		assertSame(pilha.desempilhar(), numeroUm);
 		assertSame(pilha.desempilhar(), numeroDois);
-		assertFalse(pilha.vazio());
-		assertThat(pilha.contarElementos(), is(1));
+		assertFalse(pilha.vazio().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -72,8 +69,8 @@ public final class TestePilhaLista {
 		assertSame(pilha.desempilhar(), numeroUm);
 		assertSame(pilha.desempilhar(), numeroDois);
 		assertSame(pilha.desempilhar(), numeroTres);
-		assertTrue(pilha.vazio());
-		assertThat(pilha.contarElementos(), is(0));
+		assertTrue(pilha.vazio().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(0));
 	}
 
 	@Test(expected = ExcecaoElementoNulo.class)
@@ -99,7 +96,7 @@ public final class TestePilhaLista {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.empilhar(numeroDois);
 		pilha.empilhar(numeroUm);
-		assertTrue(pilha.estaNoTopo(numeroUm));
+		assertTrue(pilha.estaNoTopo(numeroUm).avaliar());
 	}
 
 	@Test
@@ -107,13 +104,13 @@ public final class TestePilhaLista {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.empilhar(numeroDois);
 		pilha.empilhar(numeroUm);
-		assertTrue(pilha.estaNoTopo(numeroUm));
+		assertTrue(pilha.estaNoTopo(numeroUm).avaliar());
 	}
 
 	@Test
 	public void elementoNaoEstaNoTopoSeAPilhaEstaVazia() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
-		assertFalse(pilha.estaNoTopo(numeroUm));
+		assertFalse(pilha.estaNoTopo(numeroUm).avaliar());
 	}
 
 	@Test
@@ -122,7 +119,7 @@ public final class TestePilhaLista {
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
 		pilha.inserir(numeroUm);
-		assertThat(pilha.contarElementos(), is(3));
+		assertThat(pilha.contarElementos().inteiro(), is(3));
 	}
 
 	@Test
@@ -130,8 +127,8 @@ public final class TestePilhaLista {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
-		assertTrue(pilha.remover(numeroUm));
-		assertThat(pilha.contarElementos(), is(1));
+		assertTrue(pilha.remover(numeroUm).avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -140,8 +137,8 @@ public final class TestePilhaLista {
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
 		pilha.inserir(numeroUm);
-		assertTrue(pilha.remover(numeroUm));
-		assertThat(pilha.contarElementos(), is(2));
+		assertTrue(pilha.remover(numeroUm).avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 		assertSame(pilha.fornecerDoTopo(), numeroDois);
 	}
 
@@ -149,8 +146,8 @@ public final class TestePilhaLista {
 	public void removerUmElementoQueNaoExiste() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
-		assertFalse(pilha.remover(numeroDois));
-		assertThat(pilha.contarElementos(), is(1));
+		assertFalse(pilha.remover(numeroDois).avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -159,7 +156,7 @@ public final class TestePilhaLista {
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
 		pilha.inserir(numeroTres);
-		assertTrue(pilha.contem(numeroDois));
+		assertTrue(pilha.contem(numeroDois).avaliar());
 	}
 
 	@Test
@@ -168,13 +165,13 @@ public final class TestePilhaLista {
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
 		pilha.inserir(numeroTres);;
-		assertFalse(pilha.contem(numeroQuatro));
+		assertFalse(pilha.contem(numeroQuatro).avaliar());
 	}
 
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoNaoTemElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
-		assertThat(pilha.contarElementos(), is(0));
+		assertThat(pilha.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -182,7 +179,7 @@ public final class TestePilhaLista {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.inserir(numeroDois);
-		assertThat(pilha.contarElementos(), is(2));
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -190,14 +187,14 @@ public final class TestePilhaLista {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
 		pilha.remover(numeroUm);
-		assertTrue(pilha.vazio());
+		assertTrue(pilha.vazio().avaliar());
 	}
 
 	@Test
 	public void naoEstaVaziaSePossuiElementos() {
 		PilhaLista<Numero> pilha = PilhaLista.criar();
 		pilha.inserir(numeroUm);
-		assertFalse(pilha.vazio());
+		assertFalse(pilha.vazio().avaliar());
 	}
 
 	@Test
@@ -210,7 +207,7 @@ public final class TestePilhaLista {
 		assertSame(iterador.iterarProximo(), numeroTres);
 		assertSame(iterador.iterarProximo(), numeroDois);
 		assertSame(iterador.iterarProximo(), numeroUm);
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 	@Test
@@ -226,8 +223,8 @@ public final class TestePilhaLista {
 		assertSame(iterador.remover(), numeroDois);
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), numeroTres);
-		assertFalse(iterador.possuiProximo());
-		assertTrue(pilha.vazio());
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertTrue(pilha.vazio().avaliar());
 	}
 
 	@Test
@@ -241,8 +238,8 @@ public final class TestePilhaLista {
 		assertSame(iterador.remover(), numeroUm);
 		iterador.iterarProximo();
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(pilha.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -256,8 +253,8 @@ public final class TestePilhaLista {
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), numeroDois);
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(pilha.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -271,8 +268,8 @@ public final class TestePilhaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), numeroTres);
-		assertFalse(iterador.possuiProximo());
-		assertThat(pilha.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(pilha.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoIteracaoInvalida.class)
@@ -302,7 +299,7 @@ public final class TestePilhaLista {
 		assertSame(iterador.substituir(numeroTres), numeroUm);
 		iterador.iterarProximo();
 		assertSame(iterador.substituir(numeroQuatro), numeroDois);
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(pilha.fornecerDoTopo(), numeroTres);
 		pilha.desempilhar();
 		assertSame(pilha.fornecerDoTopo(), numeroQuatro);
@@ -314,10 +311,10 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroDois);
 		pilha.empilhar(numeroUm);
 		Iterador<Numero> iterador = pilha.fornecerIterador();
-		assertTrue(iterador.iterarProximo().igual(numeroUm));
-		assertTrue(iterador.substituir(numeroTres).igual(numeroUm));
-		assertTrue(iterador.iterarProximo().igual(numeroDois));
-		assertFalse(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(numeroUm).avaliar());
+		assertTrue(iterador.substituir(numeroTres).igual(numeroUm).avaliar());
+		assertTrue(iterador.iterarProximo().igual(numeroDois).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(pilha.fornecerDoTopo(), numeroTres);
 	}
 
@@ -327,10 +324,10 @@ public final class TestePilhaLista {
 		pilha.empilhar(numeroUm);
 		pilha.empilhar(numeroDois);
 		Iterador<Numero> iterador = pilha.fornecerIterador();
-		assertTrue(iterador.iterarProximo().igual(numeroDois));
-		assertTrue(iterador.iterarProximo().igual(numeroUm));
-		assertTrue(iterador.substituir(numeroTres).igual(numeroUm));
-		assertFalse(iterador.possuiProximo());
+		assertTrue(iterador.iterarProximo().igual(numeroDois).avaliar());
+		assertTrue(iterador.iterarProximo().igual(numeroUm).avaliar());
+		assertTrue(iterador.substituir(numeroTres).igual(numeroUm).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(pilha.fornecerDoTopo(), numeroDois);
 	}
 
@@ -389,4 +386,5 @@ public final class TestePilhaLista {
 		iterador.remover();
 		iterador.substituir(numeroTres);
 	}
+
 }

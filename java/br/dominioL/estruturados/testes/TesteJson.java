@@ -5,8 +5,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
 import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;
@@ -16,15 +16,15 @@ public final class TesteJson {
 	@Test
 	public void objetoVazio() {
 		ObjetoJson json = Json.criarObjeto("{}");
-		assertThat(json.comoTextoJson(), is("{}"));
+		assertThat(json.toString(), is("{}"));
 		json = Json.criarObjeto("{   }");
-		assertThat(json.comoTextoJson(), is("{}"));
+		assertThat(json.toString(), is("{}"));
 	}
 
 	@Test
 	public void objetoComObjetoDentro() {
 		ObjetoJson json = Json.criarObjeto("   {   \"outroObjeto\"   : {   }   }   ");
-		assertThat(json.comoTextoJson(), is("{\"outroObjeto\": {}}"));
+		assertThat(json.toString(), is("{\"outroObjeto\": {}}"));
 	}
 
 	@Test
@@ -32,51 +32,51 @@ public final class TesteJson {
 		ObjetoJson objetoPrimario = Json.criarObjeto();
 		ObjetoJson objetoSecundario = Json.criarObjeto();
 		ObjetoJson objetoTerciario = Json.criarObjeto();
-		objetoSecundario.inserir(Json.criarIdentificador("terciario"), objetoTerciario);
-		objetoPrimario.inserir(Json.criarIdentificador("secundario"), objetoSecundario);
-		assertThat(objetoPrimario.comoTextoJson(), is("{\"secundario\": {\"terciario\": {}}}"));
+		objetoSecundario.inserir(Texto.criar("terciario"), objetoTerciario);
+		objetoPrimario.inserir(Texto.criar("secundario"), objetoSecundario);
+		assertThat(objetoPrimario.toString(), is("{\"secundario\": {\"terciario\": {}}}"));
 	}
 
 	@Test
 	public void objetoComDuasPropriedades() {
 		ObjetoJson json = Json.criarObjeto("{\"access_token\":\"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\",\"token_type\":\"bearer\"}");
-		assertThat(json.comoTextoJson(), is("{\"token_type\": \"bearer\", \"access_token\": \"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\"}"));
+		assertThat(json.toString(), is("{\"token_type\": \"bearer\", \"access_token\": \"3a740f86b41be8a2faa0b168bdedd0b5571ba0b1\"}"));
 	}
 
 	@Test
 	public void objetoComTextoDentro() {
 		ObjetoJson json = Json.criarObjeto("{\"texto\" : 'valorTextual'}");
-		assertThat(json.comoTextoJson(), is("{\"texto\": \"valorTextual\"}"));
+		assertThat(json.toString(), is("{\"texto\": \"valorTextual\"}"));
 	}
 
 	@Test
 	public void objetoComBooleanoFalsoDentro() {
 		ObjetoJson json = Json.criarObjeto("   {   \"booleano\" : false   }   ");
-		assertThat(json.comoTextoJson(), is("{\"booleano\": false}"));
+		assertThat(json.toString(), is("{\"booleano\": false}"));
 	}
 
 	@Test
 	public void objetoComBooleanoVerdadeiroDentro() {
 		ObjetoJson json = Json.criarObjeto(" {\"booleano\" : true} ");
-		assertThat(json.comoTextoJson(), is("{\"booleano\": true}"));
+		assertThat(json.toString(), is("{\"booleano\": true}"));
 	}
 
 	@Test
 	public void objetoComNumeroDentro() {
 		ObjetoJson json = Json.criarObjeto(" {\"numero\" : 1} ");
-		assertThat(json.comoTextoJson(), is("{\"numero\": 1}"));
+		assertThat(json.toString(), is("{\"numero\": 1}"));
 		json = Json.criarObjeto(" {\"numero\" : 1.0} ");
-		assertThat(json.comoTextoJson(), is("{\"numero\": 1.0}"));
+		assertThat(json.toString(), is("{\"numero\": 1.0}"));
 		json = Json.criarObjeto(" {\"numero\" : 1.0101} ");
-		assertThat(json.comoTextoJson(), is("{\"numero\": 1.0101}"));
+		assertThat(json.toString(), is("{\"numero\": 1.0101}"));
 		json = Json.criarObjeto(" {\"numero\" : 0.0101} ");
-		assertThat(json.comoTextoJson(), is("{\"numero\": 0.0101}"));
+		assertThat(json.toString(), is("{\"numero\": 0.0101}"));
 	}
 
 	@Test
 	public void listaComElementosDentro() {
 		ListaJson json = Json.criarLista(" [ 10, 'texto' , true , false , \"outroTexto\" , { \"numero\": 10.1 } , [ 1, 2, 3, { } ] ] ");
-		assertThat(json.comoTextoJson(), is("[10, \"texto\", true, false, \"outroTexto\", {\"numero\": 10.1}, [1, 2, 3, {}]]"));
+		assertThat(json.toString(), is("[10, \"texto\", true, false, \"outroTexto\", {\"numero\": 10.1}, [1, 2, 3, {}]]"));
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public final class TesteJson {
 		letras.inserir(Json.criarTexto(Texto.criar("b")));
 		letras.inserir(Json.criarTexto(Texto.criar("c")));
 		numeros.inserir(letras);
-		assertThat(numeros.comoTextoJson(), is("[1, 3, 2, [\"a\", \"b\", \"c\"]]"));
+		assertThat(numeros.toString(), is("[1, 3, 2, [\"a\", \"b\", \"c\"]]"));
 	}
 
 	@Test(expected = ExcecaoJsonDeAnalise.class)

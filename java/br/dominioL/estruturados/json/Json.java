@@ -2,9 +2,9 @@ package br.dominioL.estruturados.json;
 
 import br.dominioL.estruturados.colecao.pilha.Pilha;
 import br.dominioL.estruturados.colecao.pilha.PilhaLista;
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeAnalise;
 
 public final class Json {
@@ -56,7 +56,7 @@ public final class Json {
 		return json.analisar().comoObjeto();
 	}
 
-	public static ObjetoJson criarObjeto() {
+	static ObjetoJson criarObjeto() {
 		return new ObjetoJson();
 	}
 
@@ -65,23 +65,23 @@ public final class Json {
 		return json.analisar().comoLista();
 	}
 
-	public static ListaJson criarLista() {
+	static ListaJson criarLista() {
 		return new ListaJson();
 	}
 
-	public static TextoJson criarTexto(Texto texto) {
+	static TextoJson criarTexto(Texto texto) {
 		return new TextoJson(texto);
 	}
 
-	public static BooleanoJson criarBooleano(Booleano booleano) {
+	static BooleanoJson criarBooleano(Booleano booleano) {
 		return new BooleanoJson(booleano);
 	}
 
-	public static NumeroJson criarNumero(Numero numero) {
+	static NumeroJson criarNumero(Numero numero) {
 		return new NumeroJson(numero);
 	}
 
-	public static IdentificadorJson criarIdentificador(String identificador) {
+	static IdentificadorJson criarIdentificador(String identificador) {
 		return new IdentificadorJson(identificador);
 	}
 
@@ -115,7 +115,7 @@ public final class Json {
 			json();
 			IdentificadorJson identificador = identificadoresAbertos.desempilhar();
 			ValorJson valor = valoresAbertos.desempilhar();
-			valoresAbertos.fornecerDoTopo().comoObjeto().inserir(identificador, valor);
+			valoresAbertos.fornecerDoTopo().comoObjeto().inserir(identificador.comoTexto().valor(), valor);
 			consumirEspacos();
 			encontrarSimbolo(FECHAMENTO_DE_OBJETO_OU_SEPARADOR);
 			consumirSimboloSeFor(SEPARADOR);
@@ -168,10 +168,10 @@ public final class Json {
 	private void booleano() {
 		if (simboloAtual.matches(INICIO_DE_VERDADEIRO)) {
 			encontrarSimboloLongo(VERDADEIRO);
-			valoresAbertos.empilhar(Json.criarBooleano(Booleano.criarVerdadeiro()));
+			valoresAbertos.empilhar(Json.criarBooleano(Booleano.verdadeiro()));
 		} else if (simboloAtual.matches(INICIO_DE_FALSO)) {
 			encontrarSimboloLongo(FALSO);
-			valoresAbertos.empilhar(Json.criarBooleano(Booleano.criarFalso()));
+			valoresAbertos.empilhar(Json.criarBooleano(Booleano.falso()));
 		}
 	}
 

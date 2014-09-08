@@ -1,17 +1,20 @@
 package br.dominioL.estruturados.colecao.lista;
 
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 
 public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<E> implements Igualavel<ListaEncadeada<E>> {
-	private Integer quantidadeDeElementos;
+
+	private Numero quantidadeDeElementos;
 	private Caixa caixaDoInicio;
 	private Caixa caixaDoFim;
 
 	private ListaEncadeada() {
-		quantidadeDeElementos = 0;
+		quantidadeDeElementos = Numero.zero();
 	}
 
 	public static <F extends Igualavel<F>> ListaEncadeada<F> criar() {
@@ -20,7 +23,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 
 	public void inserirNoInicio(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
-		if (quantidadeDeElementos == 0) {
+		if (quantidadeDeElementos.igualZero().avaliar()) {
 			caixaDoInicio = new Caixa(elemento);
 			caixaDoFim = caixaDoInicio;
 		} else {
@@ -29,12 +32,12 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDoInicio.fixarCaixaDaDireita(caixaDoInicioAntiga);
 			caixaDoInicioAntiga.fixarCaixaDaEsquerda(caixaDoInicio);
 		}
-		quantidadeDeElementos++;
+		quantidadeDeElementos = quantidadeDeElementos.incrementar();
 	}
 
 	public void inserirNoFim(E elemento) {
 		lancarExcecaoDeElementoNuloSeNecessario(elemento);
-		if (quantidadeDeElementos == 0) {
+		if (quantidadeDeElementos.igualZero().avaliar()) {
 			caixaDoFim = new Caixa(elemento);
 			caixaDoInicio = caixaDoFim;
 		} else {
@@ -43,7 +46,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDoFim.fixarCaixaDaEsquerda(caixaDoFimAntiga);
 			caixaDoFimAntiga.fixarCaixaDaDireita(caixaDoFim);
 		}
-		quantidadeDeElementos++;
+		quantidadeDeElementos = quantidadeDeElementos.incrementar();
 	}
 
 	public E removerDoInicio() {
@@ -52,12 +55,12 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		E elemento = caixaDoInicio.fornecerElemento();
 		caixaDoInicio.removerPonteiros();
 		caixaDoInicio = caixaDoInicioNova;
-		if (caixaDoInicio != null) {
+		if (Booleano.nulo(caixaDoInicio).negar().avaliar()) {
 			caixaDoInicio.fixarCaixaDaEsquerda(null);
 		} else {
 			caixaDoFim = null;
 		}
-		quantidadeDeElementos--;
+		quantidadeDeElementos = quantidadeDeElementos.decrementar();
 		return elemento;
 	}
 
@@ -67,12 +70,12 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 		E elemento = caixaDoFim.fornecerElemento();
 		caixaDoFim.removerPonteiros();
 		caixaDoFim = caixaDoFimNova;
-		if (caixaDoFim != null) {
+		if (Booleano.nulo(caixaDoFim).negar().avaliar()) {
 			caixaDoFim.fixarCaixaDaDireita(null);
 		} else {
 			caixaDoInicio = null;
 		}
-		quantidadeDeElementos--;
+		quantidadeDeElementos = quantidadeDeElementos.decrementar();
 		return elemento;
 	}
 
@@ -87,7 +90,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 	}
 
 	@Override
-	public Integer contarElementos() {
+	public Numero contarElementos() {
 		return quantidadeDeElementos;
 	}
 
@@ -102,78 +105,89 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 	}
 
 	@Override
-	public Boolean igual(ListaEncadeada<E> outro) {
-		return (this == outro);
+	public Booleano igual(ListaEncadeada<E> outro) {
+		return Booleano.mesmo(this, outro);
 	}
 
 	private final class IteradorDeListaEncadeada extends IteradorAbstrato<E> implements Iterador<E> {
+
 		private Caixa cursor;
 		private Caixa cursorAnterior;
-		private Boolean removeu;
-		private Boolean substituiu;
+		private Booleano removeu;
+		private Booleano substituiu;
 
 		private IteradorDeListaEncadeada() {
 			cursor = caixaDoInicio;
 			cursorAnterior = null;
-			removeu = false;
-			substituiu = false;
+			removeu = Booleano.falso();
+			substituiu = Booleano.falso();
 		}
 
 		@Override
-		public Boolean possuiProximo() {
-			return (cursor != null);
+		public Booleano possuiProximo() {
+			return Booleano.nulo(cursor).negar();
 		}
 
 		@Override
 		public E iterarProximo() {
-			if (!possuiProximo()) {
+			if (possuiProximo().negar().avaliar()) {
 				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoAtual = cursor.fornecerElemento();
 			cursorAnterior = cursor;
 			cursor = cursor.fornecerCaixaDaDireita();
-			removeu = false;
-			substituiu = false;
+			removeu = Booleano.falso();
+			substituiu = Booleano.falso();
 			return elementoAtual;
 		}
 
 		@Override
 		public E remover() {
-			if (removeu || cursorAnterior == null) {
+			if (removeu.ou(Booleano.nulo(cursorAnterior)).avaliar()) {
 				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoRemovido = cursorAnterior.fornecerElemento();
 			Caixa caixaDaEsquerdaNova = cursorAnterior.fornecerCaixaDaEsquerda();
-			if (cursor != null) {
-				cursor.fixarCaixaDaEsquerda(caixaDaEsquerdaNova);
-			} else {
-				caixaDoFim = caixaDaEsquerdaNova;
-			}
-			if (caixaDaEsquerdaNova != null) {
+			ajustarPonteiroDoCursor(caixaDaEsquerdaNova);
+			ajustarPonteiroDoProximoCursor(caixaDaEsquerdaNova);
+			cursorAnterior.removerPonteiros();
+			removeu = Booleano.verdadeiro();
+			quantidadeDeElementos = quantidadeDeElementos.decrementar();
+			return elementoRemovido;
+		}
+
+		private void ajustarPonteiroDoProximoCursor(Caixa caixaDaEsquerdaNova) {
+			if (Booleano.nulo(caixaDaEsquerdaNova).negar().avaliar()) {
 				caixaDaEsquerdaNova.fixarCaixaDaDireita(cursor);
 			} else {
 				caixaDoInicio = cursor;
 			}
-			cursorAnterior.removerPonteiros();
-			removeu = true;
-			quantidadeDeElementos--;
-			return elementoRemovido;
+		}
+
+		private void ajustarPonteiroDoCursor(Caixa caixaDaEsquerdaNova) {
+			if (Booleano.nulo(cursor).negar().avaliar()) {
+				cursor.fixarCaixaDaEsquerda(caixaDaEsquerdaNova);
+			} else {
+				caixaDoFim = caixaDaEsquerdaNova;
+			}
 		}
 
 		@Override
 		public E substituir(E substituto) {
 			lancarExcecaoDeElementoNuloSeNecessario(substituto);
-			if (removeu || substituiu || cursorAnterior == null) {
+			if (removeu.ou(substituiu).ou(Booleano.nulo(cursorAnterior)).avaliar()) {
 				throw new ExcecaoIteracaoInvalida();
 			}
 			E elementoSubstituido = cursorAnterior.fornecerElemento();
 			cursorAnterior.fixarElemento(substituto);
-			substituiu = true;
+			substituiu = Booleano.verdadeiro();
 			return elementoSubstituido;
 		}
+
 	}
 
 	private final class Caixa {
+
 		private E elemento;
 		private Caixa caixaDaEsquerda;
 		private Caixa caixaDaDireita;
@@ -211,5 +225,7 @@ public final class ListaEncadeada<E extends Igualavel<E>> extends ListaAbstrata<
 			caixaDaEsquerda = null;
 			caixaDaDireita = null;
 		}
+
 	}
+
 }

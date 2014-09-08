@@ -1,8 +1,9 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class TextoJson extends ValorJson {
+
 	private Texto valor;
 
 	protected TextoJson(Texto valor) {
@@ -15,8 +16,8 @@ public final class TextoJson extends ValorJson {
 	}
 
 	@Override
-	public String comoTextoJson() {
-		return String.format("\"%s\"", valor);
+	public Texto comoTextoJson() {
+		return valor.colocarAspas();
 	}
 
 	@Override
@@ -26,4 +27,5 @@ public final class TextoJson extends ValorJson {
 		}
 		return false;
 	}
+
 }

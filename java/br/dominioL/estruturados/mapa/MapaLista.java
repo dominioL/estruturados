@@ -6,6 +6,8 @@ import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
 import br.dominioL.estruturados.colecao.lista.ListaPosicional;
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoChaveNula;
 import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
@@ -14,15 +16,17 @@ import br.dominioL.estruturados.iteracao.IteradorAbstrato;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
 public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igualavel<V>> implements Mapa<C, V>, Igualavel<MapaLista<C, V>> {
-	private final static Integer TAMANHO_INICIAL = 10;
-	private final static Integer FATOR_DE_CARGA = 1;
-	private final static Integer FATOR_DE_CRESCIMENTO = 2;
-	private Integer quantidadeDeElementos;
+
+	private final static Numero TAMANHO_INICIAL = Numero.criar(10);
+	private final static Numero FATOR_DE_CARGA = Numero.criar(1);
+	private final static Numero FATOR_DE_CRESCIMENTO = Numero.criar(2);
+
+	private Numero quantidadeDeElementos;
 	private ListaPosicional<ListaEncadeada<ParDeMapaLista<C, V>>> elementos;
 	private V valorNulo;
 
 	private MapaLista() {
-		quantidadeDeElementos = 0;
+		quantidadeDeElementos = Numero.zero();
 		elementos = ListaPosicional.criar(TAMANHO_INICIAL);
 	}
 
@@ -31,27 +35,27 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	@Override
-	public Integer contarElementos() {
+	public Numero contarElementos() {
 		return quantidadeDeElementos;
 	}
 
 	@Override
-	public Boolean vazio() {
-		return (quantidadeDeElementos == 0);
+	public Booleano vazio() {
+		return quantidadeDeElementos.igualZero();
 	}
 
 	@Override
-	public Boolean contem(C chave) {
+	public Booleano contem(C chave) {
 		checarChave(chave);
 		return obterGrupo(chave).contem(new ParDeMapaLista<C, V>(chave));
 	}
 
 	@Override
-	public Boolean remover(C chave) {
+	public Booleano remover(C chave) {
 		checarChave(chave);
-		Boolean removido = obterGrupo(chave).remover(new ParDeMapaLista<C, V>(chave));
-		if (removido) {
-			quantidadeDeElementos--;
+		Booleano removido = obterGrupo(chave).remover(new ParDeMapaLista<C, V>(chave));
+		if (removido.avaliar()) {
+			quantidadeDeElementos = quantidadeDeElementos.decrementar();
 		}
 		return removido;
 	}
@@ -61,10 +65,10 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		checarChaveEValor(chave, valor);
 		ListaEncadeada<ParDeMapaLista<C, V>> grupo = obterGrupo(chave);
 		ParDeMapaLista<C, V> elemento = new ParDeMapaLista<C, V>(chave, valor);
-		Boolean existia = grupo.remover(elemento);
+		Booleano existia = grupo.remover(elemento);
 		grupo.inserirNoInicio(elemento);
-		if (!existia) {
-			quantidadeDeElementos++;
+		if (existia.negar().avaliar()) {
+			quantidadeDeElementos = quantidadeDeElementos.incrementar();
 			crescerSeNecessario();
 		}
 	}
@@ -81,7 +85,7 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		checarChave(chave);
 		ListaEncadeada<ParDeMapaLista<C, V>> grupo = obterGrupo(chave);
 		ParDeMapaLista<C, V> elemento = grupo.reter(new ParDeMapaLista<C, V>(chave));
-		if (elemento != null) {
+		if (Booleano.nulo(elemento).negar().avaliar()) {
 			return elemento.valor;
 		}
 		return valorNulo;
@@ -121,13 +125,13 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	private void checarChave(C chave) {
-		if (chave == null) {
+		if (Booleano.nulo(chave).avaliar()) {
 			throw new ExcecaoChaveNula();
 		}
 	}
 
 	private void checarValor(V valor) {
-		if (valor == null) {
+		if (Booleano.nulo(valor).avaliar()) {
 			throw new ExcecaoElementoNulo();
 		}
 	}
@@ -138,9 +142,9 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	private ListaEncadeada<ParDeMapaLista<C, V>> obterGrupo(C chave) {
-		Integer posicaoDoGrupo = Math.abs(chave.codificar() % elementos.fornecerTamanho());
+		Numero posicaoDoGrupo = chave.codificar().resto(elementos.fornecerTamanho());
 		ListaEncadeada<ParDeMapaLista<C, V>> grupo = elementos.fornecerDaPosicao(posicaoDoGrupo);
-		if (grupo == null) {
+		if (Booleano.nulo(grupo).avaliar()) {
 			grupo = ListaEncadeada.criar();
 			elementos.inserirNaPosicao(posicaoDoGrupo, grupo);
 		}
@@ -148,10 +152,10 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	private void crescerSeNecessario() {
-		if ((quantidadeDeElementos / elementos.fornecerTamanho()) >= FATOR_DE_CARGA) {
+		if (quantidadeDeElementos.dividir(elementos.fornecerTamanho()).maiorOuIgualQue(FATOR_DE_CARGA).avaliar()) {
 			ListaPosicional<ListaEncadeada<ParDeMapaLista<C, V>>> elementosAntigos = elementos;
-			elementos = ListaPosicional.criar(quantidadeDeElementos * FATOR_DE_CRESCIMENTO);
-			quantidadeDeElementos = 0;
+			elementos = ListaPosicional.criar(quantidadeDeElementos.multiplicar(FATOR_DE_CRESCIMENTO));
+			quantidadeDeElementos = Numero.zero();
 			for (ListaEncadeada<ParDeMapaLista<C, V>> grupo : elementosAntigos) {
 				for (ParDeMapaLista<C, V> par : grupo) {
 					inserir(par.chave, par.valor);
@@ -161,35 +165,36 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 	}
 
 	@Override
-	public Boolean igual(MapaLista<C, V> outro) {
-		return (this == outro);
+	public Booleano igual(MapaLista<C, V> outro) {
+		return Booleano.mesmo(this, outro);
 	}
 
 	private final class IteradorDeMapaLista extends IteradorAbstrato<Par<C, V>> implements Iterador<Par<C, V>> {
+
 		private Iterador<ListaEncadeada<ParDeMapaLista<C, V>>> iteradorDosGrupos;
 		private Iterador<ParDeMapaLista<C, V>> iteradorDoGrupo;
 		private Iterador<ParDeMapaLista<C, V>> iteradorAtual;
 
 		private IteradorDeMapaLista() {
 			iteradorDosGrupos = elementos.fornecerIterador();
-			if (iteradorDosGrupos.possuiProximo()) {
+			if (iteradorDosGrupos.possuiProximo().avaliar()) {
 				do {
 					iteradorDoGrupo = iteradorDosGrupos.iterarProximo().fornecerIterador();
-				} while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo());
+				} while (iteradorDoGrupo.possuiProximo().negar().avaliar() && iteradorDosGrupos.possuiProximo().avaliar());
 			}
 		}
 
 		@Override
-		public Boolean possuiProximo() {
-			return (iteradorDoGrupo != null && iteradorDoGrupo.possuiProximo());
+		public Booleano possuiProximo() {
+			return Booleano.criar(Booleano.nulo(iteradorDoGrupo).negar().avaliar() && iteradorDoGrupo.possuiProximo().avaliar());
 		}
 
 		@Override
 		public Par<C, V> iterarProximo() {
-			if (possuiProximo()) {
+			if (possuiProximo().avaliar()) {
 				iteradorAtual = iteradorDoGrupo;
 				Par<C, V> elemento = iteradorAtual.iterarProximo();
-				while (!iteradorDoGrupo.possuiProximo() && iteradorDosGrupos.possuiProximo()) {
+				while (iteradorDoGrupo.possuiProximo().negar().avaliar() && iteradorDosGrupos.possuiProximo().avaliar()) {
 					iteradorDoGrupo = iteradorDosGrupos.iterarProximo().fornecerIterador();
 				}
 				return elemento;
@@ -199,7 +204,7 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 
 		@Override
 		public Par<C, V> remover() {
-			if (iteradorAtual != null) {
+			if (Booleano.nulo(iteradorAtual).negar().avaliar()) {
 				return iteradorAtual.remover();
 			}
 			throw new ExcecaoIteracaoInvalida();
@@ -209,10 +214,11 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		public Par<C, V> substituir(Par<C, V> substituto) {
 			throw new ExcecaoIteracaoInvalida();
 		}
+
 	}
 
-	private final class ParDeMapaLista<D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> implements Par<C, V>,
-			Igualavel<ParDeMapaLista<C, V>> {
+	private final class ParDeMapaLista<D extends Igualavel<D> & Codificavel, U extends Igualavel<U>> implements Par<C, V>, Igualavel<ParDeMapaLista<C, V>> {
+
 		private C chave;
 		private V valor;
 
@@ -237,8 +243,10 @@ public final class MapaLista<C extends Codificavel & Igualavel<C>, V extends Igu
 		}
 
 		@Override
-		public Boolean igual(ParDeMapaLista<C, V> outra) {
+		public Booleano igual(ParDeMapaLista<C, V> outra) {
 			return chave.igual(outra.chave);
 		}
+
 	}
+
 }

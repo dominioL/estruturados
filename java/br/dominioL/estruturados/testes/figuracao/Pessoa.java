@@ -1,8 +1,10 @@
 package br.dominioL.estruturados.testes.figuracao;
 
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 
 public final class Pessoa implements Igualavel<Pessoa> {
+
 	private final String nome;
 
 	public Pessoa(String nome) {
@@ -10,7 +12,8 @@ public final class Pessoa implements Igualavel<Pessoa> {
 	}
 
 	@Override
-	public Boolean igual(Pessoa outro) {
-		return nome.equals(outro.nome);
+	public Booleano igual(Pessoa outro) {
+		return Booleano.criar(nome.equals(outro.nome));
 	}
+
 }

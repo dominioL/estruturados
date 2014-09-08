@@ -1,29 +1,31 @@
 package br.dominioL.estruturados.testes;
 
-import org.junit.Test;
-
-import br.dominioL.estruturados.colecao.lista.ListaPosicional;
-import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
-import br.dominioL.estruturados.excecoes.ExcecaoIndiceForaDosLimites;
-import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
-import br.dominioL.estruturados.iteracao.Iterador;
-import br.dominioL.estruturados.testes.figuracao.Numero;
 import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsNull.*;
 import static org.junit.Assert.*;
 
+import org.junit.Test;
+
+import br.dominioL.estruturados.colecao.lista.ListaPosicional;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
+import br.dominioL.estruturados.excecoes.ExcecaoIndiceForaDosLimites;
+import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
+import br.dominioL.estruturados.iteracao.Iterador;
+
 public final class TesteListaPosicional {
-	private Numero primeiroNumero = new Numero(1);
-	private Numero segundoNumero = new Numero(2);
-	private Numero terceiroNumero = new Numero(3);
-	private Numero quartoNumero = new Numero(4);
+
+	private Numero primeiroNumero = Numero.criar(1);
+	private Numero segundoNumero = Numero.criar(2);
+	private Numero terceiroNumero = Numero.criar(3);
+	private Numero quartoNumero = Numero.criar(4);
 	private Numero numeroNulo = null;
 
 	@Test
 	public void fornecerUmElementoDaPoscaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertSame(lista.fornecerDaPosicao(0), primeiroNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.zero()), primeiroNumero);
 	}
 
 	@Test
@@ -31,13 +33,13 @@ public final class TesteListaPosicional {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
-		assertSame(lista.fornecerDaPosicao(1), segundoNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.um()), segundoNumero);
 	}
 
 	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void fornecerUmElementoDeUmaPosicaoForaDosLimites() {
-		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
-		lista.fornecerDaPosicao(1);
+		ListaPosicional<Numero> lista = ListaPosicional.criar(Numero.um());
+		lista.fornecerDaPosicao(Numero.um());
 	}
 
 	@Test
@@ -45,39 +47,39 @@ public final class TesteListaPosicional {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
-		lista.removerDaPosicao(1);
-		assertThat(lista.fornecerDaPosicao(1), nullValue());
+		lista.removerDaPosicao(Numero.um());
+		assertThat(lista.fornecerDaPosicao(Numero.um()), nullValue());
 	}
 
 	@Test
 	public void inserirUmElementoNaPosicaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		assertSame(lista.fornecerDaPosicao(0), primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.zero()), primeiroNumero);
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
 	public void inserirUmElementoNaPosicaoUm() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(1, primeiroNumero);
-		assertSame(lista.fornecerDaPosicao(1), primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		lista.inserirNaPosicao(Numero.um(), primeiroNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.um()), primeiroNumero);
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void inserirUmElementoEmUmaPosicaoForaDosLimites() {
-		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
-		lista.inserirNaPosicao(1, primeiroNumero);
+		ListaPosicional<Numero> lista = ListaPosicional.criar(Numero.um());
+		lista.inserirNaPosicao(Numero.um(), primeiroNumero);
 	}
 
 	@Test
 	public void inserirUmElementoNaPosicaoDeUmElementoQueJaExiste() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(0, segundoNumero);
-		assertSame(lista.fornecerDaPosicao(0), segundoNumero);
-		assertThat(lista.contarElementos(), is(1));
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), segundoNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.zero()), segundoNumero);
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test(expected = ExcecaoElementoNulo.class)
@@ -90,39 +92,39 @@ public final class TesteListaPosicional {
 	public void removerUmElementoDaPoscaoZero() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertSame(lista.removerDaPosicao(0), primeiroNumero);
-		assertThat(lista.contarElementos(), is(0));
+		assertSame(lista.removerDaPosicao(Numero.zero()), primeiroNumero);
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
 	public void removerUmElementoDaPosicaoUm() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		assertSame(lista.removerDaPosicao(1), segundoNumero);
-		assertThat(lista.contarElementos(), is(1));
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		assertSame(lista.removerDaPosicao(Numero.um()), segundoNumero);
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test(expected = ExcecaoIndiceForaDosLimites.class)
 	public void removerUmElementoDeUmaPosicaoForaDosLimites() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.removerDaPosicao(-1);
+		lista.removerDaPosicao(Numero.criar(-1));
 	}
 
 	@Test
 	public void removerUmElementoDeUmaPosicaoQueTeveOElementoRemovido() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.removerDaPosicao(0);
-		assertThat(lista.removerDaPosicao(0), nullValue());
-		assertThat(lista.contarElementos(), is(0));
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.removerDaPosicao(Numero.zero());
+		assertThat(lista.removerDaPosicao(Numero.zero()), nullValue());
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
 	public void inserirUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -131,15 +133,15 @@ public final class TesteListaPosicional {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(primeiroNumero);
-		assertThat(lista.contarElementos(), is(3));
+		assertThat(lista.contarElementos().inteiro(), is(3));
 	}
 
 	@Test
 	public void removerUmElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertTrue(lista.remover(primeiroNumero));
-		assertThat(lista.contarElementos(), is(0));
+		assertTrue(lista.remover(primeiroNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -147,18 +149,18 @@ public final class TesteListaPosicional {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(primeiroNumero);
-		assertTrue(lista.remover(primeiroNumero));
-		assertThat(lista.contarElementos(), is(1));
-		assertThat(lista.fornecerDaPosicao(0), nullValue());
-		assertSame(lista.fornecerDaPosicao(1), primeiroNumero);
+		assertTrue(lista.remover(primeiroNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(1));
+		assertThat(lista.fornecerDaPosicao(Numero.zero()), nullValue());
+		assertSame(lista.fornecerDaPosicao(Numero.um()), primeiroNumero);
 	}
 
 	@Test
 	public void removerUmElementoQueNaoExiste() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertFalse(lista.remover(segundoNumero));
-		assertThat(lista.contarElementos(), is(1));
+		assertFalse(lista.remover(segundoNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -167,7 +169,7 @@ public final class TesteListaPosicional {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(terceiroNumero);
-		assertTrue(lista.contem(terceiroNumero));
+		assertTrue(lista.contem(terceiroNumero).avaliar());
 	}
 
 	@Test
@@ -176,13 +178,13 @@ public final class TesteListaPosicional {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(terceiroNumero);
-		assertFalse(lista.contem(quartoNumero));
+		assertFalse(lista.contem(quartoNumero).avaliar());
 	}
 
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoNaoTemElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -190,7 +192,7 @@ public final class TesteListaPosicional {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
-		assertThat(lista.contarElementos(), is(2));
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -198,48 +200,48 @@ public final class TesteListaPosicional {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
 		lista.remover(primeiroNumero);
-		assertTrue(lista.vazio());
+		assertTrue(lista.vazio().avaliar());
 	}
 
 	@Test
 	public void naoEstaVaziaSePossuiElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
 		lista.inserir(primeiroNumero);
-		assertFalse(lista.vazio());
+		assertFalse(lista.vazio().avaliar());
 	}
 
 	@Test
 	public void iteradorNaoPassaPorElementosNulos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
-		lista.removerDaPosicao(1);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
+		lista.removerDaPosicao(Numero.um());
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		assertThat(iterador.iterarProximo(), notNullValue());
 		assertThat(iterador.iterarProximo(), notNullValue());
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 	@Test
 	public void iteradorPassaPorTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		assertSame(iterador.iterarProximo(), primeiroNumero);
 		assertSame(iterador.iterarProximo(), segundoNumero);
 		assertSame(iterador.iterarProximo(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 	@Test
 	public void iteradorPermiteRemoverTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), primeiroNumero);
@@ -247,53 +249,53 @@ public final class TesteListaPosicional {
 		assertSame(iterador.remover(), segundoNumero);
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
-		assertTrue(lista.vazio());
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertTrue(lista.vazio().avaliar());
 	}
 
 	@Test
 	public void iteradorPermiteRemoverOPrimeiroElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), primeiroNumero);
 		iterador.iterarProximo();
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
 	public void iteradorPermiteRemoverOSegundoElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), segundoNumero);
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
 	public void iteradorPermiteRemoverOUltimoElmento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
-		lista.inserirNaPosicao(2, terceiroNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
+		lista.inserirNaPosicao(Numero.criar(2), terceiroNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoIteracaoInvalida.class)
@@ -316,45 +318,45 @@ public final class TesteListaPosicional {
 	@Test
 	public void iteradorPermiteSubstituirTodosElementos() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
 		iterador.iterarProximo();
 		assertSame(iterador.substituir(terceiroNumero), primeiroNumero);
 		iterador.iterarProximo();
 		assertSame(iterador.substituir(quartoNumero), segundoNumero);
-		assertFalse(iterador.possuiProximo());
-		assertSame(lista.fornecerDaPosicao(0), terceiroNumero);
-		assertSame(lista.fornecerDaPosicao(1), quartoNumero);
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertSame(lista.fornecerDaPosicao(Numero.zero()), terceiroNumero);
+		assertSame(lista.fornecerDaPosicao(Numero.um()), quartoNumero);
 	}
 
 	@Test
 	public void iteradorPermiteSubstituirOPrimeiroElemento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
-		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero));
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(segundoNumero));
-		assertFalse(iterador.possuiProximo());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero).avaliar());
+		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero).avaliar());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 	@Test
 	public void iteradorPermiteSubstituirOUltimoElmento() {
 		ListaPosicional<Numero> lista = ListaPosicional.criar();
-		lista.inserirNaPosicao(0, primeiroNumero);
-		lista.inserirNaPosicao(1, segundoNumero);
+		lista.inserirNaPosicao(Numero.zero(), primeiroNumero);
+		lista.inserirNaPosicao(Numero.um(), segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(segundoNumero));
-		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero));
-		assertFalse(iterador.possuiProximo());
-		assertSame(lista.fornecerDaPosicao(1), terceiroNumero);
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero).avaliar());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero).avaliar());
+		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertSame(lista.fornecerDaPosicao(Numero.um()), terceiroNumero);
 	}
 
 	@Test(expected = ExcecaoIteracaoInvalida.class)
@@ -415,10 +417,11 @@ public final class TesteListaPosicional {
 
 	@Test
 	public void fixarValorNulo() {
-		ListaPosicional<Numero> lista = ListaPosicional.criar(1);
-		assertNull(lista.fornecerDaPosicao(0));
+		ListaPosicional<Numero> lista = ListaPosicional.criar(Numero.um());
+		assertNull(lista.fornecerDaPosicao(Numero.zero()));
 		lista.fixarValorNulo(primeiroNumero);
-		assertNotNull(lista.fornecerDaPosicao(0));
-		assertTrue(primeiroNumero.igual(lista.fornecerDaPosicao(0)));
+		assertNotNull(lista.fornecerDaPosicao(Numero.zero()));
+		assertTrue(primeiroNumero.igual(lista.fornecerDaPosicao(Numero.zero())).avaliar());
 	}
+
 }

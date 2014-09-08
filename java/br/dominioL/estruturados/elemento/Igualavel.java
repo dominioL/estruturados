@@ -1,5 +1,9 @@
 package br.dominioL.estruturados.elemento;
 
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+
 public interface Igualavel<T> {
-	public Boolean igual(T outro);
+
+	public Booleano igual(T outro);
+
 }

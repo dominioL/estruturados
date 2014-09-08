@@ -1,8 +1,8 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 import br.dominioL.estruturados.mapa.Mapa;
@@ -20,66 +20,33 @@ public final class ObjetoJson extends ValorJson implements Iteravel<Par<Identifi
 		elementos.inserir(Json.criarIdentificador(identificador), valor);
 	}
 
-	public void inserir(IdentificadorJson identificador, ValorJson valor) {
-		elementos.inserir(identificador, valor);
-	}
-
 	public void inserir(String identificador, Texto valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarTexto(valor));
-	}
-
-	public void inserir(IdentificadorJson identificador, Texto valor) {
-		elementos.inserir(identificador, Json.criarTexto(valor));
 	}
 
 	public void inserir(String identificador, Numero valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarNumero(valor));
 	}
 
-	public void inserir(IdentificadorJson identificador, Numero valor) {
-		elementos.inserir(identificador, Json.criarNumero(valor));
-	}
-
 	public void inserir(String identificador, Booleano valor) {
 		elementos.inserir(Json.criarIdentificador(identificador), Json.criarBooleano(valor));
-	}
-
-	public void inserir(IdentificadorJson identificador, Booleano valor) {
-		elementos.inserir(identificador, Json.criarBooleano(valor));
 	}
 
 	public ValorJson fornecer(String identificador) {
 		return elementos.fornecer(Json.criarIdentificador(identificador));
 	}
 
-	public ValorJson fornecer(IdentificadorJson identificador) {
-		return elementos.fornecer(identificador);
-	}
-
 	public Boolean contem(String identificador) {
 		return elementos.contem(Json.criarIdentificador(identificador));
-	}
-
-	public Boolean contem(IdentificadorJson identificador) {
-		return elementos.contem(identificador);
 	}
 
 	public Boolean remover(String identificador) {
 		return elementos.remover(Json.criarIdentificador(identificador));
 	}
 
-	public Boolean remover(IdentificadorJson identificador) {
-		return elementos.remover(identificador);
-	}
-
 	public void substituir(String identificador, ValorJson valor) {
 		elementos.remover(Json.criarIdentificador(identificador));
 		elementos.inserir(Json.criarIdentificador(identificador), valor);
-	}
-
-	public void substituir(IdentificadorJson identificador, ValorJson valor) {
-		elementos.remover(identificador);
-		elementos.inserir(identificador, valor);
 	}
 
 	public Integer fornecerQuantidade() {
@@ -102,20 +69,20 @@ public final class ObjetoJson extends ValorJson implements Iteravel<Par<Identifi
 	}
 
 	@Override
-	public String comoTextoJson() {
+	public Texto comoTextoJson() {
 		StringBuilder textoJson = new StringBuilder();
 		textoJson.append(ABERTURA_DE_OBJETO);
 		Iterador<Par<IdentificadorJson, ValorJson>> iterador = elementos.fornecerIterador();
 		while (iterador.possuiProximo()) {
 			Par<IdentificadorJson, ValorJson> elemento = iterador.iterarProximo();
-			textoJson.append(elemento.fornecerChave().comoTextoJson());
-			textoJson.append(elemento.fornecerValor().comoTextoJson());
+			textoJson.append(elemento.fornecerChave().comoTextoJson().valor());
+			textoJson.append(elemento.fornecerValor().comoTextoJson().valor());
 			if (iterador.possuiProximo()) {
 				textoJson.append(SEPARADOR);
 			}
 		}
 		textoJson.append(FECHAMENTO_DE_OBJETO);
-		return textoJson.toString();
+		return Texto.criar(textoJson.toString());
 	}
 
 	@Override
@@ -126,7 +93,7 @@ public final class ObjetoJson extends ValorJson implements Iteravel<Par<Identifi
 				for (Par<IdentificadorJson, ValorJson> par : this) {
 					IdentificadorJson identificadorMeu = par.fornecerChave();
 					ValorJson valorMeu = par.fornecerValor();
-					ValorJson valorDoOutro = outroObjetoJson.fornecer(identificadorMeu);
+					ValorJson valorDoOutro = outroObjetoJson.fornecer(identificadorMeu.comoTexto().valor());
 					if (valorDoOutro == null || !valorMeu.equals(valorDoOutro)) {
 						return false;
 					}

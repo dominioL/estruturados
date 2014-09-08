@@ -9,9 +9,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.json.BooleanoJson;
 import br.dominioL.estruturados.json.Json;
 import br.dominioL.estruturados.json.ListaJson;
@@ -55,9 +55,9 @@ public final class TesteIgualdadeJson {
 		textoLucas = Json.criarTexto(Texto.criar("Lucas"));
 		numeroZero = Json.criarNumero(Numero.criar(0));
 		numeroUm = Json.criarNumero(Numero.criar(1));
-		booleanoFalso = Json.criarBooleano(Booleano.criarFalso());
-		booleanoVerdadeiro = Json.criarBooleano(Booleano.criarVerdadeiro());
-		outroBooleanoVerdadeiro = Json.criarBooleano(Booleano.criarVerdadeiro());
+		booleanoFalso = Json.criarBooleano(Booleano.falso());
+		booleanoVerdadeiro = Json.criarBooleano(Booleano.verdadeiro());
+		outroBooleanoVerdadeiro = Json.criarBooleano(Booleano.verdadeiro());
 
 		objetoComTextoLucasBooleanoFalsoNumeroZero = Json.criarObjeto();
 		objetoComTextoLucasBooleanoFalsoNumeroZero.comoObjeto().inserir("texto", textoLucas);
@@ -74,8 +74,8 @@ public final class TesteIgualdadeJson {
 
 		TextoJson textoLucas = Json.criarTexto(Texto.criar("Lucas"));
 		NumeroJson numeroUm = Json.criarNumero(Numero.criar(1));
-		BooleanoJson booleanoFalso = Json.criarBooleano(Booleano.criarVerdadeiro());
-		BooleanoJson booleanoVerdadeiro = Json.criarBooleano(Booleano.criarFalso());
+		BooleanoJson booleanoFalso = Json.criarBooleano(Booleano.verdadeiro());
+		BooleanoJson booleanoVerdadeiro = Json.criarBooleano(Booleano.falso());
 		ObjetoJson objetoComNumeroUmEListaComBooleanoVerdadeiro = Json.criarObjeto();
 		ObjetoJson objetoComNumeroUmEListaComBooleanoFalso = Json.criarObjeto();
 		ListaJson listaComBooleanoVerdadeiro = Json.criarLista();

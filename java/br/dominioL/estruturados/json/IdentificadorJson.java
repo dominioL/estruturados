@@ -2,35 +2,32 @@ package br.dominioL.estruturados.json;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class IdentificadorJson implements Igualavel<IdentificadorJson>, Codificavel {
-	private String identificador;
+
+	private Texto identificador;
 
 	protected IdentificadorJson(String identificador) {
-		this.identificador = identificador;
+		this.identificador = Texto.criar(identificador);
 	}
 
-	public String comoTexto() {
+	public Texto comoTexto() {
 		return identificador;
 	}
 
-	public String comoTextoJson() {
-		StringBuilder textoJson = new StringBuilder();
-		textoJson.append(ValorJson.DELIMITADOR_TEXTUAL);
-		textoJson.append(identificador);
-		textoJson.append(ValorJson.DELIMITADOR_TEXTUAL);
-		textoJson.append(ValorJson.SEPARADOR_DE_IDENTIFICADOR);
-		return textoJson.toString();
+	public Texto comoTextoJson() {
+		return identificador.colocarDelimitador(ValorJson.DELIMITADOR_TEXTUAL).concatenar(ValorJson.SEPARADOR_DE_IDENTIFICADOR);
 	}
 
 	@Override
 	public Boolean igual(IdentificadorJson outro) {
-		return this.identificador.equals(outro.identificador);
+		return this.identificador.igual(outro.identificador);
 	}
 
 	@Override
 	public Integer codificar() {
-		return identificador.hashCode();
+		return identificador.codificar();
 	}
 
 	@Override
@@ -43,6 +40,7 @@ public final class IdentificadorJson implements Igualavel<IdentificadorJson>, Co
 
 	@Override
 	public String toString() {
-		return comoTextoJson();
+		return comoTextoJson().valor();
 	}
+
 }

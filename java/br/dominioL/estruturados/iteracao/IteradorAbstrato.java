@@ -1,13 +1,14 @@
 package br.dominioL.estruturados.iteracao;
 
 public abstract class IteradorAbstrato<T> implements Iterador<T> {
+
 	protected IteradorAbstrato() {
-		
+
 	}
 
 	@Override
 	public final boolean hasNext() {
-		return possuiProximo();
+		return possuiProximo().avaliar();
 	}
 
 	@Override
@@ -19,4 +20,5 @@ public abstract class IteradorAbstrato<T> implements Iterador<T> {
 	public final void remove() {
 		remover();
 	}
+
 }

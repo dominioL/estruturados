@@ -2,9 +2,12 @@ package br.dominioL.estruturados.colecao.conjunto;
 
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.iteracao.Iterador;
 
 public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrato<E> implements Igualavel<ConjuntoLista<E>> {
+
 	private ListaEncadeada<E> elementos;
 
 	private ConjuntoLista() {
@@ -16,12 +19,12 @@ public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrat
 	}
 
 	@Override
-	public Integer contarElementos() {
+	public Numero contarElementos() {
 		return elementos.contarElementos();
 	}
 
 	@Override
-	public Boolean contem(E elemento) {
+	public Booleano contem(E elemento) {
 		return elementos.contem(elemento);
 	}
 
@@ -32,7 +35,7 @@ public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrat
 	}
 
 	@Override
-	public Boolean remover(E elemento) {
+	public Booleano remover(E elemento) {
 		return elementos.remover(elemento);
 	}
 
@@ -47,7 +50,8 @@ public final class ConjuntoLista<E extends Igualavel<E>> extends ConjuntoAbstrat
 	}
 
 	@Override
-	public Boolean igual(ConjuntoLista<E> outro) {
-		return (this == outro);
+	public Booleano igual(ConjuntoLista<E> outro) {
+		return Booleano.mesmo(this, outro);
 	}
+
 }

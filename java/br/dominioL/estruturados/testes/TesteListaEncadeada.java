@@ -1,22 +1,23 @@
 package br.dominioL.estruturados.testes;
 
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
 import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
-import br.dominioL.estruturados.testes.figuracao.Numero;
-import static org.hamcrest.core.Is.*;
-
-import static org.junit.Assert.*;
 
 public final class TesteListaEncadeada {
-	private Numero primeiroNumero = new Numero(1);
-	private Numero segundoNumero = new Numero(2);
-	private Numero terceiroNumero = new Numero(3);
-	private Numero quartoNumero = new Numero(4);
+
+	private Numero primeiroNumero = Numero.criar(1);
+	private Numero segundoNumero = Numero.criar(2);
+	private Numero terceiroNumero = Numero.criar(3);
+	private Numero quartoNumero = Numero.criar(4);
 
 	@Test
 	public void fornecerUmElementoDoInicio() {
@@ -65,21 +66,21 @@ public final class TesteListaEncadeada {
 	@Test
 	public void inserirUmElementoNoInicio() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		lista.inserirNoInicio(primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 		lista.inserirNoInicio(segundoNumero);
-		assertThat(lista.contarElementos(), is(2));
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
 	public void inserirUmElementoNoFim() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		lista.inserirNoFim(primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 		lista.inserirNoFim(segundoNumero);
-		assertThat(lista.contarElementos(), is(2));
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoElementoNulo.class)
@@ -99,13 +100,13 @@ public final class TesteListaEncadeada {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserirNoInicio(primeiroNumero);
 		Numero primeiroNumeroRemovido = lista.removerDoInicio();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		lista.inserirNoInicio(segundoNumero);
 		lista.inserirNoFim(terceiroNumero);
 		Numero segundoNumeroRemovido = lista.removerDoInicio();
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 		Numero terceiroNumeroRemovido = lista.removerDoInicio();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		assertSame(primeiroNumeroRemovido, primeiroNumero);
 		assertSame(segundoNumeroRemovido, segundoNumero);
 		assertSame(terceiroNumeroRemovido, terceiroNumero);
@@ -116,13 +117,13 @@ public final class TesteListaEncadeada {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserirNoInicio(primeiroNumero);
 		Numero primeiroNumeroRemovido = lista.removerDoFim();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		lista.inserirNoFim(segundoNumero);
 		lista.inserirNoInicio(terceiroNumero);
 		Numero segundoNumeroRemovido = lista.removerDoFim();
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 		Numero terceiroNumeroRemovido = lista.removerDoFim();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 		assertSame(primeiroNumeroRemovido, primeiroNumero);
 		assertSame(segundoNumeroRemovido, segundoNumero);
 		assertSame(terceiroNumeroRemovido, terceiroNumero);
@@ -144,7 +145,7 @@ public final class TesteListaEncadeada {
 	public void inserirUmElemento() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
-		assertThat(lista.contarElementos(), is(1));
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -153,15 +154,15 @@ public final class TesteListaEncadeada {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(primeiroNumero);
-		assertThat(lista.contarElementos(), is(3));
+		assertThat(lista.contarElementos().inteiro(), is(3));
 	}
 
 	@Test
 	public void removerUmElemento() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
-		assertTrue(lista.remover(primeiroNumero));
-		assertThat(lista.contarElementos(), is(0));
+		assertTrue(lista.remover(primeiroNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -169,8 +170,8 @@ public final class TesteListaEncadeada {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(primeiroNumero);
-		assertTrue(lista.remover(primeiroNumero));
-		assertThat(lista.contarElementos(), is(1));
+		assertTrue(lista.remover(primeiroNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(1));
 		assertSame(lista.fornecerDoInicio(), primeiroNumero);
 	}
 
@@ -178,8 +179,8 @@ public final class TesteListaEncadeada {
 	public void removerUmElementoQueNaoExiste() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
-		assertFalse(lista.remover(segundoNumero));
-		assertThat(lista.contarElementos(), is(1));
+		assertFalse(lista.remover(segundoNumero).avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -188,7 +189,7 @@ public final class TesteListaEncadeada {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(terceiroNumero);
-		assertTrue(lista.contem(terceiroNumero));
+		assertTrue(lista.contem(terceiroNumero).avaliar());
 	}
 
 	@Test
@@ -197,13 +198,13 @@ public final class TesteListaEncadeada {
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
 		lista.inserir(terceiroNumero);
-		assertFalse(lista.contem(quartoNumero));
+		assertFalse(lista.contem(quartoNumero).avaliar());
 	}
 
 	@Test
 	public void fornecerQuantidadeDeElementosQuandoNaoTemElementos() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
-		assertThat(lista.contarElementos(), is(0));
+		assertThat(lista.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -211,7 +212,7 @@ public final class TesteListaEncadeada {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
 		lista.inserir(segundoNumero);
-		assertThat(lista.contarElementos(), is(2));
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -219,14 +220,14 @@ public final class TesteListaEncadeada {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
 		lista.remover(primeiroNumero);
-		assertTrue(lista.vazio());
+		assertTrue(lista.vazio().avaliar());
 	}
 
 	@Test
 	public void naoEstaVaziaSePossuiElementos() {
 		ListaEncadeada<Numero> lista = ListaEncadeada.criar();
 		lista.inserir(primeiroNumero);
-		assertFalse(lista.vazio());
+		assertFalse(lista.vazio().avaliar());
 	}
 
 	@Test
@@ -239,7 +240,7 @@ public final class TesteListaEncadeada {
 		assertSame(iterador.iterarProximo(), primeiroNumero);
 		assertSame(iterador.iterarProximo(), segundoNumero);
 		assertSame(iterador.iterarProximo(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 	@Test
@@ -255,8 +256,8 @@ public final class TesteListaEncadeada {
 		assertSame(iterador.remover(), segundoNumero);
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
-		assertTrue(lista.vazio());
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertTrue(lista.vazio().avaliar());
 	}
 
 	@Test
@@ -270,8 +271,8 @@ public final class TesteListaEncadeada {
 		assertSame(iterador.remover(), primeiroNumero);
 		iterador.iterarProximo();
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -285,8 +286,8 @@ public final class TesteListaEncadeada {
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), segundoNumero);
 		iterador.iterarProximo();
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -300,8 +301,8 @@ public final class TesteListaEncadeada {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(iterador.remover(), terceiroNumero);
-		assertFalse(iterador.possuiProximo());
-		assertThat(lista.contarElementos(), is(2));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(lista.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoIteracaoInvalida.class)
@@ -331,7 +332,7 @@ public final class TesteListaEncadeada {
 		assertSame(iterador.substituir(terceiroNumero), primeiroNumero);
 		iterador.iterarProximo();
 		assertSame(iterador.substituir(quartoNumero), segundoNumero);
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(lista.fornecerDoInicio(), terceiroNumero);
 		assertSame(lista.fornecerDoFim(), quartoNumero);
 	}
@@ -342,12 +343,12 @@ public final class TesteListaEncadeada {
 		lista.inserirNoInicio(primeiroNumero);
 		lista.inserirNoFim(segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
-		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero));
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(segundoNumero));
-		assertFalse(iterador.possuiProximo());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero).avaliar());
+		assertTrue(iterador.substituir(terceiroNumero).igual(primeiroNumero).avaliar());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(lista.fornecerDoInicio(), terceiroNumero);
 	}
 
@@ -357,12 +358,12 @@ public final class TesteListaEncadeada {
 		lista.inserirNoInicio(primeiroNumero);
 		lista.inserirNoFim(segundoNumero);
 		Iterador<Numero> iterador = lista.fornecerIterador();
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(primeiroNumero));
-		assertTrue(iterador.possuiProximo());
-		assertTrue(iterador.iterarProximo().igual(segundoNumero));
-		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero));
-		assertFalse(iterador.possuiProximo());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(primeiroNumero).avaliar());
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertTrue(iterador.iterarProximo().igual(segundoNumero).avaliar());
+		assertTrue(iterador.substituir(terceiroNumero).igual(segundoNumero).avaliar());
+		assertFalse(iterador.possuiProximo().avaliar());
 		assertSame(lista.fornecerDoFim(), terceiroNumero);
 	}
 
@@ -421,4 +422,5 @@ public final class TesteListaEncadeada {
 		iterador.remover();
 		iterador.substituir(terceiroNumero);
 	}
+
 }

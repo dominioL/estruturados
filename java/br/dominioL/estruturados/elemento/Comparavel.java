@@ -1,7 +1,11 @@
 package br.dominioL.estruturados.elemento;
 
-public interface Comparavel<T> extends Igualavel<T> {
-	public Boolean maiorQue(T outro);
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 
-	public Boolean menorQue(T outro);
+public interface Comparavel<T> extends Igualavel<T> {
+
+	public Booleano maiorQue(T outro);
+
+	public Booleano menorQue(T outro);
+
 }

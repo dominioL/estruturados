@@ -1,18 +1,22 @@
- package br.dominioL.estruturados.colecao;
+package br.dominioL.estruturados.colecao;
 
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
 public interface Colecao<E extends Igualavel<E>> extends Iteravel<E> {
-	public Integer contarElementos();
 
-	public Boolean vazio();
+	public Numero contarElementos();
 
-	public Boolean contem(E elemento);
+	public Booleano vazio();
+
+	public Booleano contem(E elemento);
 
 	public void inserir(E elemento);
 
 	public void inserir(Iteravel<E> elementos);
 
-	public Boolean remover(E elemento);
+	public Booleano remover(E elemento);
+
 }

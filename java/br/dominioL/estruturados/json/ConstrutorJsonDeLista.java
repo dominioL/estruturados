@@ -1,8 +1,8 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class ConstrutorJsonDeLista extends ConstrutorJson<ListaJson> {
 	private ListaJson lista;

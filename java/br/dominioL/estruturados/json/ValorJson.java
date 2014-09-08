@@ -1,19 +1,19 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Booleano;
 import br.dominioL.estruturados.elemento.Igualavel;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeTipo;
 
 public abstract class ValorJson implements Igualavel<ValorJson> {
-	protected static final String ABERTURA_DE_OBJETO = "{";
-	protected static final String FECHAMENTO_DE_OBJETO = "}";
-	protected static final String ABERTURA_DE_LISTA = "[";
-	protected static final String FECHAMENTO_DE_LISTA = "]";
-	protected final static String SEPARADOR = ", ";
-	protected final static String DELIMITADOR_TEXTUAL = "\"";
-	protected final static String SEPARADOR_DE_IDENTIFICADOR = ": ";
+	protected static final Texto ABERTURA_DE_OBJETO = Texto.criar("{");
+	protected static final Texto FECHAMENTO_DE_OBJETO = Texto.criar("}");
+	protected static final Texto ABERTURA_DE_LISTA = Texto.criar("[");
+	protected static final Texto FECHAMENTO_DE_LISTA = Texto.criar("]");
+	protected final static Texto SEPARADOR = Texto.criar(", ");
+	protected final static Texto DELIMITADOR_TEXTUAL = Texto.criar("\"");
+	protected final static Texto SEPARADOR_DE_IDENTIFICADOR = Texto.criar(": ");
 
 	public final ValorJson comoJson() {
 		return this;
@@ -39,7 +39,7 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 		throw new ExcecaoJsonDeTipo();
 	}
 
-	public abstract String comoTextoJson();
+	public abstract Texto comoTextoJson();
 
 	@Override
 	public boolean equals(Object outro) {
@@ -50,7 +50,7 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 	}
 
 	@Override
-	public String toString() {
-		return comoTextoJson();
+	public final String toString() {
+		return comoTextoJson().valor();
 	}
 }

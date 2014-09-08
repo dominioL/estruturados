@@ -1,8 +1,10 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class BooleanoJson extends ValorJson {
+
 	private Booleano valor;
 
 	protected BooleanoJson(Booleano valor) {
@@ -15,8 +17,8 @@ public final class BooleanoJson extends ValorJson {
 	}
 
 	@Override
-	public String comoTextoJson() {
-		return valor.toString();
+	public Texto comoTextoJson() {
+		return valor.comoTexto();
 	}
 
 	@Override
@@ -26,4 +28,5 @@ public final class BooleanoJson extends ValorJson {
 		}
 		return false;
 	}
+
 }

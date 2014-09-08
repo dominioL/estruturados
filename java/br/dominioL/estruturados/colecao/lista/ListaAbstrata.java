@@ -2,20 +2,23 @@ package br.dominioL.estruturados.colecao.lista;
 
 import br.dominioL.estruturados.colecao.ColecaoAbstrata;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.iteracao.Iterador;
 
 public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstrata<E> implements Lista<E> {
+
 	protected ListaAbstrata() {
-		
+
 	}
 
 	@Override
-	public final Integer contarElemento(E elemento) {
-		Integer quantidade = 0;
+	public final Numero contarElemento(E elemento) {
+		Numero quantidade = Numero.zero();
 		Iterador<E> iterador = fornecerIterador();
-		while (iterador.possuiProximo()) {
-			if (iterador.iterarProximo().igual(elemento)) {
-				quantidade++;
+		while (iterador.possuiProximo().avaliar()) {
+			if (iterador.iterarProximo().igual(elemento).avaliar()) {
+				quantidade = quantidade.incrementar();
 			}
 		}
 		return quantidade;
@@ -24,9 +27,9 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 	@Override
 	public final E reter(E elemento) {
 		Iterador<E> iterador = fornecerIterador();
-		while (iterador.possuiProximo()) {
+		while (iterador.possuiProximo().avaliar()) {
 			E elementoEncontrado = iterador.iterarProximo();
-			if (elementoEncontrado.igual(elemento)) {
+			if (elementoEncontrado.igual(elemento).avaliar()) {
 				return elementoEncontrado;
 			}
 		}
@@ -34,26 +37,24 @@ public abstract class ListaAbstrata<E extends Igualavel<E>> extends ColecaoAbstr
 	}
 
 	@Override
-	public final Boolean contem(E elemento) {
+	public final Booleano contem(E elemento) {
 		E elementoEncontrado = reter(elemento);
-		if (elementoEncontrado == null) {
-			return false;
-		}
-		return true;
+		return Booleano.nulo(elementoEncontrado).negar();
 	}
 
 	@Override
-	public final Boolean remover(E elemento) {
-		if (elemento != null) {
+	public final Booleano remover(E elemento) {
+		if (Booleano.nulo(elemento).negar().avaliar()) {
 			Iterador<E> iterador = fornecerIterador();
-			while (iterador.possuiProximo()) {
+			while (iterador.possuiProximo().avaliar()) {
 				E elementoEncontrado = iterador.iterarProximo();
-				if (elementoEncontrado.igual(elemento)) {
+				if (elementoEncontrado.igual(elemento).avaliar()) {
 					iterador.remover();
-					return true;
+					return Booleano.verdadeiro();
 				}
 			}
 		}
-		return false;
+		return Booleano.falso();
 	}
+
 }

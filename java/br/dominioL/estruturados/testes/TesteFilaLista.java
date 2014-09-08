@@ -1,26 +1,23 @@
 package br.dominioL.estruturados.testes;
 
-import static org.hamcrest.core.Is.is;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import br.dominioL.estruturados.colecao.fila.FilaLista;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoElementoNulo;
 import br.dominioL.estruturados.excecoes.ExcecaoEstruturaVazia;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
 import br.dominioL.estruturados.iteracao.Iterador;
-import br.dominioL.estruturados.testes.figuracao.Numero;
 
 public final class TesteFilaLista {
-	private Numero numeroUm = new Numero(1);
-	private Numero numeroDois = new Numero(2);
-	private Numero numeroTres = new Numero(3);
-	private Numero numeroQuatro = new Numero(4);
+
+	private Numero numeroUm = Numero.criar(1);
+	private Numero numeroDois = Numero.criar(2);
+	private Numero numeroTres = Numero.criar(3);
+	private Numero numeroQuatro = Numero.criar(4);
 	private Numero numeroNulo = null;
 
 	@Test
@@ -29,7 +26,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
-		assertThat(fila.contarElementos(), is(2));
+		assertThat(fila.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -39,7 +36,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroDois);
 		fila.enfileirar(numeroUm);
 		assertSame(fila.fornecerDoFim(), numeroUm);
-		assertThat(fila.contarElementos(), is(3));
+		assertThat(fila.contarElementos().inteiro(), is(3));
 	}
 
 	@Test(expected = ExcecaoElementoNulo.class)
@@ -54,7 +51,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.desenfileirar(), numeroUm);
-		assertThat(fila.contarElementos(), is(1));
+		assertThat(fila.contarElementos().inteiro(), is(1));
 	}
 
 	@Test(expected = ExcecaoEstruturaVazia.class)
@@ -69,7 +66,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoInicio(), numeroUm);
-		assertThat(fila.contarElementos(), is(2));
+		assertThat(fila.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -78,7 +75,7 @@ public final class TesteFilaLista {
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
 		assertSame(fila.fornecerDoFim(), numeroDois);
-		assertThat(fila.contarElementos(), is(2));
+		assertThat(fila.contarElementos().inteiro(), is(2));
 	}
 
 	@Test(expected = ExcecaoEstruturaVazia.class)
@@ -98,14 +95,14 @@ public final class TesteFilaLista {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
-		assertTrue(fila.estaNoInicio(numeroUm));
+		assertTrue(fila.estaNoInicio(numeroUm).avaliar());
 	}
 
 	@Test
 	public void estaNoInicioSeForOUnicoElemento() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
-		assertTrue(fila.estaNoInicio(numeroUm));
+		assertTrue(fila.estaNoInicio(numeroUm).avaliar());
 	}
 
 	@Test
@@ -113,20 +110,20 @@ public final class TesteFilaLista {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
-		assertFalse(fila.estaNoInicio(numeroDois));
+		assertFalse(fila.estaNoInicio(numeroDois).avaliar());
 	}
 
 	@Test
 	public void naoEstaNoInicioSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		assertFalse(fila.estaNoInicio(numeroUm));
+		assertFalse(fila.estaNoInicio(numeroUm).avaliar());
 	}
 
 	@Test
 	public void naoEstaNoInicioSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
-		assertFalse(fila.estaNoInicio(numeroNulo));
+		assertFalse(fila.estaNoInicio(numeroNulo).avaliar());
 	}
 
 	@Test
@@ -134,14 +131,14 @@ public final class TesteFilaLista {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
-		assertTrue(fila.estaNoFim(numeroDois));
+		assertTrue(fila.estaNoFim(numeroDois).avaliar());
 	}
 
 	@Test
 	public void estaNoFimSeForOUnicoElemento() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
-		assertTrue(fila.estaNoFim(numeroUm));
+		assertTrue(fila.estaNoFim(numeroUm).avaliar());
 	}
 
 	@Test
@@ -149,28 +146,28 @@ public final class TesteFilaLista {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
 		fila.enfileirar(numeroDois);
-		assertFalse(fila.estaNoFim(numeroUm));
+		assertFalse(fila.estaNoFim(numeroUm).avaliar());
 	}
 
 	@Test
 	public void naoEstaNoFimSeNaoExistiremElementos() {
 		FilaLista<Numero> fila = FilaLista.criar();
-		assertFalse(fila.estaNoFim(numeroUm));
+		assertFalse(fila.estaNoFim(numeroUm).avaliar());
 	}
 
 	@Test
 	public void naoEstaNoFimSeOElementoForNulo() {
 		FilaLista<Numero> fila = FilaLista.criar();
 		fila.enfileirar(numeroUm);
-		assertFalse(fila.estaNoFim(numeroNulo));
+		assertFalse(fila.estaNoFim(numeroNulo).avaliar());
 	}
 
 	@Test
 	public void inserirAdicionaUmElemento() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
-		assertTrue(colecao.contem(numeroUm));
-		assertThat(colecao.contarElementos(), is(1));
+		assertTrue(colecao.contem(numeroUm).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -179,8 +176,8 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroUm);
-		assertTrue(colecao.contem(numeroUm));
-		assertThat(colecao.contarElementos(), is(3));
+		assertTrue(colecao.contem(numeroUm).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 	}
 
 	@Test(expected = ExcecaoElementoNulo.class)
@@ -194,8 +191,8 @@ public final class TesteFilaLista {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
-		assertTrue(colecao.remover(numeroUm));
-		assertThat(colecao.contarElementos(), is(1));
+		assertTrue(colecao.remover(numeroUm).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(1));
 	}
 
 	@Test
@@ -204,8 +201,8 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroUm);
-		assertTrue(colecao.remover(numeroUm));
-		assertThat(colecao.contarElementos(), is(2));
+		assertTrue(colecao.remover(numeroUm).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -213,8 +210,8 @@ public final class TesteFilaLista {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
-		assertFalse(colecao.remover(numeroTres));
-		assertThat(colecao.contarElementos(), is(2));
+		assertFalse(colecao.remover(numeroTres).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -222,8 +219,8 @@ public final class TesteFilaLista {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
-		assertFalse(colecao.remover(numeroNulo));
-		assertThat(colecao.contarElementos(), is(2));
+		assertFalse(colecao.remover(numeroNulo).avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -232,7 +229,7 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroTres);
-		assertTrue(colecao.contem(numeroDois));
+		assertTrue(colecao.contem(numeroDois).avaliar());
 	}
 
 	@Test
@@ -241,13 +238,13 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroTres);
-		assertFalse(colecao.contem(numeroQuatro));
+		assertFalse(colecao.contem(numeroQuatro).avaliar());
 	}
 
 	@Test
 	public void naoContemSeNaoExistiremElementos() {
 		FilaLista<Numero> colecao = FilaLista.criar();
-		assertFalse(colecao.contem(numeroDois));
+		assertFalse(colecao.contem(numeroDois).avaliar());
 	}
 
 	@Test
@@ -256,20 +253,20 @@ public final class TesteFilaLista {
 		colecao.inserir(numeroUm);
 		colecao.inserir(numeroDois);
 		colecao.inserir(numeroTres);
-		assertFalse(colecao.contem(numeroNulo));
+		assertFalse(colecao.contem(numeroNulo).avaliar());
 	}
 
 	@Test
 	public void estaVazioSeNaoPossuiElementos() {
 		FilaLista<Numero> colecao = FilaLista.criar();
-		assertTrue(colecao.vazio());
+		assertTrue(colecao.vazio().avaliar());
 	}
 
 	@Test
 	public void naoEstaVazioSePossuiElementos() {
 		FilaLista<Numero> colecao = FilaLista.criar();
 		colecao.inserir(numeroUm);
-		assertFalse(colecao.vazio());
+		assertFalse(colecao.vazio().avaliar());
 	}
 
 	@Test
@@ -284,8 +281,8 @@ public final class TesteFilaLista {
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroTres, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
-		assertFalse(iterador.possuiProximo());
-		assertThat(colecao.contarElementos(), is(4));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(4));
 	}
 
 	@Test
@@ -304,8 +301,8 @@ public final class TesteFilaLista {
 		assertSame(numeroTres, iterador.remover());
 		iterador.iterarProximo();
 		assertSame(numeroQuatro, iterador.remover());
-		assertFalse(iterador.possuiProximo());
-		assertThat(colecao.contarElementos(), is(0));
+		assertFalse(iterador.possuiProximo().avaliar());
+		assertThat(colecao.contarElementos().inteiro(), is(0));
 	}
 
 	@Test
@@ -318,7 +315,7 @@ public final class TesteFilaLista {
 		Iterador<Numero> iterador = colecao.fornecerIterador();
 		iterador.iterarProximo();
 		assertSame(numeroUm, iterador.remover());
-		assertThat(colecao.contarElementos(), is(3));
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 		assertSame(numeroDois, colecao.fornecerDoInicio());
 	}
 
@@ -333,7 +330,7 @@ public final class TesteFilaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(numeroDois, iterador.remover());
-		assertThat(colecao.contarElementos(), is(3));
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 		assertSame(numeroUm, colecao.fornecerDoInicio());
 		assertSame(numeroQuatro, colecao.fornecerDoFim());
 	}
@@ -351,7 +348,7 @@ public final class TesteFilaLista {
 		iterador.iterarProximo();
 		iterador.iterarProximo();
 		assertSame(numeroQuatro, iterador.remover());
-		assertThat(colecao.contarElementos(), is(3));
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 		assertSame(numeroTres, colecao.fornecerDoFim());
 	}
 
@@ -387,11 +384,11 @@ public final class TesteFilaLista {
 		assertSame(numeroUm, iterador.substituir(numeroTres));
 		iterador.iterarProximo();
 		assertSame(numeroDois, iterador.substituir(numeroQuatro));
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 		iterador = colecao.fornecerIterador();
 		assertSame(numeroTres, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
-		assertThat(colecao.contarElementos(), is(2));
+		assertThat(colecao.contarElementos().inteiro(), is(2));
 	}
 
 	@Test
@@ -405,12 +402,12 @@ public final class TesteFilaLista {
 		assertSame(numeroUm, iterador.substituir(numeroQuatro));
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroTres, iterador.iterarProximo());
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 		iterador = colecao.fornecerIterador();
 		assertSame(numeroQuatro, iterador.iterarProximo());
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroTres, iterador.iterarProximo());
-		assertThat(colecao.contarElementos(), is(3));
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 	}
 
 	@Test
@@ -424,12 +421,12 @@ public final class TesteFilaLista {
 		assertSame(numeroDois, iterador.iterarProximo());
 		iterador.iterarProximo();
 		assertSame(numeroTres, iterador.substituir(numeroQuatro));
-		assertFalse(iterador.possuiProximo());
+		assertFalse(iterador.possuiProximo().avaliar());
 		iterador = colecao.fornecerIterador();
 		assertSame(numeroUm, iterador.iterarProximo());
 		assertSame(numeroDois, iterador.iterarProximo());
 		assertSame(numeroQuatro, iterador.iterarProximo());
-		assertThat(colecao.contarElementos(), is(3));
+		assertThat(colecao.contarElementos().inteiro(), is(3));
 	}
 
 	@Test(expected = ExcecaoIteracaoInvalida.class)
@@ -501,4 +498,5 @@ public final class TesteFilaLista {
 		iterador.remover();
 		iterador.substituir(numeroQuatro);
 	}
+
 }

@@ -3,6 +3,7 @@ package br.dominioL.estruturados.grafo;
 import br.dominioL.estruturados.elemento.Codificavel;
 
 abstract class Componente<T> implements Codificavel {
+
 	private T descritor;
 	private Peso peso;
 	private Cor cor;
@@ -71,4 +72,5 @@ abstract class Componente<T> implements Codificavel {
 	public final Boolean marcado() {
 		return marcacao;
 	}
+
 }

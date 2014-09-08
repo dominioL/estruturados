@@ -3,13 +3,15 @@ package br.dominioL.estruturados.json;
 import java.util.Iterator;
 
 import br.dominioL.estruturados.colecao.lista.ListaPosicional;
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.extra.ConstrutorDeTexto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
 public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
+
 	private ListaPosicional<ValorJson> elementos;
 
 	protected ListaJson() {
@@ -56,19 +58,19 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 	}
 
 	@Override
-	public String comoTextoJson() {
-		StringBuilder textoJson = new StringBuilder();
-		textoJson.append(ABERTURA_DE_LISTA);
+	public Texto comoTextoJson() {
+		ConstrutorDeTexto textoJson = new ConstrutorDeTexto();
+		textoJson.anexar(ABERTURA_DE_LISTA);
 		Iterador<ValorJson> iterador = elementos.fornecerIterador();
 		while (iterador.possuiProximo()) {
 			ValorJson elemento = iterador.iterarProximo();
-			textoJson.append(elemento.comoTextoJson());
+			textoJson.anexar(elemento.comoTextoJson());
 			if (iterador.possuiProximo()) {
-				textoJson.append(SEPARADOR);
+				textoJson.anexar(SEPARADOR);
 			}
 		}
-		textoJson.append(FECHAMENTO_DE_LISTA);
-		return textoJson.toString();
+		textoJson.anexar(FECHAMENTO_DE_LISTA);
+		return textoJson.construir();
 	}
 
 	@Override
@@ -92,4 +94,5 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 		}
 		return false;
 	}
+
 }

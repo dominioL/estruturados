@@ -1,8 +1,10 @@
 package br.dominioL.estruturados.json;
 
-import br.dominioL.estruturados.elemento.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class NumeroJson extends ValorJson {
+
 	private Numero valor;
 
 	protected NumeroJson(Numero valor) {
@@ -15,8 +17,8 @@ public final class NumeroJson extends ValorJson {
 	}
 
 	@Override
-	public String comoTextoJson() {
-		return valor.toString();
+	public Texto comoTextoJson() {
+		return valor.comoTexto();
 	}
 
 	@Override
@@ -26,4 +28,5 @@ public final class NumeroJson extends ValorJson {
 		}
 		return false;
 	}
+
 }

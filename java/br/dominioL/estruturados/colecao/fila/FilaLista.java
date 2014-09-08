@@ -3,9 +3,12 @@ package br.dominioL.estruturados.colecao.fila;
 import br.dominioL.estruturados.colecao.ColecaoAbstrata;
 import br.dominioL.estruturados.colecao.lista.ListaEncadeada;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.iteracao.Iterador;
 
 public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> implements Fila<E> {
+
 	private ListaEncadeada<E> elementos;
 
 	private FilaLista() {
@@ -37,32 +40,32 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	}
 
 	@Override
-	public Boolean estaNoInicio(E elemento) {
-		if (!vazio() && elemento != null) {
+	public Booleano estaNoInicio(E elemento) {
+		if (vazio().negar().e(Booleano.nulo(elemento).negar()).avaliar()) {
 			return elementos.fornecerDoInicio().igual(elemento);
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 	@Override
-	public Boolean estaNoFim(E elemento) {
-		if (!vazio() && elemento != null) {
+	public Booleano estaNoFim(E elemento) {
+		if (vazio().negar().e(Booleano.nulo(elemento).negar()).avaliar()) {
 			return elementos.fornecerDoFim().igual(elemento);
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 	@Override
-	public Integer contarElementos() {
+	public Numero contarElementos() {
 		return elementos.contarElementos();
 	}
 
 	@Override
-	public Boolean contem(E elemento) {
-		if (elemento != null) {
+	public Booleano contem(E elemento) {
+		if (Booleano.nulo(elemento).negar().avaliar()) {
 			return elementos.contem(elemento);
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	}
 
 	@Override
-	public Boolean remover(E elemento) {
+	public Booleano remover(E elemento) {
 		return elementos.remover(elemento);
 	}
 
@@ -79,4 +82,5 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 	public Iterador<E> fornecerIterador() {
 		return elementos.fornecerIterador();
 	}
+
 }

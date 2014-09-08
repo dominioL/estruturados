@@ -7,9 +7,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.dominioL.estruturados.elemento.Booleano;
-import br.dominioL.estruturados.elemento.Numero;
-import br.dominioL.estruturados.elemento.Texto;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
+import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.json.BooleanoJson;
 import br.dominioL.estruturados.json.ConstrutorJson;
 import br.dominioL.estruturados.json.IdentificadorJson;
@@ -60,7 +60,7 @@ public final class TesteConstrutorJson {
 		decimalUm = Numero.criar("1");
 		inteiroUm = Numero.criar(1);
 		flutuanteUm = Numero.criar(1.0);
-		booleanoFalso = Booleano.criarFalso();
+		booleanoFalso = Booleano.falso();
 		identificadorJson = Json.criarIdentificador(identificador);
 		identificadorJsonTexto = Json.criarIdentificador(identificadorTexto);
 		identificadorJsonNumero = Json.criarIdentificador(identificadorNumero);
