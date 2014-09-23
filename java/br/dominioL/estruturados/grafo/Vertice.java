@@ -1,8 +1,10 @@
 package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 
 public final class Vertice<T> extends Componente<T> implements Igualavel<Vertice<T>> {
+
 	private Vertice(T descritor) {
 		super(descritor);
 	}
@@ -12,7 +14,8 @@ public final class Vertice<T> extends Componente<T> implements Igualavel<Vertice
 	}
 
 	@Override
-	public Boolean igual(Vertice<T> outro) {
-		return (this == outro);
+	public Booleano igual(Vertice<T> outro) {
+		return Booleano.mesmo(this, outro);
 	}
+
 }

@@ -41,7 +41,9 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 
 	@Override
 	public Booleano estaNoInicio(E elemento) {
-		if (vazio().negar().e(Booleano.nulo(elemento).negar()).avaliar()) {
+		Booleano naoVazio = vazio().negar();
+		Booleano naoNulo = Booleano.nulo(elemento).negar();
+		if (naoVazio.e(naoNulo).avaliar()) {
 			return elementos.fornecerDoInicio().igual(elemento);
 		}
 		return Booleano.falso();
@@ -49,7 +51,9 @@ public final class FilaLista<E extends Igualavel<E>> extends ColecaoAbstrata<E> 
 
 	@Override
 	public Booleano estaNoFim(E elemento) {
-		if (vazio().negar().e(Booleano.nulo(elemento).negar()).avaliar()) {
+		Booleano naoVazio = vazio().negar();
+		Booleano naoNulo = Booleano.nulo(elemento).negar();
+		if (naoVazio.e(naoNulo).avaliar()) {
 			return elementos.fornecerDoFim().igual(elemento);
 		}
 		return Booleano.falso();

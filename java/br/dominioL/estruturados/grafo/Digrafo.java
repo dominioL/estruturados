@@ -5,6 +5,7 @@ import br.dominioL.estruturados.mapa.MapaLista;
 import br.dominioL.estruturados.mapa.Par;
 
 public final class Digrafo<V, A> extends GrafoAbstrato<V, A> {
+
 	private MapaLista<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> sucessores;
 	private MapaLista<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> antecessores;
 
@@ -27,7 +28,7 @@ public final class Digrafo<V, A> extends GrafoAbstrato<V, A> {
 		MapaLista<Vertice<V>, Aresta<A>> antecessoresDoVertice = MapaLista.criar();
 		sucessores.inserir(vertice, sucessoresDoVertice);
 		antecessores.inserir(vertice, antecessoresDoVertice);
-		numeroDeVertices++;
+		numeroDeVertices = numeroDeVertices.incrementar();
 		return vertice;
 	}
 
@@ -44,7 +45,7 @@ public final class Digrafo<V, A> extends GrafoAbstrato<V, A> {
 		}
 		sucessores.remover(vertice);
 		antecessores.remover(vertice);
-		numeroDeVertices--;
+		numeroDeVertices = numeroDeVertices.decrementar();
 	}
 
 	public ListaEncadeada<Vertice<V>> sucessores(Vertice<V> origem) {
@@ -66,4 +67,5 @@ public final class Digrafo<V, A> extends GrafoAbstrato<V, A> {
 	MapaLista<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> particaoBeta() {
 		return antecessores;
 	}
+
 }

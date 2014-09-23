@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import br.dominioL.estruturados.elemento.extra.Contador;
 import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.excecoes.ExcecaoIteracaoInvalida;
+import br.dominioL.estruturados.iteracao.Contador;
 import br.dominioL.estruturados.iteracao.Iterador;
 
 public class TesteContador {
@@ -44,18 +44,52 @@ public class TesteContador {
 	}
 
 	@Test
-	public void contarDeTrasParaFrente() {
-		fail();
+	public void contarDeUmAteZero() {
+		contador = Contador.de(um).ate(zero);
+		Iterador<Numero> iterador = contador.fornecerIterador();
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(um)));
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
-	@Test
+	@Test(expected = ExcecaoIteracaoInvalida.class)
 	public void remover() {
+		contador = Contador.de(zero).ate(um);
+		Iterador<Numero> iterador = contador.fornecerIterador();
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(zero)));
+		iterador.remover();
+	}
 
+	@Test(expected = ExcecaoIteracaoInvalida.class)
+	public void substituir() {
+		contador = Contador.de(zero).ate(um);
+		Iterador<Numero> iterador = contador.fornecerIterador();
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(zero)));
+		iterador.substituir(dois);
 	}
 
 	@Test
-	public void substituir() {
+	public void contarAteComUm() {
+		contador = Contador.ateCom(um);
+		Iterador<Numero> iterador = contador.fornecerIterador();
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(zero)));
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(um)));
+		assertFalse(iterador.possuiProximo().avaliar());
+	}
 
+	@Test
+	public void contarDeUmAteComZero() {
+		contador = Contador.de(um).ateCom(zero);
+		Iterador<Numero> iterador = contador.fornecerIterador();
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(um)));
+		assertTrue(iterador.possuiProximo().avaliar());
+		assertThat(iterador.iterarProximo(), is(equalTo(zero)));
+		assertFalse(iterador.possuiProximo().avaliar());
 	}
 
 }

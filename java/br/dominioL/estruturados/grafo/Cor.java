@@ -1,8 +1,10 @@
 package br.dominioL.estruturados.grafo;
 
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 
 public enum Cor implements Igualavel<Cor> {
+
 	TRANSPARENTE,
 	BRANCO,
 	CINZA,
@@ -15,7 +17,8 @@ public enum Cor implements Igualavel<Cor> {
 	AMARELO;
 
 	@Override
-	public Boolean igual(Cor outro) {
-		return (this == outro);
+	public Booleano igual(Cor outro) {
+		return Booleano.mesmo(this, outro);
 	}
+
 }

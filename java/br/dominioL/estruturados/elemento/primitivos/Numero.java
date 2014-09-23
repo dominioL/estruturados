@@ -35,6 +35,10 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 		return new Numero(1);
 	}
 
+	public static Numero menosUm() {
+		return new Numero(-1);
+	}
+
 	public static Numero criar(String valor) {
 		return new Numero(valor);
 	}
@@ -61,6 +65,10 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 
 	public Numero negativo() {
 		return new Numero(valor.negate());
+	}
+
+	public Numero absoluto() {
+		return new Numero(valor.abs());
 	}
 
 	public Numero resto(Numero outro) {
@@ -140,7 +148,12 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 
 	@Override
 	public Numero codificar() {
-		return Numero.criar(valor.hashCode());
+		return this;
+	}
+
+	@Override
+	public int hashCode() {
+		return codificar().inteiro();
 	}
 
 	@Override

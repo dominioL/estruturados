@@ -1,22 +1,25 @@
 package br.dominioL.estruturados.grafo;
 
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.grafo.excecoes.ExcecaoVerticeNaoPertencenteAoGrafo;
 import br.dominioL.estruturados.mapa.MapaLista;
 
 abstract class GrafoAbstrato<V, A> {
-	Integer numeroDeVertices;
-	Integer numeroDeArestas;
+
+	Numero numeroDeVertices;
+	Numero numeroDeArestas;
 
 	GrafoAbstrato() {
-		numeroDeArestas = 0;
-		numeroDeVertices = 0;
+		numeroDeArestas = Numero.zero();
+		numeroDeVertices = Numero.zero();
 	}
 
-	public final Integer contarVertices() {
+	public final Numero contarVertices() {
 		return numeroDeVertices;
 	}
 
-	public final Integer contarArestas() {
+	public final Numero contarArestas() {
 		return numeroDeArestas;
 	}
 
@@ -28,8 +31,8 @@ abstract class GrafoAbstrato<V, A> {
 		Aresta<A> aresta = Aresta.criar(descritor);
 		MapaLista<Vertice<V>, Aresta<A>> elementosDeAlfa = particaoAlfa().fornecer(origem);
 		MapaLista<Vertice<V>, Aresta<A>> elementosDeBeta = particaoBeta().fornecer(destino);
-		if (!elementosDeAlfa.contem(destino)) {
-			numeroDeArestas++;
+		if (elementosDeAlfa.contem(destino).negar().avaliar()) {
+			numeroDeArestas = numeroDeArestas.incrementar();
 		}
 		elementosDeAlfa.inserir(destino, aresta);
 		elementosDeBeta.inserir(origem, aresta);
@@ -41,17 +44,17 @@ abstract class GrafoAbstrato<V, A> {
 	public final void removerAresta(Vertice<V> origem, Vertice<V> destino) {
 		veriticarSeVerticesPertencemAoGrafo(origem);
 		veriticarSeVerticesPertencemAoGrafo(destino);
-		if (particaoAlfa().fornecer(origem).remover(destino)) {
+		if (particaoAlfa().fornecer(origem).remover(destino).avaliar()) {
 			particaoBeta().fornecer(destino).remover(origem);
-			numeroDeArestas--;
+			numeroDeArestas = numeroDeArestas.decrementar();
 		}
 	}
 
-	public final Boolean contemVertice(Vertice<V> vertice) {
+	public final Booleano contemVertice(Vertice<V> vertice) {
 		return particaoAlfa().contem(vertice);
 	}
 
-	public final Boolean contemAresta(Vertice<V> origem, Vertice<V> destino) {
+	public final Booleano contemAresta(Vertice<V> origem, Vertice<V> destino) {
 		return particaoAlfa().fornecer(origem).contem(destino);
 	}
 
@@ -62,7 +65,7 @@ abstract class GrafoAbstrato<V, A> {
 	}
 
 	final void veriticarSeVerticesPertencemAoGrafo(Vertice<V> vertice) {
-		if (!contemVertice(vertice)) {
+		if (contemVertice(vertice).negar().avaliar()) {
 			throw new ExcecaoVerticeNaoPertencenteAoGrafo();
 		}
 	}
@@ -70,4 +73,5 @@ abstract class GrafoAbstrato<V, A> {
 	abstract MapaLista<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> particaoAlfa();
 
 	abstract MapaLista<Vertice<V>, MapaLista<Vertice<V>, Aresta<A>>> particaoBeta();
+
 }

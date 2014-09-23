@@ -55,4 +55,5 @@ public class Descritor implements Igualavel<Descritor>, Codificavel {
 		resultado = primo.multiplicar(resultado).somar(valorDoDescritor);
 		return resultado;
 	}
+
 }
