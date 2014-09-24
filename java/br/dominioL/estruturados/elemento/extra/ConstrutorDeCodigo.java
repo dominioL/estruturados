@@ -12,7 +12,7 @@ public final class ConstrutorDeCodigo implements Codificavel {
 	private Numero codigo = Numero.um();
 
 	public Numero codificar() {
-		return codigo;
+		return codigo.resto(Numero.maiorInteiro());
 	}
 
 	public void comAtributo(Codificavel codificavel) {

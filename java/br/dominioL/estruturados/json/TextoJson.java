@@ -1,12 +1,13 @@
 package br.dominioL.estruturados.json;
 
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 import br.dominioL.estruturados.elemento.primitivos.Texto;
 
-public final class TextoJson extends ValorJson {
+final class TextoJson extends ValorJson {
 
 	private Texto valor;
 
-	protected TextoJson(Texto valor) {
+	TextoJson(Texto valor) {
 		this.valor = valor;
 	}
 
@@ -16,16 +17,16 @@ public final class TextoJson extends ValorJson {
 	}
 
 	@Override
-	public Texto comoTextoJson() {
+	public Texto comoTextoEmFormatoJson() {
 		return valor.colocarAspas();
 	}
 
 	@Override
-	public Boolean igual(ValorJson outro) {
+	public Booleano igual(ValorJson outro) {
 		if (outro instanceof TextoJson) {
 			return valor.igual(((TextoJson) outro).valor);
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 }

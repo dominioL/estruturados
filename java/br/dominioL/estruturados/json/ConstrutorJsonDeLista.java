@@ -5,6 +5,7 @@ import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class ConstrutorJsonDeLista extends ConstrutorJson<ListaJson> {
+
 	private ListaJson lista;
 
 	protected ConstrutorJsonDeLista() {
@@ -34,4 +35,5 @@ public final class ConstrutorJsonDeLista extends ConstrutorJson<ListaJson> {
 		lista.inserir(valor);
 		return this;
 	}
+
 }

@@ -11,8 +11,8 @@ public class Descritor implements Igualavel<Descritor>, Codificavel {
 	private static final Texto SIMBOLO_VERTICE = Texto.criar("v");
 	private static final Texto SIMBOLO_ARESTA = Texto.criar("a");
 
-	private static Numero VERTICES = Numero.um();
-	private static Numero ARESTAS = Numero.um();
+	private static Numero VERTICES = Numero.zero();
+	private static Numero ARESTAS = Numero.zero();
 
 	private Texto descritor;
 
@@ -27,7 +27,7 @@ public class Descritor implements Igualavel<Descritor>, Codificavel {
 
 	public static Descritor deAresta() {
 		ARESTAS = ARESTAS.incrementar();
-		return new Descritor(SIMBOLO_ARESTA.concatenar(SIMBOLO_ARESTA));
+		return new Descritor(SIMBOLO_ARESTA.concatenar(ARESTAS));
 	}
 
 	public Texto fornecerTexto() {
@@ -35,8 +35,8 @@ public class Descritor implements Igualavel<Descritor>, Codificavel {
 	}
 
 	public static void reiniciarContagem() {
-		VERTICES = Numero.um();
-		ARESTAS = Numero.um();
+		VERTICES = Numero.zero();
+		ARESTAS = Numero.zero();
 	}
 
 	@Override

@@ -44,6 +44,18 @@ public class Texto implements Igualavel<Texto>, Comparavel<Texto>, Codificavel {
 		return Texto.criar(valor + outro.comoTexto());
 	}
 
+	public Booleano combinaCom(Texto expressaoRegular) {
+		return Booleano.criar(valor.matches(expressaoRegular.valor));
+	}
+
+	public Numero tamanho() {
+		return Numero.criar(valor.length());
+	}
+
+	public Texto particionar(Numero inicio, Numero fim) {
+		return Texto.criar(valor.substring(inicio.inteiro(), fim.inteiro()));
+	}
+
 	public String valor() {
 		return valor;
 	}

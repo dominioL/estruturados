@@ -16,6 +16,8 @@ public class TesteConstrutorDeCodigo {
 	private Codificavel comCodigoUm = new Codigo(Numero.um());
 	private Codificavel comCodigoDois = new Codigo(Numero.criar(2));
 	private Codificavel comCodigoUmNegativo = new Codigo(Numero.menosUm());
+	private Codificavel comCodigoMaiorInteiro = new Codigo(Numero.maiorInteiro());
+	private Codificavel comCodigoMaiorQueOMaiorInteiro = new Codigo(Numero.maiorInteiro().incrementar());
 	private Codificavel comCodigoNulo = new Codigo(null);
 	private Codificavel codigoNulo = null;
 	private Object comHashCodeTres = new HashCode(3);
@@ -36,6 +38,18 @@ public class TesteConstrutorDeCodigo {
 	@Test
 	public void comAtributoComCodigoUm() {
 		construtor.comAtributo(comCodigoUm);
+		assertEquals(Numero.criar(32), construtor.codificar());
+	}
+
+	@Test
+	public void comAtributoComCodigoMaiorInteiro() {
+		construtor.comAtributo(comCodigoMaiorInteiro);
+		assertEquals(Numero.criar(31), construtor.codificar());
+	}
+
+	@Test
+	public void comAtributoComCodigoMaiorQueOMaiorInteiro() {
+		construtor.comAtributo(comCodigoMaiorQueOMaiorInteiro);
 		assertEquals(Numero.criar(32), construtor.codificar());
 	}
 

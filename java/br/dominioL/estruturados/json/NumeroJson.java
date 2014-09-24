@@ -1,13 +1,14 @@
 package br.dominioL.estruturados.json;
 
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
 import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.elemento.primitivos.Texto;
 
-public final class NumeroJson extends ValorJson {
+final class NumeroJson extends ValorJson {
 
 	private Numero valor;
 
-	protected NumeroJson(Numero valor) {
+	NumeroJson(Numero valor) {
 		this.valor = valor;
 	}
 
@@ -17,16 +18,16 @@ public final class NumeroJson extends ValorJson {
 	}
 
 	@Override
-	public Texto comoTextoJson() {
+	public Texto comoTextoEmFormatoJson() {
 		return valor.comoTexto();
 	}
 
 	@Override
-	public Boolean igual(ValorJson outro) {
+	public Booleano igual(ValorJson outro) {
 		if (outro instanceof NumeroJson) {
 			return valor.igual(((NumeroJson) outro).valor);
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 }

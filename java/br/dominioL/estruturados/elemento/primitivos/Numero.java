@@ -11,6 +11,10 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 
 	private BigDecimal valor;
 
+	private Numero(Texto valor) {
+		this.valor = new BigDecimal(valor.valor());
+	}
+
 	private Numero(String valor) {
 		this.valor = new BigDecimal(valor);
 	}
@@ -37,6 +41,18 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 
 	public static Numero menosUm() {
 		return new Numero(-1);
+	}
+
+	public static Numero maiorInteiro() {
+		return new Numero(Integer.MAX_VALUE);
+	}
+
+	public static Numero menorInteiro() {
+		return new Numero(Integer.MIN_VALUE);
+	}
+
+	public static Numero criar(Texto valor) {
+		return new Numero(valor);
 	}
 
 	public static Numero criar(String valor) {
@@ -153,7 +169,7 @@ public class Numero implements Igualavel<Numero>, Comparavel<Numero>, Codificave
 
 	@Override
 	public int hashCode() {
-		return codificar().inteiro();
+		return codificar().resto(Numero.criar(Integer.MAX_VALUE)).inteiro();
 	}
 
 	@Override

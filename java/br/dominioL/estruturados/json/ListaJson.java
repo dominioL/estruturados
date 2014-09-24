@@ -7,6 +7,7 @@ import br.dominioL.estruturados.elemento.extra.ConstrutorDeTexto;
 import br.dominioL.estruturados.elemento.primitivos.Booleano;
 import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.elemento.primitivos.Texto;
+import br.dominioL.estruturados.iteracao.Contador;
 import br.dominioL.estruturados.iteracao.Iterador;
 import br.dominioL.estruturados.iteracao.Iteravel;
 
@@ -34,11 +35,11 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 		elementos.inserir(Json.criarBooleano(valor));
 	}
 
-	public ValorJson fornecer(Integer posicao) {
+	public ValorJson fornecer(Numero posicao) {
 		return elementos.fornecerDaPosicao(posicao);
 	}
 
-	public Integer fornecerQuantidade() {
+	public Numero fornecerQuantidade() {
 		return elementos.contarElementos();
 	}
 
@@ -58,14 +59,14 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 	}
 
 	@Override
-	public Texto comoTextoJson() {
+	public Texto comoTextoEmFormatoJson() {
 		ConstrutorDeTexto textoJson = new ConstrutorDeTexto();
 		textoJson.anexar(ABERTURA_DE_LISTA);
 		Iterador<ValorJson> iterador = elementos.fornecerIterador();
-		while (iterador.possuiProximo()) {
+		while (iterador.possuiProximo().avaliar()) {
 			ValorJson elemento = iterador.iterarProximo();
-			textoJson.anexar(elemento.comoTextoJson());
-			if (iterador.possuiProximo()) {
+			textoJson.anexar(elemento.comoTextoEmFormatoJson());
+			if (iterador.possuiProximo().avaliar()) {
 				textoJson.anexar(SEPARADOR);
 			}
 		}
@@ -74,25 +75,24 @@ public final class ListaJson extends ValorJson implements Iteravel<ValorJson> {
 	}
 
 	@Override
-	public Boolean igual(ValorJson outro) {
+	public Booleano igual(ValorJson outro) {
 		if (outro instanceof ListaJson) {
-			Integer quatidade = fornecerQuantidade();
+			Numero quatidade = fornecerQuantidade();
 			ListaJson outroListaJson = (ListaJson) outro;
 			if (quatidade.equals(outroListaJson.fornecerQuantidade())) {
-				Integer contador = 0;
-				while (contador < quatidade) {
-					ValorJson meuElemento = fornecer(contador);
-					ValorJson outroElemento = outroListaJson.fornecer(contador);
+				Contador contador = Contador.de(Numero.zero()).ate(quatidade);
+				for (Numero contagem : contador) {
+					ValorJson meuElemento = fornecer(contagem);
+					ValorJson outroElemento = outroListaJson.fornecer(contagem);
 					if (!meuElemento.equals(outroElemento)) {
-						return false;
+						return Booleano.falso();
 					}
-					contador++;
 				}
-				return true;
+				return Booleano.verdadeiro();
 			}
-			return false;
+			return Booleano.falso();
 		}
-		return false;
+		return Booleano.falso();
 	}
 
 }

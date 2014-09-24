@@ -7,6 +7,7 @@ import br.dominioL.estruturados.elemento.primitivos.Texto;
 import br.dominioL.estruturados.excecoes.ExcecaoJsonDeTipo;
 
 public abstract class ValorJson implements Igualavel<ValorJson> {
+
 	protected static final Texto ABERTURA_DE_OBJETO = Texto.criar("{");
 	protected static final Texto FECHAMENTO_DE_OBJETO = Texto.criar("}");
 	protected static final Texto ABERTURA_DE_LISTA = Texto.criar("[");
@@ -39,18 +40,19 @@ public abstract class ValorJson implements Igualavel<ValorJson> {
 		throw new ExcecaoJsonDeTipo();
 	}
 
-	public abstract Texto comoTextoJson();
+	public abstract Texto comoTextoEmFormatoJson();
 
 	@Override
 	public boolean equals(Object outro) {
 		if (outro instanceof ValorJson) {
-			return igual((ValorJson) outro);
+			return igual((ValorJson) outro).avaliar();
 		}
 		return false;
 	}
 
 	@Override
 	public final String toString() {
-		return comoTextoJson().valor();
+		return comoTextoEmFormatoJson().valor();
 	}
+
 }

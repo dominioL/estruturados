@@ -2,45 +2,47 @@ package br.dominioL.estruturados.json;
 
 import br.dominioL.estruturados.elemento.Codificavel;
 import br.dominioL.estruturados.elemento.Igualavel;
+import br.dominioL.estruturados.elemento.primitivos.Booleano;
+import br.dominioL.estruturados.elemento.primitivos.Numero;
 import br.dominioL.estruturados.elemento.primitivos.Texto;
 
 public final class IdentificadorJson implements Igualavel<IdentificadorJson>, Codificavel {
 
 	private Texto identificador;
 
-	protected IdentificadorJson(String identificador) {
-		this.identificador = Texto.criar(identificador);
+	protected IdentificadorJson(Texto identificador) {
+		this.identificador = identificador;
 	}
 
 	public Texto comoTexto() {
 		return identificador;
 	}
 
-	public Texto comoTextoJson() {
+	public Texto comoTextoEmFormatoJson() {
 		return identificador.colocarDelimitador(ValorJson.DELIMITADOR_TEXTUAL).concatenar(ValorJson.SEPARADOR_DE_IDENTIFICADOR);
 	}
 
 	@Override
-	public Boolean igual(IdentificadorJson outro) {
+	public Booleano igual(IdentificadorJson outro) {
 		return this.identificador.igual(outro.identificador);
 	}
 
 	@Override
-	public Integer codificar() {
+	public Numero codificar() {
 		return identificador.codificar();
 	}
 
 	@Override
 	public boolean equals(Object outro) {
 		if (outro instanceof IdentificadorJson) {
-			return igual((IdentificadorJson) outro);
+			return igual((IdentificadorJson) outro).avaliar();
 		}
 		return false;
 	}
 
 	@Override
 	public String toString() {
-		return comoTextoJson().valor();
+		return comoTextoEmFormatoJson().valor();
 	}
 
 }
