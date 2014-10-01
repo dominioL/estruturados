@@ -1,7 +1,7 @@
 package br.dominioL.estruturados.testes;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -18,7 +18,11 @@ public final class TesteJson {
 	public void objetoVazio() {
 		ObjetoJson json = Json.criarObjeto(Texto.criar("{}"));
 		assertThat(json.toString(), is("{}"));
-		json = Json.criarObjeto(Texto.criar("{   }"));
+	}
+
+	@Test
+	public void objetoVazioComEspacos() {
+		ObjetoJson json = Json.criarObjeto(Texto.criar("{   }"));
 		assertThat(json.toString(), is("{}"));
 	}
 
@@ -63,14 +67,26 @@ public final class TesteJson {
 	}
 
 	@Test
-	public void objetoComNumeroDentro() {
+	public void objetoComNumeroUmDentro() {
 		ObjetoJson json = Json.criarObjeto(Texto.criar(" {\"numero\" : 1} "));
 		assertThat(json.toString(), is("{\"numero\": 1}"));
-		json = Json.criarObjeto(Texto.criar(" {\"numero\" : 1.0} "));
+	}
+
+	@Test
+	public void objetoComNumeroUmPontoZeroDentro() {
+		ObjetoJson json = Json.criarObjeto(Texto.criar(" {\"numero\" : 1.0} "));
 		assertThat(json.toString(), is("{\"numero\": 1.0}"));
-		json = Json.criarObjeto(Texto.criar(" {\"numero\" : 1.0101} "));
+	}
+
+	@Test
+	public void objetoComNumeroUmPontoZeroUmZeroUmDentro() {
+		ObjetoJson json = Json.criarObjeto(Texto.criar(" {\"numero\" : 1.0101} "));
 		assertThat(json.toString(), is("{\"numero\": 1.0101}"));
-		json = Json.criarObjeto(Texto.criar(" {\"numero\" : 0.0101} "));
+	}
+
+	@Test
+	public void objetoComNumeroZeroPontoZeroUmZeroUmDentro() {
+		ObjetoJson json = Json.criarObjeto(Texto.criar(" {\"numero\" : 0.0101} "));
 		assertThat(json.toString(), is("{\"numero\": 0.0101}"));
 	}
 
