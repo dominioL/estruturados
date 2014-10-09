@@ -44,6 +44,18 @@ public class Texto implements Igualavel<Texto>, Comparavel<Texto>, Codificavel {
 		return Texto.criar(valor + outro.comoTexto());
 	}
 
+	public Texto formatar(Object... objetos) {
+		return Texto.criar(String.format(valor, objetos));
+	}
+
+	public Texto substituirPrimeiro(Texto expressaoRegular, Texto substituto) {
+		return Texto.criar(valor.replaceFirst(expressaoRegular.valor, substituto.valor));
+	}
+
+	public Texto substituirTodos(Texto expressaoRegular, Texto substituto) {
+		return Texto.criar(valor.replaceAll(expressaoRegular.valor, substituto.valor));
+	}
+
 	public Booleano combinaCom(Texto expressaoRegular) {
 		return Booleano.criar(valor.matches(expressaoRegular.valor));
 	}
